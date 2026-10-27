@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Does an extra gear slow the output?</title>
+<style>
+:root{color-scheme:light dark;--bg:#f4f2eb;--panel:#fffefa;--text:#202d31;--muted:#526267;--line:#cbd1cd;--accent:#075b68;--driver:#0c6877;--idler:#697474;--output:#a64d25;--soft:#e6f0ef;--focus:#bd4a0a}
+@media(prefers-color-scheme:dark){:root{--bg:#152126;--panel:#1e2d32;--text:#edf2ee;--muted:#b8c8c9;--line:#53666a;--accent:#8dd4dc;--driver:#6dcedb;--idler:#a7b5b5;--output:#ffb184;--soft:#263f44;--focus:#ffb184}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:17px/1.55 system-ui,sans-serif}main{max-width:960px;margin:auto;padding:38px 24px 60px}h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.12;max-width:750px;margin:10px 0 18px;letter-spacing:-.035em}h2{font-size:1.3rem;line-height:1.3;margin:0 0 14px}h3{font-size:1rem;margin:16px 0 4px}p{margin:8px 0 14px}.eyebrow{font-size:.8rem;font-weight:750;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}.lead{max-width:740px;color:var(--muted);font-size:1.12rem}.card{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:24px;margin:22px 0}.step{display:inline-grid;place-items:center;background:var(--soft);color:var(--accent);border-radius:50%;width:29px;height:29px;font-size:.95rem;margin-right:7px}fieldset{border:0;padding:0;margin:0}legend{padding:0;margin-bottom:12px;font-weight:650}label.choice{display:flex;gap:10px;align-items:baseline;padding:8px 10px;border:1px solid var(--line);border-radius:8px;margin-bottom:8px;cursor:pointer}input{accent-color:var(--accent)}input[type=radio],input[type=checkbox]{min-width:19px;min-height:19px}button,select{font:inherit;color:var(--text);background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 16px;min-height:44px;cursor:pointer}button.primary{background:var(--accent);color:var(--panel);border-color:var(--accent);font-weight:650}button:disabled{opacity:.55;cursor:default}:focus-visible{outline:3px solid var(--focus);outline-offset:3px}.small{font-size:.9rem;color:var(--muted)}.controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.toggle{display:flex;align-items:center;gap:10px;min-height:44px;font-weight:650}.range{margin:20px 0 8px}.range label{display:block;font-weight:650}input[type=range]{width:100%;min-height:38px}.stage{background:var(--bg);border:1px solid var(--line);border-radius:12px;margin:18px 0 10px;overflow:hidden}.stage svg{display:block;width:100%;height:auto;max-height:300px}.gear{stroke:var(--panel);stroke-width:1.5}.pitch{fill:none;stroke:var(--panel);stroke-dasharray:2 3;opacity:.65}.spoke{stroke:var(--panel);stroke-width:5;stroke-linecap:round}.hub{fill:var(--panel)}.gear-name{fill:var(--text);font:650 15px system-ui,sans-serif}.gear-teeth{fill:var(--muted);font:13px system-ui,sans-serif}.counters{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.counter{padding:14px 12px;background:var(--soft);border-radius:8px}.counter strong{display:block;font-variant-numeric:tabular-nums;font-size:1.4rem;line-height:1.35}.counter span{font-size:.85rem}.result{border-left:4px solid var(--accent);padding-left:14px;margin:18px 0 4px}.direction{font-size:.95rem;color:var(--muted)}.status{min-height:1.6em;margin-top:12px;font-size:.95rem}table{border-collapse:collapse;width:100%;margin-top:18px;font-size:.94rem}th,td{text-align:left;border-bottom:1px solid var(--line);padding:10px 8px;vertical-align:top}th:first-child,td:first-child{padding-left:0}caption{text-align:left;font-weight:650;margin-bottom:5px}.equation{font-size:1.1rem;padding:12px;background:var(--soft);border-radius:8px;overflow-wrap:anywhere}.cancel{color:var(--muted);text-decoration:line-through;text-decoration-thickness:2px}.limits{color:var(--muted)}details{margin-top:18px}summary{cursor:pointer;min-height:44px;padding:8px 0;font-weight:650}textarea{display:block;width:100%;margin-top:8px;min-height:85px;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:8px;font:inherit;padding:10px}[hidden]{display:none!important}.skip{position:absolute;left:12px;top:-80px;background:var(--panel);padding:10px}.skip:focus{top:12px}footer{font-size:.85rem;color:var(--muted)}
+@media(max-width:550px){main{padding:25px 14px 40px}.card{padding:18px 15px}.counters{gap:6px}.counter{padding:10px 8px}.counter strong{font-size:1.15rem}.counter span{font-size:.77rem}th,td{padding:9px 5px;font-size:.85rem}.controls button{flex:1}.stage svg{min-height:180px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#experiment">Skip to experiment</a>
+<main>
+<header>
+<div class="eyebrow">A one-minute gear experiment</div>
+<h1>Does an extra gear slow the output?</h1>
+<p class="lead">Compare a 12-tooth driver with a 24-tooth output. Add one gear between them, then count turns. Track <strong>how far</strong> the output turns separately from <strong>which way</strong> it turns.</p>
+</header>
+<section class="card" aria-labelledby="predict-title">
+<h2 id="predict-title"><span class="step">1</span> Predict</h2>
+<form id="prediction-form">
+<fieldset>
+<legend>Without an idler, one driver turn makes the output turn halfway. With one idler added, how far will the same output turn?</legend>
+<label class="choice"><input type="radio" name="prediction" value="slower" required> Less than half a turn. An extra gear slows it down.</label>
+<label class="choice"><input type="radio" name="prediction" value="same"> Exactly half a turn.</label>
+<label class="choice"><input type="radio" name="prediction" value="faster"> More than half a turn.</label>
+</fieldset>
+<button type="submit">Save my prediction</button>
+<p id="prediction-status" class="small" aria-live="polite">Choose a prediction, then test both arrangements.</p>
+</form>
+</section>
+<section id="experiment" class="card" aria-labelledby="try-title">
+<h2 id="try-title"><span class="step">2</span> Try</h2>
+<p>Turn the driver once without an idler. Add the idler and repeat. The input always turns clockwise.</p>
+<label class="toggle"><input id="idler" type="checkbox" disabled> Add one 18-tooth idler</label>
+<p class="small">Changing the arrangement starts a fresh turn. Your completed results stay in the comparison below.</p>
+<div class="stage">
+<svg id="diagram" viewBox="0 0 540 250" role="img" aria-labelledby="diagram-title diagram-description">
+<title id="diagram-title">External gear train seen from the front</title>
+<desc id="diagram-description">A 12-tooth driver meshes with a 24-tooth output. The radial marks show rotation. Use the controls below to turn the driver.</desc>
+<g id="gears"></g>
+</svg>
+</div>
+<p class="small">2D schematic. Gear size follows tooth count. Radial marks make partial turns visible.</p>
+<div class="counters" aria-label="Turn magnitudes in the current run">
+<div class="counter"><span>Driver turns</span><strong id="driver-count">0.00</strong><span>12 teeth</span></div>
+<div class="counter"><span>Idler turns</span><strong id="idler-count">Absent</strong><span>18 teeth when added</span></div>
+<div class="counter"><span>Output turns</span><strong id="output-count">0.00</strong><span>24 teeth</span></div>
+</div>
+<div class="range">
+<label for="turn">Driver progress <output id="progress" for="turn">0.00 of 1 turn</output></label>
+<input id="turn" type="range" min="0" max="1" step="0.25" value="0" disabled aria-describedby="range-help">
+<p id="range-help" class="small">Use the slider or its arrow keys to step by a quarter turn. Home returns to zero. End completes one turn.</p>
+</div>
+<div class="controls">
+<button id="run" class="primary" type="button" disabled>Turn driver once</button>
+<button id="reset" type="button">Reset lesson</button>
+</div>
+<p id="motion-note" class="small"></p>
+<div class="result">
+<p id="magnitude">Magnitude means the number of turns, without a direction sign.</p>
+<p id="direction" class="direction">Direction will appear when you turn the driver.</p>
+</div>
+<p id="run-status" class="status" role="status">Save your prediction to enable the experiment.</p>
+<table>
+<caption>Your one-turn comparison</caption>
+<thead><tr><th scope="col">Arrangement</th><th scope="col">Output turns</th><th scope="col">Output direction</th></tr></thead>
+<tbody><tr><th scope="row">No idler</th><td id="direct-result">Not tried</td><td id="direct-direction">Not tried</td></tr><tr><th scope="row">One idler</th><td id="idler-result">Not tried</td><td id="idler-direction">Not tried</td></tr></tbody>
+</table>
+</section>
+<section id="explanation" class="card" aria-labelledby="explain-title" hidden>
+<h2 id="explain-title"><span class="step">3</span> Explain</h2>
+<p id="prediction-feedback"></p>
+<p><strong>Adding one idler leaves the speed-ratio magnitude unchanged.</strong> Each meshing tooth pushes one tooth of its neighbor. One full turn of the 12-tooth driver moves 12 teeth past the first contact.</p>
+<p>The idler moves those same 12 teeth past the second contact. The 24-tooth output therefore advances 12 of its 24 teeth. That is half a turn.</p>
+<h3>Magnitude</h3>
+<p>The idler turns less than the driver, but the next mesh does not add the same reduction again. Each mesh has its own tooth-count ratio.</p>
+<div class="equation" aria-label="Output turns per driver turn equals 12 divided by 18 times 18 divided by 24, which equals 12 divided by 24, or one half.">12 / <span class="cancel">18</span> × <span class="cancel">18</span> / 24 = 12 / 24 = <strong>½</strong></div>
+<p class="small">The idler's tooth count appears once as a divisor and once as a multiplier, so it cancels. At a steady input speed of 1 turn per second, the output makes 0.5 turns per second in either arrangement.</p>
+<h3>Direction</h3>
+<p>Every external gear mesh reverses direction. With no idler, one reversal makes the output turn counterclockwise. With one idler, two reversals make it turn clockwise. Direction changes. The magnitude stays at ½.</p>
+<label for="explain-answer">Explain the result in your own words.</label>
+<p class="small">“The idler changes ___, while the output still turns ___ because ___.”</p>
+<textarea id="explain-answer" placeholder="Your explanation stays on this page. It is not saved or sent."></textarea>
+<h3>Transfer question</h3>
+<form id="transfer-form">
+<fieldset><legend>Replace only the idler with a 30-tooth gear and reposition the shafts so the gears still mesh. For one clockwise driver turn, what does the 24-tooth output do?</legend>
+<label class="choice"><input type="radio" name="transfer" value="slow" required> Less than half a turn, clockwise.</label>
+<label class="choice"><input type="radio" name="transfer" value="same"> Half a turn, clockwise.</label>
+<label class="choice"><input type="radio" name="transfer" value="reverse"> Half a turn, counterclockwise.</label>
+</fieldset><button type="submit">Check my answer</button>
+<p id="transfer-feedback" class="status" role="status"></p>
+</form>
+</section>
+<section class="card limits" aria-labelledby="limits-title">
+<h2 id="limits-title">Where this model applies</h2>
+<p>This lesson uses ideal, rigid external gears with the same tooth spacing, fixed shafts, and no slipping. The idler is one gear on its own shaft. Tooth counts are illustrative teaching choices.</p>
+<p>Friction, backlash, tooth flex, bearing drag, and inertia are omitted. An added idler can increase losses and affect acceleration. A real motor may slow under extra load. This figure holds the driver's motion fixed, so it demonstrates the geometric ratio, not power loss or motor performance.</p>
+<p>A compound train with two different gears locked to the same intermediate shaft needs a different calculation. The cancellation shown here applies to a single simple idler.</p>
+</section>
+<footer>Works offline. Use Tab to reach controls, Space to toggle the checkbox, and arrow keys on the progress slider. No keyboard shortcuts override your writing.</footer>
+</main>
+<script>
+'use strict';
+const $ = id => document.getElementById(id);
+const state = {idler:false, turns:0, prediction:null, running:false, observed:{direct:false,idler:false}};
+const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+let frame = 0;
+let previousTime = null;
+function model(teeth, inputTurns) {
+  return teeth.map((count,index) => ({teeth:count, turns:inputTurns * teeth[0] / count * (-1) ** index, radius:count * 3}));
+}
+function currentModel() { return model(state.idler ? [12,18,24] : [12,24], state.turns); }
+function toothPath(radius,count) {
+  const points = [];
+  for(let tooth=0;tooth<count;tooth++) {
+    for(const [offset,r] of [[-.5,radius-4],[-.28,radius+4],[.28,radius+4],[.5,radius-4]]) {
+      const angle = (tooth+offset) * 2*Math.PI/count;
+      points.push(`${r*Math.cos(angle)},${r*Math.sin(angle)}`);
+    }
+  }
+  return 'M'+points.join('L')+'Z';
+}
+function buildDiagram() {
+  const gears = currentModel();
+  const totalWidth = gears.reduce((sum,g) => sum+g.radius*2,0);
+  let left = (540-totalWidth)/2;
+  $('gears').innerHTML = gears.map((gear,index) => {
+    const name = index===0 ? 'Driver' : index===gears.length-1 ? 'Output' : 'Idler';
+    const color = name.toLowerCase();
+    const x = left+gear.radius;
+    left += gear.radius*2;
+    const phase = index%2 ? 180/gear.teeth : 0;
+    return `<g transform="translate(${x} 115)"><g id="wheel-${index}" data-phase="${phase}" style="color:var(--${color})"><path class="gear" fill="currentColor" d="${toothPath(gear.radius,gear.teeth)}" transform="rotate(${phase})"/><circle class="pitch" r="${gear.radius}"/><path class="spoke" d="M0 0V-${gear.radius-13}"/><circle class="hub" r="7"/></g><text class="gear-name" text-anchor="middle" y="${gear.radius+28}">${name}</text><text class="gear-teeth" text-anchor="middle" y="${gear.radius+46}">${gear.teeth} teeth</text></g>`;
+  }).join('');
+}
+function stop() {
+  cancelAnimationFrame(frame);
+  frame = 0;
+  previousTime = null;
+  state.running = false;
+}
+function render() {
+  const gears = currentModel();
+  const output = gears.at(-1);
+  gears.forEach((gear,index) => $('wheel-'+index).setAttribute('transform',`rotate(${gear.turns*360})`));
+  $('driver-count').textContent = state.turns.toFixed(2);
+  $('idler-count').textContent = state.idler ? Math.abs(gears[1].turns).toFixed(2) : 'Absent';
+  $('output-count').textContent = Math.abs(output.turns).toFixed(2);
+  $('turn').value = state.turns;
+  $('progress').value = `${state.turns.toFixed(2)} of 1 turn`;
+  $('turn').setAttribute('aria-valuetext',`${state.turns.toFixed(2)} driver turns. ${Math.abs(output.turns).toFixed(2)} output turns.`);
+  $('run').textContent = state.running ? 'Pause' : reducedMotion.matches ? 'Show one full turn' : state.turns>0 && state.turns<1 ? 'Continue to one turn' : 'Turn driver once';
+  $('magnitude').textContent = state.turns===0 ? 'Magnitude means the number of turns, without a direction sign.' : `Magnitude so far: ${Math.abs(output.turns).toFixed(2)} output turns for ${state.turns.toFixed(2)} driver turns.`;
+  $('direction').textContent = state.turns===0 ? 'Direction will appear when you turn the driver.' : `Direction: driver clockwise; ${state.idler ? 'idler counterclockwise; ' : ''}output ${output.turns<0 ? 'counterclockwise, opposite to the driver.' : 'clockwise, same as the driver.'}`;
+  $('diagram-description').textContent = `${state.idler ? 'A 12-tooth driver meshes through an 18-tooth idler with a 24-tooth output.' : 'A 12-tooth driver meshes directly with a 24-tooth output.'} Driver ${state.turns.toFixed(2)} turns. Output ${Math.abs(output.turns).toFixed(2)} turns.${state.turns ? ' Output direction '+(output.turns<0?'counterclockwise.':'clockwise.') : ''}`;
+  $('motion-note').textContent = reducedMotion.matches ? 'Reduced motion is on. The full-turn button shows the final state immediately. Use the slider for stable quarter-turn steps.' : 'The full-turn button animates a four-second run. Pause at any point, or use the slider to step.';
+}
+function complete() {
+  const key = state.idler ? 'idler' : 'direct';
+  state.observed[key] = true;
+  $(''+key+'-result').textContent = Math.abs(currentModel().at(-1).turns).toFixed(2)+' turn';
+  $(''+key+'-direction').textContent = state.idler ? 'Clockwise' : 'Counterclockwise';
+  const both = state.observed.direct && state.observed.idler;
+  $('run-status').textContent = `${state.idler?'One idler':'No idler'}: 1.00 driver turn, 0.50 output turn, ${state.idler?'clockwise':'counterclockwise'}. ${both?'Both runs are recorded. Compare magnitude and direction, then read Explain below.':state.idler?'Now remove the idler and run once.':'Now add the idler and run once.'}`;
+  $('explanation').hidden = !both;
+  if(both) $('prediction-feedback').textContent = state.prediction==='same' ? 'Your prediction matches both runs. Each produced half an output turn.' : 'Your prediction was '+(state.prediction==='slower'?'less than half':'more than half')+' a turn with the idler. Both completed runs produced half a turn. The extra gear changed the direction.';
+}
+function setTurns(value) {
+  state.turns = Math.max(0,Math.min(1,value));
+  render();
+  if(state.turns===1) complete();
+}
+function tick(now) {
+  if(previousTime===null) previousTime = now;
+  const next = state.turns+(now-previousTime)/4000;
+  previousTime = now;
+  if(next>=1) { stop();setTurns(1);return; }
+  setTurns(next);
+  frame = requestAnimationFrame(tick);
+}
+$('prediction-form').addEventListener('submit',event => {
+  event.preventDefault();
+  state.prediction = new FormData(event.currentTarget).get('prediction');
+  event.currentTarget.querySelectorAll('input,button').forEach(control => control.disabled=true);
+  $('prediction-status').textContent = 'Prediction saved. Test both arrangements before checking the explanation.';
+  ['idler','turn','run'].forEach(id => $(id).disabled=false);
+  $('run-status').textContent = 'Ready. Turn the driver once, then change the arrangement and repeat.';
+});
+$('idler').addEventListener('change',event => {
+  stop();state.idler=event.currentTarget.checked;state.turns=0;buildDiagram();render();
+  $('run-status').textContent = `${state.idler?'One idler added':'Idler removed'}. Current turn reset to zero. Run the same one-turn input.`;
+});
+$('turn').addEventListener('input',event => {
+  stop();setTurns(Number(event.currentTarget.value));
+  if(state.turns!==1) $('run-status').textContent = `Stepped to ${state.turns.toFixed(2)} driver turns. Output ${Math.abs(currentModel().at(-1).turns).toFixed(2)} turns.`;
+});
+$('run').addEventListener('click',() => {
+  if(state.running) {stop();render();$('run-status').textContent='Paused. Continue the run or use the slider.';return;}
+  if(state.turns===1) state.turns=0;
+  if(reducedMotion.matches) {setTurns(1);return;}
+  state.running=true;render();$('run-status').textContent='Running one driver turn.';frame=requestAnimationFrame(tick);
+});
+$('reset').addEventListener('click',() => {
+  stop();Object.assign(state,{idler:false,turns:0,prediction:null,observed:{direct:false,idler:false}});
+  $('prediction-form').reset();$('prediction-form').querySelectorAll('input,button').forEach(control=>control.disabled=false);$('transfer-form').reset();$('explain-answer').value='';$('transfer-feedback').textContent='';
+  $('idler').checked=false;['idler','turn','run'].forEach(id => $(id).disabled=true);
+  ['direct-result','direct-direction','idler-result','idler-direction'].forEach(id=>$(id).textContent='Not tried');
+  $('explanation').hidden=true;$('prediction-status').textContent='Choose a prediction, then test both arrangements.';
+  buildDiagram();render();$('run-status').textContent='Lesson reset. Save a new prediction to start.';
+});
+$('transfer-form').addEventListener('submit',event => {
+  event.preventDefault();
+  const answer = new FormData(event.currentTarget).get('transfer');
+  const result = model([12,30,24],1).at(-1);
+  $('transfer-feedback').textContent = `${answer==='same'?'Yes.':'Try the cancellation again.'} The output makes ${result.turns.toFixed(2)} turn clockwise. 12 / 30 × 30 / 24 = 12 / 24 = ½. Two external meshes still reverse direction twice.`;
+});
+function pauseOffscreen() {
+  if(state.running) {stop();render();$('run-status').textContent='Paused while the experiment is out of view. Continue when ready.';}
+}
+document.addEventListener('visibilitychange',()=>{if(document.hidden) pauseOffscreen();});
+new IntersectionObserver(entries=>{if(!entries[0].isIntersecting) pauseOffscreen();}).observe($('experiment'));
+reducedMotion.addEventListener('change',()=>{stop();render();});
+window.addEventListener('pagehide',stop);
+function selfCheck() {
+  for(const turns of [0,.25,.5,.75,1]) {
+    const direct = model([12,24],turns).at(-1).turns;
+    for(const idlerTeeth of [18,30]) {
+      const withIdler = model([12,idlerTeeth,24],turns).at(-1).turns;
+      if(Math.abs(direct)!==turns/2 || withIdler!==turns/2 || direct!==-withIdler) throw new Error('Gear-ratio model failed its turn and direction check.');
+    }
+  }
+  return 'Passed reset, quarter-turn steps, endpoint, direction, and 18/30-tooth idler invariance.';
+}
+selfCheck();buildDiagram();render();
+</script>
+</body>
+</html>
