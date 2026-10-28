@@ -14,11 +14,26 @@ Exact commits and retrieval date are recorded in [source-manifest.json](source-m
 
 Anatomy means crafted explanatory objects here, not an anatomical atlas or a medical visualization package.
 
+## Implementation coverage
+
+Provenance is not the same as code reuse. The initial six lessons were custom SVG/DOM examples; merely bundling the upstream kits did not demonstrate their craft. The rendering review exposed that gap. Current routes are:
+
+| Example | Actual implementation |
+| --- | --- |
+| Bundled calculator and synthesizer | Adapted iso-figure examples, with its face-local projection and working state flow |
+| Rocket structure and engine | SVG generated with Anatomy lathe, analytic bands, rings, ribs and tube helpers by `scripts/build-rocket-visual.mjs`; original generic assembly, distinct from the flight model |
+| Human chest | Human Reference Atlas meshes in a custom arbitrary-mesh WebGL renderer; source coordinates retained. Anatomy contributes inspection/craft guidance, not medical geometry |
+| Ming robe | Authored layered SVG with shaded fold surfaces and section; source-based teaching reconstruction, not an Anatomy or iso-figure renderer or a cloth solver |
+| Cone, gear ratio, Transformer | Custom geometric SVG or semantic DOM as appropriate to the lesson; no claim of upstream renderer reuse |
+
+The HRA derivative is separately licensed **CC BY 4.0**, with source hashes and alterations in [its provenance](../assets/hra/provenance.json). It is domain data rather than an additional fused skill. Preserve its attribution when copying the embedded standalone mesh data.
+
 ## What changes in the fusion
 
 - Interaction is the default for teaching requests. Static figures remain valid when specifically requested. Upstream Anatomy's requirement to write “interactive” does not apply here.
 - The teaching loop and scenario remain primary. A machine metaphor must visibly model the rule and disclose its limits.
 - No fixed minimum of forty parts. Detail scales with the concept and learner; optional close-ups can reveal more without crowding the first view.
+- Removing the quota retains upstream craft requirements: recognizable subjects, real structure, volume and material. Choose source representation before rendering mode; see [rendering-selection.md](rendering-selection.md). Anatomy handles rigid mechanical construction, iso-figure handles functional isometric devices, and organic anatomy/textiles may require domain assets or a different renderer.
 - No prohibition on all labels or semantic colors. Keep the drawing readable, and use compact labels/legends when they improve understanding.
 - No automatic idle tour before prediction. User-triggered demos and post-prediction tours may be useful.
 - Simple box depth ordering is a limited heuristic. Dense assemblies and true 3D use actual geometric order and suitable audits.

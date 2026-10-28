@@ -19,13 +19,13 @@
 | 在线示例 | 可以探索什么 |
 | --- | --- |
 | [圆锥截面 · 3D](https://ywedai.github.io/teachable-figures/geometry-slices.html) | 旋转立体、调整截面高度，比较半径的线性变化与面积的平方变化。 |
-| [人体胸腔 · 3D](https://ywedai.github.io/teachable-figures/human-anatomy.html) | 打开示意胸腔，从不同角度观察肺、心脏与膈肌的空间关系。 |
-| [火箭发射模拟](https://ywedai.github.io/teachable-figures/rocket-launch.html) | 改变推力和载荷，比较发射台支撑、延迟起飞、燃尽与滑行。 |
+| [人体胸腔 · 3D](https://ywedai.github.io/teachable-figures/human-anatomy.html) | 旋转图谱来源的人体网格、打开胸腔观察窗，检查肺、心脏、气道与单独标注的示意膈肌。 |
+| [火箭发射模拟](https://ywedai.github.io/teachable-figures/rocket-launch.html) | 检查有实体结构的火箭剖面与组件拆解，再比较推力、起飞、燃尽与滑行。 |
 | [Transformer 数据流](https://ywedai.github.io/teachable-figures/transformer-flow.html) | 逐步查看示例向量、Q/K/V、因果遮罩、注意力、残差归一化与 FFN。 |
-| [明代曳撒结构](https://ywedai.github.io/teachable-figures/chinese-clothing.html) | 依据一件博物馆藏品，拆解交叠衣襟与褶裥结构。 |
+| [明代曳撒结构](https://ywedai.github.io/teachable-figures/chinese-clothing.html) | 依据一件博物馆藏品，检查交叠衣襟、有明暗面的褶层与折返剖面。 |
 | [齿轮传动比](https://ywedai.github.io/teachable-figures/gear-ratio.html) | 加入惰轮，区分输出转数的大小与旋转方向。 |
 
-圆锥与胸腔使用空间坐标、旋转、投影和深度排序。胸腔是教学示意图；火箭是一维理想模型；Transformer 使用公开说明的简化参数；服饰图把史料事实与示意重建分开标注。示例保留各自的教学语言，并非所有页面都有双语切换。
+圆锥与胸腔使用空间坐标、旋转、投影和深度排序。胸腔采用 Human Reference Atlas 网格，另有明确标注的示意膈肌与检查用观察窗；火箭是一维理想模型；Transformer 使用公开说明的简化参数；服饰图把史料事实与示意重建分开标注。示例保留各自的教学语言，并非所有页面都有双语切换。
 
 <details>
 <summary>查看最初的齿轮教学实验</summary>
@@ -70,11 +70,11 @@ git clone https://github.com/ywEdAi/teachable-figures.git ~/.codex/skills/teacha
 | 可旋转 3D | 需要通过旋转和遮挡变化理解的空间关系。 |
 | 可选 WebGL | 确实需要它的波、热、光等场景。 |
 
-画法取决于教学机制。例如，解释齿轮传动比并不需要 3D。
+先确定主体形态和用户要求的细节，再选能完成交互的渲染器。[渲染选择指南](references/rendering-selection.md) 将功能设备交给 iso-figure，将刚性机械结构交给 Anatomy，将有机形态和布料交给合适的参考网格或插图。画法仍服务于教学机制，例如解释传动比并不需要强制使用 3D。
 
 ## 评审与验证
 
-[v0.2.0 迭代报告](reviews/v0.2.0.md) 记录了几何修复、五个新增示例、独立评审与检查结果。此前的 [UI/UX 评审](reviews/uiux.md) 和 [教学设计评审](reviews/pedagogy.md) 也保留供追溯。
+[渲染融合评审](reviews/rendering-fusion-audit.md) 记录了最初示例的视觉缺陷，以及 v0.3.0 如何分别验收主体形态与教学交互。[v0.2.0 迭代报告](reviews/v0.2.0.md) 保留此前的几何修复、五个新增示例与检查结果。此前的 [UI/UX 评审](reviews/uiux.md) 和 [教学设计评审](reviews/pedagogy.md) 也保留供追溯。
 
 轻量示例已修复输入框被快捷键拦截的问题，并加入原生控件与实时读数。合成器还增加了重置、静音、输入归属管理，以及闲置、页面隐藏、离屏或减少动态效果时停止的示波器。
 
@@ -86,7 +86,7 @@ npm test
 npm run test:browser
 ```
 
-v0.2.0 的 16 项模型与构建检查、19 项浏览器用例均通过。浏览器检查使用已安装的 Google Chrome；如已安装 Playwright Chromium，可设置 `BROWSER_CHANNEL=chromium`。构建在临时副本中运行，不修改内置源文件。
+v0.3.0 的 4 项模型/规格检查与 21 项浏览器用例均通过；两个新几何准备脚本也已重建验证。此前 12 项上游明暗主题构建结果保留在 v0.2.0 报告中。浏览器检查使用已安装的 Google Chrome；如已安装 Playwright Chromium，可设置 `BROWSER_CHANNEL=chromium`。构建在临时副本中运行，不修改内置源文件。
 
 较慢的完整 turning-dial 几何审计：
 
@@ -110,6 +110,8 @@ npm run audit:3d
 [来源与融合决策](references/sources-and-fusion.md) 说明各部分的贡献边界；[来源清单](references/source-manifest.json) 记录完整提交号与本地改动。每个课程页面另列其科学或历史依据。
 
 README 的设计工作流使用了 [oil-oil/beautify-github-readme](https://github.com/oil-oil/beautify-github-readme)。它用于文档呈现，与上述内置渲染技能分别列示。
+
+人体胸腔还使用了 **[Human Reference Atlas / HuBMAP 参考网格](https://humanatlas.io/3d-reference-library)**，许可证为 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)。它是领域数据来源，与渲染技能分别列示。[数据来源记录](assets/hra/provenance.json) 包含固定版本、原文件哈希、裁切、压缩与改色说明；另附 [重建方法](assets/hra/README.md)。
 
 两个上游的完整 MIT 声明保留在 [Anatomy LICENSE](assets/anatomy/LICENSE) 和 [iso-figure LICENSE](assets/iso-figure/LICENSE)。这些许可适用于对应的上游贡献；本仓库未对原有课程材料、应用参考或截图额外授予新的许可证。
 

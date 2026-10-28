@@ -12,6 +12,8 @@ For a stochastic figure, verify normalized expected probabilities and reproducib
 
 ## Browser interaction and presentation
 
+Before accepting the visual, apply the separate representation gate in [rendering-selection.md](rendering-selection.md). Check the actual subject silhouette, characteristic structures, material and section/fold depth against its reference. Record which upstream code or source assets are actually used. Input/reset tests do not establish visual quality, and a simplification disclaimer does not waive a requested detail level.
+
 Use the project's existing browser tooling or bundled local scripts. Inspect:
 
 - Desktop and 360px width: no clipped parts/labels/controls or horizontal scrolling.

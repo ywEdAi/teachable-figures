@@ -2,9 +2,13 @@
 
 ## What requires true 3D
 
+First select the subject representation with [rendering-selection.md](rendering-selection.md). Projection and rotation cannot repair an incorrect subject shape. Organic reference meshes and cloth may need a different renderer from Anatomy's convex rigid-part engine.
+
 Use `turning-3d` when rotation in depth, a changing viewpoint, joint articulation, or occlusion contributes to the lesson: a keyed fit inspected around its axis, connected links, or a rotating subject exposing previously hidden surfaces. A sliding drawer, flat dial needle or simple pressed key can stay projected SVG.
 
 The bundled Anatomy turning engine is **beta**. It re-projects and re-shades true world-coordinate primitives each frame and computes painter's order. It is not a general CAD/physics engine. Its upstream performance examples are not guarantees for your figure; measure the actual scene.
+
+For arbitrary anatomical or cloth meshes, use a renderer with suitable mesh support, normals and depth ordering. Keep source-relative transforms and separate the camera from lesson state. Record the asset source and local alterations; don't claim the Anatomy kit generated an organ or verified an unrelated mesh. WebGL is also a valid solid-mesh renderer when surface lighting and depth require it; the field-layer technique below is a separate capability.
 
 Read [3d.md](../assets/anatomy/references/3d.md), especially model/API, part constraints, audit, performance and known limits. Open [turning-dial/build.mjs](../assets/anatomy/examples/turning-dial/build.mjs) and its `live.js` for a real implementation. Use signatures from the bundled revision, not a remembered package API.
 

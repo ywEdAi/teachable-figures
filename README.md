@@ -19,13 +19,13 @@ This is an **agent skill**, with rendering examples and verification tools. It w
 | Example | What the learner can inspect |
 | --- | --- |
 | [Cone sections in 3D](https://ywedai.github.io/teachable-figures/geometry-slices.html) | Rotate a cut cone. Compare linear radius growth with quadratic area growth. |
-| [Human chest in 3D](https://ywedai.github.io/teachable-figures/human-anatomy.html) | Open a schematic torso and inspect lungs, heart, and diaphragm from different viewpoints. |
-| [Rocket launch](https://ywedai.github.io/teachable-figures/rocket-launch.html) | Change thrust and payload. Compare pad support, delayed liftoff, burnout, and coasting. |
+| [Human chest in 3D](https://ywedai.github.io/teachable-figures/human-anatomy.html) | Rotate atlas-sourced human surfaces, open the chest window, and inspect lungs, heart, airways, and a labeled schematic diaphragm. |
+| [Rocket launch](https://ywedai.github.io/teachable-figures/rocket-launch.html) | Inspect a crafted rocket cutaway and separate its assemblies; compare thrust, pad support, burnout, and coasting. |
 | [Transformer data flow](https://ywedai.github.io/teachable-figures/transformer-flow.html) | Trace toy vectors through Q/K/V, masking, attention, residual normalization, and FFN stages. |
-| [A Ming robe](https://ywedai.github.io/teachable-figures/chinese-clothing.html) | Inspect overlapping fronts and the pleated construction of a specifically sourced museum garment. |
+| [A Ming robe](https://ywedai.github.io/teachable-figures/chinese-clothing.html) | Inspect overlapping cloth fronts, shaded fold surfaces, and a pleat section, based on a specific museum garment. |
 | [Gear ratios](https://ywedai.github.io/teachable-figures/gear-ratio.html) | Add an idler and distinguish output-turn magnitude from rotation direction. |
 
-The two spatial examples rotate world-coordinate geometry with depth ordering. The chest is an educational schematic. The rocket is a one-dimensional ideal model, the Transformer uses disclosed toy parameters, and the clothing drawing distinguishes documented facts from reconstruction.
+The two spatial examples rotate world-coordinate geometry with depth ordering. The chest uses Human Reference Atlas meshes, with a separately authored schematic diaphragm and an inspection window. The rocket is a one-dimensional ideal model, the Transformer uses disclosed toy parameters, and the clothing drawing distinguishes documented facts from reconstruction.
 
 <details>
 <summary>See the original gear-ratio teaching loop</summary>
@@ -63,7 +63,9 @@ For another agent, point it at [SKILL.md](SKILL.md) and provide the lesson text,
 
 The teaching spec names a claim, misconception, cause, observable effect, and truth model before geometry. One model drives motion, readouts, accessible summaries, and explanations.
 
-Choose the simplest renderer that exposes the cause:
+Choose subject representation first, then the simplest renderer that meets the requested fidelity and interaction. [Renderer selection](references/rendering-selection.md) routes iso-figure to functional box-like devices, Anatomy to crafted rigid mechanisms, and organic anatomy/textiles to appropriate source geometry or illustration. The upstream name Anatomy does not imply a medical atlas.
+
+Choose a mode that preserves that representation:
 
 | Mode | Use it for |
 | --- | --- |
@@ -77,7 +79,7 @@ Renderer and mechanism are separate choices. A gear ratio does not need a 3D ren
 
 ## Review and iteration
 
-The [v0.2.0 iteration report](reviews/v0.2.0.md) records the geometry fix, five new examples, independent review, and current checks. The historical October 27 review includes independent [UI/UX feedback](reviews/uiux.md) and [pedagogical feedback](reviews/pedagogy.md).
+The [rendering fusion review](reviews/rendering-fusion-audit.md) explains why the initial examples fell short visually and how v0.3.0 separates subject fidelity from renderer complexity. The [v0.2.0 report](reviews/v0.2.0.md) records the earlier geometry fix and five new lessons. The historical October 27 review includes independent [UI/UX feedback](reviews/uiux.md) and [pedagogical feedback](reviews/pedagogy.md).
 
 The reviewed revision fixes writing-field shortcut interception in both lightweight examples. It adds native controls and live readouts. The synth also gains reset, mute, input ownership, and a scope that stops when idle, hidden, offscreen, or under reduced motion.
 
@@ -95,7 +97,7 @@ npm test
 npm run test:browser
 ```
 
-All 16 model/build checks and 19 browser cases pass. To run the slower full turning-dial geometry audit in a temporary copy:
+The v0.3.0 rendering revision passes 4 model/spec checks and 21 browser cases; both new geometry preparation scripts also regenerate their embedded output. The earlier 12 upstream theme builds are recorded in the v0.2.0 review. To run the slower full turning-dial geometry audit in a temporary copy:
 
 ```sh
 npm run audit:3d
@@ -110,7 +112,7 @@ Model tests check the ripple solver and interference behavior. Build tests gener
 - Upstream Anatomy examples are rendering demonstrations. Their automatic tours must be disabled before lesson integration. The six complete lessons do not autoplay.
 - The AI English Shift adapter describes a particular host. Inspect its current source before relying on paths, registry shape, or language requirements.
 - Passing model and browser checks does not establish learning effectiveness. These figures have not been evaluated with novice learners or a screen reader in this review.
-- The full mechanical audit covers the configured turning-dial fixture. The custom cone and chest meshes have their own checks and selected-view inspection, not an exhaustive mesh-intersection proof. A successful build is insufficient evidence of physical accuracy.
+- The full mechanical audit covers the configured turning-dial fixture. The cone and atlas chest have their own checks and selected-view inspection, not an exhaustive mesh-intersection proof. A successful build is insufficient evidence of physical accuracy.
 
 ## Sources and licenses
 
@@ -126,6 +128,8 @@ Anatomy is the upstream skill's name; it is a toolkit for explanatory objects, n
 See [sources and fusion decisions](references/sources-and-fusion.md) for the contribution boundaries and [the source manifest](references/source-manifest.json) for exact revisions and local adaptations. Scientific and historical references for each lesson appear on its example page.
 
 The README design workflow uses [oil-oil/beautify-github-readme](https://github.com/oil-oil/beautify-github-readme). It is documentation tooling, separate from the two bundled rendering skills.
+
+The chest also uses **[Human Reference Atlas / HuBMAP reference meshes](https://humanatlas.io/3d-reference-library)** under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). This is a domain data source, separate from the rendering skills. [Asset provenance and alteration details](assets/hra/provenance.json) record the fixed revision, source hashes, cropping, packing and recoloring; [rebuild instructions](assets/hra/README.md) accompany the derivative.
 
 Both upstream contributions retain their MIT notices in [Anatomy's license](assets/anatomy/LICENSE) and [iso-figure's license](assets/iso-figure/LICENSE). Those licenses cover the corresponding contributions. No additional license is granted here for the original lesson material, app references, or screenshots.
 

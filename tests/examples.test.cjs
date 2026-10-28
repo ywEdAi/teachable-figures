@@ -5,7 +5,7 @@ const { resolve } = require('node:path');
 const { pathToFileURL } = require('node:url');
 const { mkdirSync } = require('node:fs');
 let browser;
-test.before(async () => { browser = await chromium.launch({ channel: process.env.BROWSER_CHANNEL || 'chrome', headless: true }); });
+test.before(async () => { browser = await chromium.launch({ channel: process.env.BROWSER_CHANNEL || 'chrome', headless: true, args: ['--use-angle=swiftshader','--enable-unsafe-swiftshader'] }); });
 test.after(async () => { await browser?.close(); });
 const url = name => pathToFileURL(resolve(__dirname, '../examples', `${name}.html`)).href;
 
@@ -38,14 +38,28 @@ test('cone area follows the square of slice height while camera rotation preserv
 test('anatomy cutaway and rotation change visibility without changing organ relationships',async()=>{
   const page=await browser.newPage();await page.goto(url('human-anatomy'));
   const centers=await page.evaluate(()=>JSON.stringify(Object.fromEntries(Object.entries(lesson.structures).map(([k,v])=>[k,v.center]))));
-  const closed=await page.locator('#mesh polygon').count();await page.locator('#cutaway').check();
-  assert.ok(await page.locator('#mesh polygon').count()<closed);
+  const image=()=>page.locator('#stage').evaluate(canvas=>canvas.toDataURL());
+  const closed=await image();await page.locator('#cutaway').check();
+  const opened=await image();assert.notEqual(opened,closed,'opening the chest must change visible atlas surfaces');
   await page.locator('#side').click();assert.equal(await page.locator('#yaw').inputValue(),'90');
+  assert.notEqual(await image(),opened,'the side view must reproject the real mesh');
   await page.locator('#organ').selectOption('diaphragm');assert.match(await page.locator('#selection').textContent(),/Diaphragm/);
-  await page.locator('#lungs').uncheck();
+  const withLungs=await image();await page.locator('#lungs').uncheck();assert.notEqual(await image(),withLungs);
   assert.equal(await page.evaluate(()=>JSON.stringify(Object.fromEntries(Object.entries(lesson.structures).map(([k,v])=>[k,v.center])))),centers);
   await page.locator('#reset').click();assert.equal(await page.locator('#cutaway').isChecked(),false);assert.equal(await page.locator('#lungs').isChecked(),true);
   assert.equal(await page.locator('#yaw').inputValue(),'0');await page.close();
+});
+
+test('anatomy retains a readable explanation and controls without WebGL',async()=>{
+  const page=await browser.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));
+  await page.addInitScript(()=>{const original=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(type,...args){return type==='webgl'?null:original.call(this,type,...args);};});
+  await page.goto(url('human-anatomy'));
+  assert.equal(await page.locator('#render-fallback').isVisible(),true);
+  assert.equal(await page.locator('#cutaway').isDisabled(),true);
+  await page.locator('#organ').selectOption('heart');
+  assert.match(await page.locator('#selection').textContent(),/Heart/);
+  await page.locator('#reset').click();assert.equal(await page.locator('#cutaway').isChecked(),false);
+  assert.deepEqual(errors,[]);await page.close();
 });
 
 test('transformer mask changes actual attention and the final query retains all allowed tokens',async()=>{
@@ -69,6 +83,11 @@ test('transformer mask changes actual attention and the final query retains all 
 
 test('clothing inspection reveals the inner panel and preserves the stated robe structure',async()=>{
   const page=await browser.newPage();await page.goto(url('chinese-clothing'));
+  assert.equal(await page.locator('#fold-inspect').isChecked(),true);
+  await page.locator('#fold-inspect').uncheck();assert.equal(await page.locator('#fold-detail').isVisible(),false);
+  assert.equal(await page.locator('#fold-caption').isVisible(),false);
+  await page.locator('#fold-inspect').check();assert.equal(await page.locator('#fold-detail').isVisible(),true);
+  assert.ok(await page.locator('#fold-caption').evaluate(el=>parseFloat(getComputedStyle(el).fontSize)>=14));
   await page.locator('#open').check();assert.equal(await page.locator('#outer').getAttribute('transform'),'translate(88 -12)');
   await page.locator('#open').uncheck();
   await page.locator('input[name="prediction"][value="skin"]').check();
@@ -78,11 +97,14 @@ test('clothing inspection reveals the inner panel and preserves the stated robe 
   await page.locator('#explode').focus();await page.keyboard.press('End');
   assert.equal(await page.locator('#lower').getAttribute('transform'),'translate(0 35)');
   assert.equal(await page.locator('#upper').getAttribute('transform'),'translate(0 -13)');
+  assert.equal(await page.locator('#fold-point').getAttribute('cy'),'460');
   await page.locator('input[name="transfer"][value="wrong"]').check();await page.getByRole('button',{name:'核对答案'}).click();
   assert.match(await page.locator('#transfer-feedback').textContent(),/正确|对/);
   await page.locator('#writing').fill('The gap is an inspection view of one robe.');await page.locator('#reset').click();
   assert.equal(await page.locator('#open').isChecked(),false);assert.equal(await page.locator('#explode').inputValue(),'0');
-  assert.equal(await page.locator('#writing').inputValue(),'');await page.close();
+  assert.equal(await page.locator('#writing').inputValue(),'');
+  assert.equal(await page.locator('#fold-inspect').isChecked(),true);
+  assert.equal(await page.locator('#fold-point').getAttribute('cy'),'425');await page.close();
 });
 
 test('rocket model handles pad support, delayed liftoff, burnout, and coasting', async () => {
@@ -127,6 +149,20 @@ test('rocket model handles pad support, delayed liftoff, burnout, and coasting',
   assert.equal(await page.locator('#explanation').isVisible(),false);
   assert.equal(await page.locator('#explain').inputValue(),'');
   assert.deepEqual(errors,[]);
+  await page.close();
+});
+
+test('rocket cutaway and component inspection preserve the flight model',async()=>{
+  const page=await browser.newPage({reducedMotion:'reduce'});await page.goto(url('rocket-launch'));
+  await page.locator('#step').click();const before=await page.locator('.readouts').innerText();
+  await page.locator('input[name="inspection"][value="cutaway"]').check();
+  assert.equal(await page.locator('#technical').getAttribute('data-view'),'cutaway');
+  await page.locator('input[name="inspection"][value="exploded"]').check();
+  assert.equal(await page.locator('#technical').getAttribute('data-view'),'exploded');
+  await page.locator('#inspect-component').selectOption('nozzle');
+  assert.match(await page.locator('#inspection-description').textContent(),/喉部/);
+  assert.equal(await page.locator('.readouts').innerText(),before,'inspection cannot change flight results');
+  await page.locator('#reset').click();assert.equal(await page.locator('#time').inputValue(),'0');
   await page.close();
 });
 

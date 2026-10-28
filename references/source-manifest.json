@@ -23,7 +23,7 @@
   ],
   "base": "Existing project teachable-figures and its AI English Shift references preserved and extended.",
   "reviewed_local_date": "2026-10-27",
-  "local_revision": "0.2.0",
+  "local_revision": "0.3.0",
   "examples": [
     "examples/gear-ratio.html",
     "examples/geometry-slices.html",
@@ -31,5 +31,16 @@
     "examples/rocket-launch.html",
     "examples/transformer-flow.html",
     "examples/chinese-clothing.html"
+  ],
+  "data_sources": [
+    {
+      "name": "Human Reference Atlas / HuBMAP Visible Human male reference meshes",
+      "repository": "https://github.com/hubmapconsortium/ccf-releases",
+      "commit": "b036a91aaf7234f462b1249d4a5f4fb0e982f412",
+      "license": "CC BY 4.0",
+      "bundled": "assets/hra",
+      "provenance": "assets/hra/provenance.json",
+      "notes": "Cropped and packed skin, lung, airway and heart geometry in shared source coordinates; teaching recoloring and inspection window. Diaphragm is separately authored schematic geometry. Data source, not another fused rendering skill."
+    }
   ]
 }

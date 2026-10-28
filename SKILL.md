@@ -7,7 +7,7 @@ description: Turn lessons, articles, chapters, or technical ideas into interacti
 
 A teachable figure makes one mechanism visible and manipulable. The learner predicts a result, changes a cause, observes its effect, and explains what happened. Place it after the sentence where the claim lands, or give a standalone figure that sentence as its introduction.
 
-This skill fuses the original teaching method with iso-figure's working SVG objects and Anatomy's mechanical geometry, depth ordering, shaders, and optional true 3D runtime. **Teaching determines the model; the model drives the picture and its readouts.** A beautiful object that cannot demonstrate the prediction is unfinished.
+This skill fuses the original teaching method with iso-figure's working SVG objects and Anatomy's mechanical geometry, depth ordering, shaders, and optional true 3D runtime. **Teaching determines the model; the subject determines the required shape and material; the model drives the picture and its readouts.** Check both teaching correctness and visual fidelity.
 
 For AI English Shift, first read [the app adapter](references/ai-english-shift.md). Its contracts apply only there. Otherwise inspect the host project's conventions. Paths in this skill are relative to its own directory, including when invoked through a symlink.
 
@@ -27,6 +27,12 @@ For a descriptive text, use a process the learner can step through or an assembl
 ## 2. Choose mechanism and renderer separately
 
 `kind` describes what is taught. The renderer describes how it is shown. An isometric cache remains a cache model, and a 3D gear train remains a ratio model. Do not replace a working teaching pattern merely to obtain a style.
+
+Before selecting a projection, read [representation and renderer selection](references/rendering-selection.md). Record the subject reference, recognizable landmarks, required material/structural cues, inspection actions, and the actual implementation source. Select an upstream skill by its capabilities, not its name:
+
+- **iso-figure:** functional box-like devices, face-local keys, switches, drawers, and displays. Read [Simple iso](references/simple-iso.md).
+- **Anatomy:** crafted rigid mechanisms, connected pipes/joints, real section walls, layered assemblies and mechanical inspection. Read [Mechanical craft](references/mechanical-craft.md), including the upstream craft reference. Its primitive kit is not a medical organ generator or cloth renderer.
+- **Organic anatomy or textiles:** obtain suitable reference geometry or author a faithful illustration/mesh, then choose a renderer capable of that shape. Use Anatomy's inspection and craft principles where relevant. Do not turn organs into balls or cloth into boxes to fit a kit. State when and why a custom renderer is needed.
 
 | Mechanism shape | Existing kind vocabulary |
 |---|---|
@@ -55,9 +61,10 @@ Spatial mechanisms may justify new kinds such as `assembly`, `kinematics`, `sect
 | `iso-lite` | Pressable keys, switches, drawers, or screens can produce useful output with simple box geometry | [Simple iso](references/simple-iso.md) |
 | `iso-mechanical` | Supports, joints, springs, pipes, gears, layers, or a cutaway reveal how a mechanism works | [Mechanical craft](references/mechanical-craft.md) |
 | `turning-3d` | Rotation, articulation, or changing depth/occlusion is itself part of the explanation | [Spatial and 3D](references/spatial-and-3d.md) |
+| Reference mesh renderer | Organic or irregular surfaces need source geometry, smooth lighting and per-pixel depth | [Representation selection](references/rendering-selection.md), [Spatial and 3D](references/spatial-and-3d.md) |
 | Optional WebGL layer | Light, fluid, heat, or waves need a field that SVG cannot convey adequately | [Spatial and 3D](references/spatial-and-3d.md), WebGL section |
 
-Default to the simplest mode that makes the answer visible. An isometric projection is not proof of true 3D. Do not call a CSS-skewed or screen-rotated shape a 3D simulation. Explicitly requested 3D or mechanical detail should use the matching mode.
+Choose the simplest renderer that meets **both** the requested fidelity and interaction. A schematic is appropriate when requested or sufficient for the task; a recognizably detailed subject cannot be replaced with a placeholder merely because its controls work. An isometric projection is not proof of true 3D. Explicitly requested 3D or mechanical detail should use the matching mode.
 
 ## 3. Write the teaching spec before geometry
 
@@ -80,12 +87,13 @@ In a design note, name the action and observation that count as a meaningful try
 
 Keep lesson copy in config and the mechanism reusable. Pure model functions determine state, motion targets, readouts, prediction results, and accessible summaries. Geometry and UI observe this state; they do not maintain a second explanation.
 
-For `iso-lite`, use face-local SVG shapes and one projection matrix. For crafted mechanical or 3D work, use the bundled kit rather than recreating its primitives. Technical assets are ready to copy under [assets/anatomy](assets/anatomy); lightweight working objects are under [assets/iso-figure/examples](assets/iso-figure/examples).
+For `iso-lite`, use face-local SVG shapes and one projection matrix. For crafted rigid mechanisms supported by Anatomy, use the bundled kit rather than recreating its primitives. For irregular reference meshes or cloth surfaces, use the renderer selected above; do not claim that toolkit provenance supplies domain accuracy. Technical assets are ready to copy under [assets/anatomy](assets/anatomy); lightweight working objects are under [assets/iso-figure/examples](assets/iso-figure/examples).
 
 - Precompute static geometry. Move rigid groups; rebuild geometry only when shape, orientation, or occlusion actually changes.
 - Make parts physically legible: supports touch their mounts, shafts share axes, moving parts respect travel limits, and pipes end at ports. Real machines use real relationships; analogies state their mapping and limits.
 - Use opaque surfaces and correct depth order. Check assembled, intermediate, and apart states; a convincing final pose does not prove the transition.
 - Mechanical detail should help recognition or explanation. Scale density to the lesson; there is no universal minimum part count.
+- Establish a recognizable silhouette, characteristic structures, surface curvature and appropriate materials before adding secondary controls. Cutaways reveal thickness and actual interiors; folded cloth has overlapping faces and valleys. A disclaimer does not make a placeholder meet a request for detail.
 - Use restrained tones and a focal accent. Keep explanations around the stage; short labels, legends, or paired plots are appropriate when learners need them. Preserve product theme tokens and semantic colors.
 - In an existing lesson frame, render only the stage. Do not nest another prediction form, caption card, or writing exercise inside it.
 
@@ -99,13 +107,15 @@ Pause/reset are available for time-based models. Stop continuous rendering offsc
 
 Keep keyboard shortcuts scoped to the focused figure, away from text inputs and lesson writing fields. Use real buttons, sliders with values, and checkboxes. Put an accessible description and textual result beside the visual; throttle live announcements to meaningful state changes. A focusable SVG with `role="img"` alone does not make its controls accessible.
 
-## 6. Verify teaching, then rendering
+## 6. Verify teaching and visual fidelity
 
 Read [verification.md](references/verification.md). Validate schema, anchors, languages, IDs and registered kinds. Choose the misconception, operate the figure, and confirm its failure is visible. Verify expected model results at reset, endpoints, and meaningful transitions.
 
 Inspect desktop and 360px mobile, the host's supported themes, pointer/keyboard, reduced motion, and reset. Mechanical work adds junction close-ups, contact/clearance and paint-order checks; 3D adds angle/pose coverage and measured performance; WebGL adds fallback and transition checks. Only report checks actually run. A quick or partial audit is not a full audit.
 
-The acceptance check is whether the control changes the answer, the result challenges the misconception, the model states its limits, the first comparison stays small, and the learner can explain a new case.
+Accept teaching correctness and visual fidelity separately. Check the silhouette and structural landmarks against the subject reference, then inspect material/volume cues and the assembled, intermediate and opened states at useful scale. Controls, numerical tests and zero console errors cannot establish that a torso looks human or pleats look like folded fabric. The [selection guide](references/rendering-selection.md) includes routing cases and visual rejection criteria.
+
+The teaching acceptance check is whether the control changes the answer, the result challenges the misconception, the model states its limits, the first comparison stays small, and the learner can explain a new case.
 
 Deliver the figure/spec/source appropriate to the request and briefly state the claim, useful controls, assumptions, and verification. Creating a lesson figure does not authorize changing unrelated product pages or publishing to an external gallery.
 
