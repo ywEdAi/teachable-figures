@@ -66,7 +66,7 @@ Separate semantic state from view state:
 
 Changing a view must not secretly change the answer. Exploding an assembly exposes its structure but does not run the machine in a physically disconnected state. Pause the mechanism while apart, or explicitly mark apart as an inspection display of coupled state.
 
-For structure-only requests, pose a spatial or assembly prediction such as which surface becomes visible or which part blocks insertion. If the user only asks for a static figure, deliver a static state and an observation question; do not force an interactive app on the request.
+For structure-only requests, pose a spatial or assembly prediction such as which surface becomes visible or which part blocks insertion. Requests mainly for a static figure are outside this skill's scope; redirect to an illustration approach rather than forcing an interactive app on the request.
 
 ## Language bridge
 

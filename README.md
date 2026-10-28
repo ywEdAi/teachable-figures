@@ -30,7 +30,7 @@ Invoke it with `$teachable-figures` in a prompt.
 
 **Other agents or manual install**: download the [repository ZIP](https://github.com/ywEdAi/teachable-figures/archive/refs/heads/main.zip) or the `.skill` file (a ZIP archive) from the [latest release](https://github.com/ywEdAi/teachable-figures/releases/latest) and extract it into the agent's skill directory. If the agent has no skill directory, ask it to read `SKILL.md` first.
 
-To update, run `git pull` in the install directory.
+For a Git installation, update with `git pull` in the install directory. For a ZIP or `.skill` installation, download the newer archive and replace the installed skill folder; preserve any local customizations first.
 
 ## Two ways to use it
 

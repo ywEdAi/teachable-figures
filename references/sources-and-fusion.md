@@ -30,7 +30,7 @@ The HRA derivative is separately licensed **CC BY 4.0**, with source hashes and 
 
 ## What changes in the fusion
 
-- Interaction is the default for teaching requests. Static figures remain valid when specifically requested. Upstream Anatomy's requirement to write “interactive” does not apply here.
+- Teaching requests use interaction without requiring the user to write “interactive”, unlike upstream Anatomy's trigger. Requests mainly for static figures are redirected to an illustration approach, as defined in the entrypoint's Scope section.
 - The teaching loop and scenario remain primary. A machine metaphor must visibly model the rule and disclose its limits.
 - No fixed minimum of forty parts. Detail scales with the concept and learner; optional close-ups can reveal more without crowding the first view.
 - Removing the quota retains upstream craft requirements: recognizable subjects, real structure, volume and material. Choose source representation before rendering mode; see [rendering-selection.md](rendering-selection.md). Anatomy handles rigid mechanical construction, iso-figure handles functional isometric devices, and organic anatomy/textiles may require domain assets or a different renderer.

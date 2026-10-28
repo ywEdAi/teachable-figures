@@ -30,7 +30,7 @@ git clone https://github.com/ywEdAi/teachable-figures.git ~/.codex/skills/teacha
 
 **其他智能体或手动安装**：下载 [仓库 ZIP](https://github.com/ywEdAi/teachable-figures/archive/refs/heads/main.zip) 或 [最新 Release](https://github.com/ywEdAi/teachable-figures/releases/latest) 中的 `.skill` 文件（一个 ZIP 包），解压到该智能体的技能目录；没有技能目录的智能体，让它先读取 `SKILL.md`。
 
-更新：在安装目录运行 `git pull`。
+通过 Git 克隆安装的，在安装目录运行 `git pull` 更新。通过 ZIP 或 `.skill` 安装的，下载新版压缩包并替换已安装的技能文件夹；替换前先保留自己的本地修改。
 
 ## 两种使用方式
 
