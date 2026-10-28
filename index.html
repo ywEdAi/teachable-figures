@@ -1,11 +1,40 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Teachable figures · 交互教学示例</title><style>
-:root{color-scheme:light dark;--bg:#f5f2e9;--paper:#fffdf8;--ink:#20383d;--muted:#586e73;--line:#cbd6ce;--accent:#146b68}@media(prefers-color-scheme:dark){:root{--bg:#142326;--paper:#1c3034;--ink:#edf2e9;--muted:#b0c8c8;--line:#446063;--accent:#95d9c9}}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.65 system-ui,sans-serif}main{max-width:1080px;margin:auto;padding:42px 22px 60px}h1{font-size:clamp(32px,5vw,55px);line-height:1.15;margin:12px 0}h2{font-size:24px;line-height:1.35;margin:6px 0}p{margin:10px 0}.lead{max-width:760px;color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:28px}article{border:1px solid var(--line);border-radius:16px;padding:24px;background:var(--paper);display:flex;flex-direction:column;gap:8px}article p{color:var(--muted);flex:1}article a{display:inline-block;min-height:44px;padding:8px 0;font-weight:700}a{color:var(--accent)}a:focus-visible{outline:3px solid var(--accent);outline-offset:4px}.tag{font-size:13px;color:var(--accent);letter-spacing:.05em;font-weight:700}footer{margin-top:28px;color:var(--muted);font-size:14px}@media(max-width:620px){main{padding:26px 15px 40px}.grid{grid-template-columns:1fr}article{padding:20px}}
-</style></head><body><main><p class="tag">TEACHABLE FIGURES · OFFLINE EXAMPLES</p><h1>改变一个条件，<br>看清一个机制。</h1><p class="lead">每个示例都包含预测、操作、读数、解释与迁移问题。直接打开 HTML 即可运行，无需服务器、网络或框架。三维页面使用空间坐标、旋转、投影与深度排序。</p><div class="grid">
-<article><span class="tag">数学 · 3D / Math</span><h2>圆锥切高一半，截面积也减半吗？</h2><p>旋转立体、改变截面高度，比较线性半径与平方变化的面积。</p><a href="geometry-slices.html">打开圆锥截面 →</a></article>
-<article><span class="tag">生物 · 3D / Anatomy</span><h2>从不同方向看，器官的位置会改变吗？</h2><p>旋转示意胸腔、隐藏外层，辨认心脏、肺与膈肌的空间关系。不是临床解剖图谱。</p><a href="human-anatomy.html">打开人体胸腔 →</a></article>
-<article><span class="tag">物理 · Simulation</span><h2>火箭点火，就一定起飞吗？</h2><p>改变推力和载荷，观察起飞门槛、燃料消耗与熄火后的滑行。</p><a href="rocket-launch.html">打开发射实验 →</a></article>
-<article><span class="tag">AI · Data flow</span><h2>一个 token 能看到后面的 token 吗？</h2><p>逐步查看 toy decoder 的向量、Q/K/V、注意力权重与数据流，比较因果遮罩。</p><a href="transformer-flow.html">打开 Transformer →</a></article>
-<article><span class="tag">历史 · Garment structure</span><h2>明代曳撒的褶裥部分，是另穿的裙子吗？</h2><p>以中国丝绸博物馆的一件藏品为依据，拆解衣身、袖与下部结构。示意重建与史料事实分开标注。</p><a href="chinese-clothing.html">打开服饰拆解 →</a></article>
-<article><span class="tag">机械 · Ratio</span><h2>加一个惰轮，输出会更慢吗？</h2><p>比较同样一圈输入，分别读取转数大小和旋转方向。</p><a href="gear-ratio.html">打开齿轮实验 →</a></article>
-</div><footer>查看 <a href="https://github.com/ywEdAi/teachable-figures">在线 README</a> 与 <a href="https://github.com/ywEdAi/teachable-figures/blob/main/README.zh-CN.md">中文说明</a>、<a href="https://github.com/ywEdAi/teachable-figures/blob/main/SKILL.md">技能入口</a>与<a href="https://github.com/ywEdAi/teachable-figures/blob/main/references/sources-and-fusion.md">融合来源</a>。理想物理模型、解剖示意、模型架构和历史服饰都有各自的边界，请阅读每页的来源与说明。</footer></main></body></html>
+:root{color-scheme:light dark;--bg:#f3f1ea;--paper:#fffdf8;--ink:#1d3338;--muted:#5a6f73;--line:#d6ddd6;--accent:#0f6b67;--chip:#e3eee9;--shade:0 1px 2px rgb(20 40 40/.06),0 8px 24px rgb(20 40 40/.07)}
+@media(prefers-color-scheme:dark){:root{--bg:#111d20;--paper:#18292d;--ink:#ecf1ea;--muted:#a8bfbf;--line:#2f474b;--accent:#8fd6c6;--chip:#21393d;--shade:0 1px 2px rgb(0 0 0/.3),0 8px 24px rgb(0 0 0/.25)}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"PingFang SC","Noto Sans SC",sans-serif}
+main{max-width:1120px;margin:auto;padding:48px 24px 64px}
+.eyebrow{font-size:12px;letter-spacing:.12em;font-weight:700;color:var(--accent);margin:0}
+h1{font-size:clamp(30px,4.6vw,48px);line-height:1.15;margin:10px 0 14px;letter-spacing:-.01em}
+.loop{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0;padding:0;list-style:none;color:var(--muted);font-size:14px}
+.loop li{display:flex;align-items:center;gap:8px}.loop b{background:var(--chip);color:var(--ink);border-radius:999px;padding:4px 12px;font-weight:600}
+.loop li+li::before{content:"→";color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:36px}
+article{background:var(--paper);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shade);transition:transform .15s ease,box-shadow .15s ease}
+article:hover{transform:translateY(-2px)}
+article a{display:flex;flex-direction:column;height:100%;color:inherit;text-decoration:none}
+article a:focus-visible{outline:3px solid var(--accent);outline-offset:-3px;border-radius:16px}
+.shot{aspect-ratio:4/3;position:relative;background:var(--bg);border-bottom:1px solid var(--line)}
+.shot picture{position:absolute;inset:14px}.shot img{width:100%;height:100%;object-fit:contain;display:block;border-radius:8px}
+.body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:8px;flex:1}
+.tags{display:flex;gap:6px;flex-wrap:wrap}.tags span{font-size:12px;font-weight:600;background:var(--chip);border-radius:6px;padding:2px 8px;color:var(--muted)}
+h2{font-size:18px;line-height:1.4;margin:0}
+.open{margin-top:auto;font-size:14px;font-weight:700;color:var(--accent)}
+footer{margin-top:40px;color:var(--muted);font-size:14px}footer a{color:var(--accent)}
+@media(prefers-reduced-motion:reduce){article{transition:none}article:hover{transform:none}}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){main{padding:28px 16px 44px}.grid{grid-template-columns:1fr;gap:16px}}
+</style></head><body><main>
+<p class="eyebrow">TEACHABLE FIGURES · 离线示例</p>
+<h1>改变一个条件，看清一个机制。</h1>
+<ol class="loop" aria-label="每个示例的学习步骤"><li><b>预测</b></li><li><b>操作</b></li><li><b>观察读数</b></li><li><b>解释与迁移</b></li></ol>
+<div class="grid">
+<article><a href="geometry-slices.html"><div class="shot"><picture><source srcset="previews/geometry-slices-dark.jpg" media="(prefers-color-scheme: dark)"><img src="previews/geometry-slices-light.jpg" alt="被水平截开的圆锥，截面以金色显示" loading="lazy"></picture></div><div class="body"><div class="tags"><span>数学</span><span>3D 旋转</span></div><h2>圆锥切高一半，截面积也减半吗？</h2><span class="open">打开 →</span></div></a></article>
+<article><a href="human-anatomy.html"><div class="shot"><picture><source srcset="previews/human-anatomy-dark.jpg" media="(prefers-color-scheme: dark)"><img src="previews/human-anatomy-light.jpg" alt="打开观察窗的人体胸腔，可见双肺、心脏、气管与示意膈肌" loading="lazy"></picture></div><div class="body"><div class="tags"><span>生物</span><span>3D 网格</span></div><h2>换个方向看，器官的位置会变吗？</h2><span class="open">打开 →</span></div></a></article>
+<article><a href="rocket-launch.html"><div class="shot"><picture><source srcset="previews/rocket-launch-dark.jpg" media="(prefers-color-scheme: dark)"><img src="previews/rocket-launch-light.jpg" alt="半剖火箭结构：整流罩、两个储箱、推力架与发动机" loading="lazy"></picture></div><div class="body"><div class="tags"><span>物理</span><span>机械剖面</span></div><h2>火箭点火，就一定起飞吗？</h2><span class="open">打开 →</span></div></a></article>
+<article><a href="transformer-flow.html"><div class="shot"><picture><source srcset="previews/transformer-flow-dark.jpg" media="(prefers-color-scheme: dark)"><img src="previews/transformer-flow-light.jpg" alt="Transformer 数据流的七个阶段与因果遮罩下的注意力权重条" loading="lazy"></picture></div><div class="body"><div class="tags"><span>AI</span><span>2D 数据流</span></div><h2>一个 token 能看到后面的 token 吗？</h2><span class="open">打开 →</span></div></a></article>
+<article><a href="chinese-clothing.html"><div class="shot"><picture><source srcset="previews/chinese-clothing-dark.jpg" media="(prefers-color-scheme: dark)"><img src="previews/chinese-clothing-light.jpg" alt="明代曳撒示意图，上身交领，下摆为褶裥" loading="lazy"></picture></div><div class="body"><div class="tags"><span>历史</span><span>服饰结构</span></div><h2>曳撒的褶裥，是另穿的裙子吗？</h2><span class="open">打开 →</span></div></a></article>
+<article><a href="gear-ratio.html"><div class="shot"><picture><source srcset="previews/gear-ratio-dark.jpg" media="(prefers-color-scheme: dark)"><img src="previews/gear-ratio-light.jpg" alt="12 齿主动轮与 24 齿输出轮啮合" loading="lazy"></picture></div><div class="body"><div class="tags"><span>机械</span><span>2D 模型</span></div><h2>加一个惰轮，输出会更慢吗？</h2><span class="open">打开 →</span></div></a></article>
+</div>
+<footer>直接打开 HTML 即可离线运行。每页都写明了模型的假设与来源。 · <a href="https://github.com/ywEdAi/teachable-figures/blob/main/README.zh-CN.md">安装这个技能</a> · <a href="https://github.com/ywEdAi/teachable-figures">GitHub</a></footer>
+</main></body></html>
