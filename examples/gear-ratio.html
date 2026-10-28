@@ -3,109 +3,251 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Does an extra gear slow the output?</title>
+<title data-i18n data-zh="多加一个齿轮，输出会变慢吗？" data-en="Does an extra gear slow the output?">Does an extra gear slow the output?</title>
 <style>
-:root{color-scheme:light dark;--bg:#f4f2eb;--panel:#fffefa;--text:#202d31;--muted:#526267;--line:#cbd1cd;--accent:#075b68;--driver:#0c6877;--idler:#697474;--output:#a64d25;--soft:#e6f0ef;--focus:#bd4a0a}
-@media(prefers-color-scheme:dark){:root{--bg:#152126;--panel:#1e2d32;--text:#edf2ee;--muted:#b8c8c9;--line:#53666a;--accent:#8dd4dc;--driver:#6dcedb;--idler:#a7b5b5;--output:#ffb184;--soft:#263f44;--focus:#ffb184}}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:17px/1.55 system-ui,sans-serif}main{max-width:960px;margin:auto;padding:38px 24px 60px}h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.12;max-width:750px;margin:10px 0 18px;letter-spacing:-.035em}h2{font-size:1.3rem;line-height:1.3;margin:0 0 14px}h3{font-size:1rem;margin:16px 0 4px}p{margin:8px 0 14px}.eyebrow{font-size:.8rem;font-weight:750;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}.lead{max-width:740px;color:var(--muted);font-size:1.12rem}.card{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:24px;margin:22px 0}.step{display:inline-grid;place-items:center;background:var(--soft);color:var(--accent);border-radius:50%;width:29px;height:29px;font-size:.95rem;margin-right:7px}fieldset{border:0;padding:0;margin:0}legend{padding:0;margin-bottom:12px;font-weight:650}label.choice{display:flex;gap:10px;align-items:baseline;padding:8px 10px;border:1px solid var(--line);border-radius:8px;margin-bottom:8px;cursor:pointer}input{accent-color:var(--accent)}input[type=radio],input[type=checkbox]{min-width:19px;min-height:19px}button,select{font:inherit;color:var(--text);background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 16px;min-height:44px;cursor:pointer}button.primary{background:var(--accent);color:var(--panel);border-color:var(--accent);font-weight:650}button:disabled{opacity:.55;cursor:default}:focus-visible{outline:3px solid var(--focus);outline-offset:3px}.small{font-size:.9rem;color:var(--muted)}.controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.toggle{display:flex;align-items:center;gap:10px;min-height:44px;font-weight:650}.range{margin:20px 0 8px}.range label{display:block;font-weight:650}input[type=range]{width:100%;min-height:38px}.stage{background:var(--bg);border:1px solid var(--line);border-radius:12px;margin:18px 0 10px;overflow:hidden}.stage svg{display:block;width:100%;height:auto;max-height:300px}.gear{stroke:var(--panel);stroke-width:1.5}.pitch{fill:none;stroke:var(--panel);stroke-dasharray:2 3;opacity:.65}.spoke{stroke:var(--panel);stroke-width:5;stroke-linecap:round}.hub{fill:var(--panel)}.gear-name{fill:var(--text);font:650 15px system-ui,sans-serif}.gear-teeth{fill:var(--muted);font:13px system-ui,sans-serif}.counters{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.counter{padding:14px 12px;background:var(--soft);border-radius:8px}.counter strong{display:block;font-variant-numeric:tabular-nums;font-size:1.4rem;line-height:1.35}.counter span{font-size:.85rem}.result{border-left:4px solid var(--accent);padding-left:14px;margin:18px 0 4px}.direction{font-size:.95rem;color:var(--muted)}.status{min-height:1.6em;margin-top:12px;font-size:.95rem}table{border-collapse:collapse;width:100%;margin-top:18px;font-size:.94rem}th,td{text-align:left;border-bottom:1px solid var(--line);padding:10px 8px;vertical-align:top}th:first-child,td:first-child{padding-left:0}caption{text-align:left;font-weight:650;margin-bottom:5px}.equation{font-size:1.1rem;padding:12px;background:var(--soft);border-radius:8px;overflow-wrap:anywhere}.cancel{color:var(--muted);text-decoration:line-through;text-decoration-thickness:2px}.limits{color:var(--muted)}details{margin-top:18px}summary{cursor:pointer;min-height:44px;padding:8px 0;font-weight:650}textarea{display:block;width:100%;margin-top:8px;min-height:85px;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:8px;font:inherit;padding:10px}[hidden]{display:none!important}.skip{position:absolute;left:12px;top:-80px;background:var(--panel);padding:10px}.skip:focus{top:12px}footer{font-size:.85rem;color:var(--muted)}
-@media(max-width:550px){main{padding:25px 14px 40px}.card{padding:18px 15px}.counters{gap:6px}.counter{padding:10px 8px}.counter strong{font-size:1.15rem}.counter span{font-size:.77rem}th,td{padding:9px 5px;font-size:.85rem}.controls button{flex:1}.stage svg{min-height:180px}}
-@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+/* lesson-shell v1: shared by every example page; keep identical across files */
+:root{color-scheme:light dark;--bar:56px;--bg:#f7f6f2;--surface:#fff;--stage:#eeece6;--ink:#141618;--text:#2a2e31;--muted:#61676c;--faint:#8b9196;--line:#e4e1d9;--line-strong:#cbc7bd;--accent:#d9480f;--accent-soft:#fcebe2;--focus:#d9480f;--ok:#1d7a4c;--sans:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",sans-serif;--mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace}
+@media(prefers-color-scheme:dark){:root{--bg:#111315;--surface:#181b1e;--stage:#0b0d0f;--ink:#f3f4f2;--text:#dadedc;--muted:#a1a7ab;--faint:#7a8085;--line:#272b2f;--line-strong:#3b4045;--accent:#ff7a45;--accent-soft:#2b1a11;--focus:#ff7a45;--ok:#4cc38a}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}body{margin:0;background:var(--bg);color:var(--text);font:15.5px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+[hidden]{display:none!important}html[data-lang=zh] [lang=en],html[data-lang=en] [lang=zh]{display:none!important}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.skip{position:absolute;left:12px;top:-80px;z-index:30;background:var(--surface);color:var(--ink);padding:8px 12px;border-radius:8px}.skip:focus{top:10px}
+.bar{position:sticky;top:0;z-index:20;height:var(--bar);display:flex;align-items:center;gap:14px;padding:0 16px 0 20px;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar .back{display:inline-flex;align-items:center;gap:6px;min-height:40px;color:var(--muted);text-decoration:none;font-size:14px;white-space:nowrap}.bar .back:hover{color:var(--ink)}
+.bar .crumb{min-width:0;font:500 12px/1.2 var(--mono);color:var(--faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lang-switch{margin-left:auto;flex:none;display:inline-flex;padding:3px;border:1px solid var(--line);border-radius:999px;background:var(--surface)}
+.lang-switch button{appearance:none;border:0;background:none;cursor:pointer;font:600 12px/1 var(--sans);min-height:30px;min-width:40px;padding:0 11px;border-radius:999px;color:var(--muted)}
+.lang-switch button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+.lesson{display:flex;flex-direction:column}.panel{display:contents}
+.intro{order:0;padding:28px 20px 6px}
+.figure-pane{order:1;margin:14px 12px 4px;padding:12px;background:var(--stage);border-radius:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.steps{order:2;padding:0 20px 40px}
+.stage{position:relative;min-height:0;display:grid;place-items:center}.stage>svg,.stage>canvas{display:block;width:100%;height:auto}
+.fig-caption{margin:0;font-size:12.5px;line-height:1.5;color:var(--muted)}
+.readouts{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.readout{background:var(--surface);padding:9px 13px;min-width:0}
+.readout .k{display:block;font:500 12px/1.35 var(--sans);color:var(--muted)}
+.readout strong{display:block;font:650 21px/1.3 var(--sans);font-variant-numeric:tabular-nums;color:var(--ink);letter-spacing:-.01em;overflow-wrap:anywhere}
+.readout .u{display:block;font-size:12px;line-height:1.35;color:var(--faint)}
+.meta{display:flex;flex-wrap:wrap;gap:4px 10px;margin:0 0 14px;padding:0;list-style:none;font:500 12.5px/1.4 var(--sans);color:var(--muted)}.meta li+li::before{content:"/";margin-right:10px;color:var(--line-strong)}
+h1{margin:0 0 12px;font-size:clamp(25px,2.5vw,33px);line-height:1.18;letter-spacing:-.025em;font-weight:700;color:var(--ink);text-wrap:balance}
+.lead{margin:0;color:var(--muted)}
+.step{padding:26px 0 22px;border-top:1px solid var(--line)}.intro+.steps .step:first-child,.steps>.step:first-child{border-top:0}
+.step>h2{display:flex;align-items:center;gap:10px;margin:0 0 12px;font-size:17px;line-height:1.3;letter-spacing:-.01em;color:var(--ink)}
+.step>h2 .n{flex:none;font:600 11px/1 var(--mono);color:var(--accent);border:1px solid currentColor;border-radius:6px;padding:4px 6px}
+h3{margin:20px 0 6px;font-size:14.5px;color:var(--ink)}p{margin:0 0 12px}strong{color:var(--ink)}
+.small{font-size:13.5px;color:var(--muted)}
+fieldset{border:0;padding:0;margin:0;min-width:0}legend{padding:0;margin:0 0 12px;font-weight:600;color:var(--ink)}
+label.choice{display:flex;gap:10px;align-items:flex-start;padding:10px 13px;margin-bottom:8px;border:1px solid var(--line);border-radius:10px;background:var(--surface);cursor:pointer;transition:border-color .12s,box-shadow .12s}
+label.choice:hover{border-color:var(--line-strong)}label.choice:has(input:checked){border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}label.choice:has(input:disabled){cursor:default}
+label.choice input{flex:none;margin:4px 0 0}input{accent-color:var(--ink)}input[type=radio],input[type=checkbox]{width:17px;height:17px}
+button,select{font:500 14px/1.2 var(--sans);color:var(--ink);background:var(--surface);border:1px solid var(--line-strong);border-radius:10px;padding:0 16px;min-height:42px;cursor:pointer}
+button:hover:not(:disabled),select:hover:not(:disabled){border-color:var(--ink)}button.primary{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+button:disabled,select:disabled{opacity:.45;cursor:not-allowed}
+.controls{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:14px 0}
+.toggle{display:flex;align-items:center;gap:10px;min-height:42px;font-weight:500;color:var(--ink);cursor:pointer}
+.range{margin:16px 0 8px}.range label{display:flex;justify-content:space-between;gap:12px;font-weight:500;color:var(--ink)}.range output{font:500 13px/1.6 var(--mono);color:var(--muted)}
+input[type=range]{width:100%;min-height:32px;margin:4px 0}
+.status{min-height:1.6em;margin:12px 0;padding:10px 12px;border-radius:10px;background:var(--bg);font-size:14px}
+.callout{margin:14px 0;padding:2px 0 2px 14px;border-left:3px solid var(--accent)}
+textarea{display:block;width:100%;min-height:90px;margin-top:8px;padding:10px 12px;font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line-strong);border-radius:10px;resize:vertical}
+table{border-collapse:collapse;width:100%;margin-top:14px;font-size:14px}th,td{text-align:left;padding:9px 6px;border-bottom:1px solid var(--line);vertical-align:top}th:first-child,td:first-child{padding-left:0}caption{text-align:left;font-weight:600;color:var(--ink);margin-bottom:4px}
+.limits{color:var(--muted);font-size:14px}
+.foot{margin-top:8px;padding-top:16px;border-top:1px solid var(--line);font-size:12.5px;color:var(--faint)}
+@media(min-width:960px) and (min-height:560px){
+.lesson{display:grid;grid-template-columns:minmax(0,1fr) clamp(380px,35vw,500px);height:calc(100dvh - var(--bar))}
+.panel{display:block;grid-column:2;grid-row:1;overflow-y:auto;overscroll-behavior:contain;background:var(--surface);border-left:1px solid var(--line)}
+.figure-pane{grid-column:1;grid-row:1;margin:0;border-radius:0;padding:24px 28px;min-height:0}
+.figure-pane .stage{flex:1}.figure-pane .stage>svg,.figure-pane .stage>canvas{height:100%;max-height:100%}
+.intro{padding:32px 32px 6px}.steps{padding:0 32px 48px}
+.bar{padding:0 20px 0 24px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+/* /lesson-shell */
+:root{--driver:#2f6fed;--idler:#868c92;--output:#d9480f}
+@media(prefers-color-scheme:dark){:root{--driver:#7aa5ff;--idler:#a1a7ab;--output:#ff8a57}}
+.gear{stroke:var(--stage);stroke-width:1.5}.pitch{fill:none;stroke:var(--stage);stroke-dasharray:2 3;opacity:.7}.spoke{stroke:var(--stage);stroke-width:5;stroke-linecap:round}.hub{fill:var(--stage)}
+.gear-name{fill:var(--ink);font:650 15px var(--sans)}.gear-teeth{fill:var(--muted);font:13px var(--sans)}
+.result p{margin:0;font-size:14px}.result .direction{color:var(--muted)}
+.equation{margin:10px 0;padding:12px 14px;border-radius:10px;background:var(--bg);font:500 16px/1.5 var(--mono);overflow-wrap:anywhere}.cancel{color:var(--muted);text-decoration:line-through;text-decoration-thickness:2px}
 </style>
 </head>
 <body>
-<a class="skip" href="#experiment">Skip to experiment</a>
-<main>
-<header>
-<div class="eyebrow">A one-minute gear experiment</div>
-<h1>Does an extra gear slow the output?</h1>
-<p class="lead">Compare a 12-tooth driver with a 24-tooth output. Add one gear between them, then count turns. Track <strong>how far</strong> the output turns separately from <strong>which way</strong> it turns.</p>
+<a class="skip" href="#experiment"><span lang="zh">跳到实验</span><span lang="en">Skip to experiment</span></a>
+<header class="bar">
+<a class="back" href="index.html" data-keep-lang>← <span lang="zh">全部示例</span><span lang="en">All examples</span></a>
+<span class="crumb">gear-ratio.html</span>
+<div class="lang-switch" role="group" aria-label="语言 / Language"><button type="button" data-set-lang="zh" aria-pressed="false">中文</button><button type="button" data-set-lang="en" aria-pressed="true">EN</button></div>
 </header>
-<section class="card" aria-labelledby="predict-title">
-<h2 id="predict-title"><span class="step">1</span> Predict</h2>
+<main class="lesson">
+<div class="panel">
+<div class="intro">
+<ul class="meta"><li><span lang="zh">机械</span><span lang="en">Mechanics</span></li><li><span lang="zh">2D 示意模型</span><span lang="en">2D schematic</span></li><li><span lang="zh">约 2 分钟</span><span lang="en">~2 min</span></li></ul>
+<h1><span lang="zh">多加一个齿轮，输出会变慢吗？</span><span lang="en">Does an extra gear slow the output?</span></h1>
+<p class="lead" lang="zh">12 齿主动轮带动 24 齿输出轮。在两者之间加一个惰轮，再数转了几圈。把输出<strong>转多少</strong>和<strong>朝哪转</strong>分开记录。</p>
+<p class="lead" lang="en">A 12-tooth driver turns a 24-tooth output. Add one gear between them, then count turns. Track <strong>how far</strong> the output turns separately from <strong>which way</strong> it turns.</p>
+</div>
+<div class="steps">
+<section class="step" aria-labelledby="predict-title">
+<h2 id="predict-title"><span class="n">01</span><span lang="zh">预测</span><span lang="en">Predict</span></h2>
 <form id="prediction-form">
 <fieldset>
-<legend>Without an idler, one driver turn makes the output turn halfway. With one idler added, how far will the same output turn?</legend>
-<label class="choice"><input type="radio" name="prediction" value="slower" required> Less than half a turn. An extra gear slows it down.</label>
-<label class="choice"><input type="radio" name="prediction" value="same"> Exactly half a turn.</label>
-<label class="choice"><input type="radio" name="prediction" value="faster"> More than half a turn.</label>
+<legend><span lang="zh">不加惰轮时，主动轮转一圈，输出轮转半圈。加上一个惰轮后，同一个输出轮会转多少？</span><span lang="en">Without an idler, one driver turn makes the output turn halfway. With one idler added, how far will the same output turn?</span></legend>
+<label class="choice"><input type="radio" name="prediction" value="slower" required><span lang="zh">不到半圈。多一个齿轮会让它变慢。</span><span lang="en">Less than half a turn. An extra gear slows it down.</span></label>
+<label class="choice"><input type="radio" name="prediction" value="same"><span lang="zh">正好半圈。</span><span lang="en">Exactly half a turn.</span></label>
+<label class="choice"><input type="radio" name="prediction" value="faster"><span lang="zh">超过半圈。</span><span lang="en">More than half a turn.</span></label>
 </fieldset>
-<button type="submit">Save my prediction</button>
-<p id="prediction-status" class="small" aria-live="polite">Choose a prediction, then test both arrangements.</p>
+<div class="controls"><button type="submit" class="primary"><span lang="zh">记下预测</span><span lang="en">Save my prediction</span></button></div>
+<p id="prediction-status" class="small" aria-live="polite"></p>
 </form>
 </section>
-<section id="experiment" class="card" aria-labelledby="try-title">
-<h2 id="try-title"><span class="step">2</span> Try</h2>
-<p>Turn the driver once without an idler. Add the idler and repeat. The input always turns clockwise.</p>
-<label class="toggle"><input id="idler" type="checkbox" disabled> Add one 18-tooth idler</label>
-<p class="small">Changing the arrangement starts a fresh turn. Your completed results stay in the comparison below.</p>
-<div class="stage">
-<svg id="diagram" viewBox="0 0 540 250" role="img" aria-labelledby="diagram-title diagram-description">
-<title id="diagram-title">External gear train seen from the front</title>
-<desc id="diagram-description">A 12-tooth driver meshes with a 24-tooth output. The radial marks show rotation. Use the controls below to turn the driver.</desc>
-<g id="gears"></g>
-</svg>
-</div>
-<p class="small">2D schematic. Gear size follows tooth count. Radial marks make partial turns visible.</p>
-<div class="counters" aria-label="Turn magnitudes in the current run">
-<div class="counter"><span>Driver turns</span><strong id="driver-count">0.00</strong><span>12 teeth</span></div>
-<div class="counter"><span>Idler turns</span><strong id="idler-count">Absent</strong><span>18 teeth when added</span></div>
-<div class="counter"><span>Output turns</span><strong id="output-count">0.00</strong><span>24 teeth</span></div>
-</div>
+<section class="step" aria-labelledby="try-title">
+<h2 id="try-title"><span class="n">02</span><span lang="zh">动手试</span><span lang="en">Try</span></h2>
+<p lang="zh">先不加惰轮，让主动轮转一圈。再加上惰轮重复一次。输入始终顺时针转。</p>
+<p lang="en">Turn the driver once without an idler. Add the idler and repeat. The input always turns clockwise.</p>
+<label class="toggle"><input id="idler" type="checkbox" disabled><span lang="zh">加入一个 18 齿惰轮</span><span lang="en">Add one 18-tooth idler</span></label>
 <div class="range">
-<label for="turn">Driver progress <output id="progress" for="turn">0.00 of 1 turn</output></label>
+<label for="turn"><span><span lang="zh">主动轮进度</span><span lang="en">Driver progress</span></span><output id="progress" for="turn"></output></label>
 <input id="turn" type="range" min="0" max="1" step="0.25" value="0" disabled aria-describedby="range-help">
-<p id="range-help" class="small">Use the slider or its arrow keys to step by a quarter turn. Home returns to zero. End completes one turn.</p>
+<p id="range-help" class="small"><span lang="zh">用滑块或方向键每次走四分之一圈。Home 归零，End 转满一圈。</span><span lang="en">Use the slider or its arrow keys to step by a quarter turn. Home returns to zero. End completes one turn.</span></p>
 </div>
 <div class="controls">
-<button id="run" class="primary" type="button" disabled>Turn driver once</button>
-<button id="reset" type="button">Reset lesson</button>
+<button id="run" class="primary" type="button" disabled></button>
+<button id="reset" type="button"><span lang="zh">重置</span><span lang="en">Reset lesson</span></button>
 </div>
 <p id="motion-note" class="small"></p>
-<div class="result">
-<p id="magnitude">Magnitude means the number of turns, without a direction sign.</p>
-<p id="direction" class="direction">Direction will appear when you turn the driver.</p>
-</div>
-<p id="run-status" class="status" role="status">Save your prediction to enable the experiment.</p>
+<p id="run-status" class="status" role="status"></p>
+<p class="small"><span lang="zh">切换排列会从零开始新的一圈。已完成的结果保留在下表中。</span><span lang="en">Changing the arrangement starts a fresh turn. Your completed results stay in the comparison below.</span></p>
 <table>
-<caption>Your one-turn comparison</caption>
-<thead><tr><th scope="col">Arrangement</th><th scope="col">Output turns</th><th scope="col">Output direction</th></tr></thead>
-<tbody><tr><th scope="row">No idler</th><td id="direct-result">Not tried</td><td id="direct-direction">Not tried</td></tr><tr><th scope="row">One idler</th><td id="idler-result">Not tried</td><td id="idler-direction">Not tried</td></tr></tbody>
+<caption><span lang="zh">你的一圈对比</span><span lang="en">Your one-turn comparison</span></caption>
+<thead><tr><th scope="col"><span lang="zh">排列</span><span lang="en">Arrangement</span></th><th scope="col"><span lang="zh">输出圈数</span><span lang="en">Output turns</span></th><th scope="col"><span lang="zh">输出方向</span><span lang="en">Output direction</span></th></tr></thead>
+<tbody><tr><th scope="row"><span lang="zh">无惰轮</span><span lang="en">No idler</span></th><td id="direct-result"></td><td id="direct-direction"></td></tr><tr><th scope="row"><span lang="zh">一个惰轮</span><span lang="en">One idler</span></th><td id="idler-result"></td><td id="idler-direction"></td></tr></tbody>
 </table>
 </section>
-<section id="explanation" class="card" aria-labelledby="explain-title" hidden>
-<h2 id="explain-title"><span class="step">3</span> Explain</h2>
-<p id="prediction-feedback"></p>
+<section id="explanation" class="step" aria-labelledby="explain-title" hidden>
+<h2 id="explain-title"><span class="n">03</span><span lang="zh">解释</span><span lang="en">Explain</span></h2>
+<p id="prediction-feedback" class="callout"></p>
+<div lang="zh">
+<p><strong>加一个惰轮，速比的大小不变。</strong>每次啮合，一个齿推动邻轮的一个齿。12 齿主动轮转一圈，就有 12 个齿经过第一个啮合点。</p>
+<p>惰轮把同样的 12 个齿送过第二个啮合点。24 齿的输出轮因此前进 24 齿中的 12 齿，也就是半圈。</p>
+<h3>转多少</h3>
+<p>惰轮本身比主动轮转得少，但下一次啮合不会再叠加同样的减速。每一次啮合都有自己的齿数比。</p>
+</div>
+<div lang="en">
 <p><strong>Adding one idler leaves the speed-ratio magnitude unchanged.</strong> Each meshing tooth pushes one tooth of its neighbor. One full turn of the 12-tooth driver moves 12 teeth past the first contact.</p>
 <p>The idler moves those same 12 teeth past the second contact. The 24-tooth output therefore advances 12 of its 24 teeth. That is half a turn.</p>
 <h3>Magnitude</h3>
 <p>The idler turns less than the driver, but the next mesh does not add the same reduction again. Each mesh has its own tooth-count ratio.</p>
-<div class="equation" aria-label="Output turns per driver turn equals 12 divided by 18 times 18 divided by 24, which equals 12 divided by 24, or one half.">12 / <span class="cancel">18</span> × <span class="cancel">18</span> / 24 = 12 / 24 = <strong>½</strong></div>
+</div>
+<div class="equation" data-i18n data-zh-aria-label="输出圈数 ÷ 主动轮圈数 = 12/18 × 18/24 = 12/24 = 二分之一。" data-en-aria-label="Output turns per driver turn equals 12 divided by 18 times 18 divided by 24, which equals 12 divided by 24, or one half.">12 / <span class="cancel">18</span> × <span class="cancel">18</span> / 24 = 12 / 24 = <strong>½</strong></div>
+<div lang="zh">
+<p class="small">惰轮的齿数一次作除数、一次作乘数，所以相互抵消。输入每秒 1 圈时，两种排列的输出都是每秒 0.5 圈。</p>
+<h3>朝哪转</h3>
+<p>每一次外啮合都会反转方向。没有惰轮时反转一次，输出逆时针；有一个惰轮时反转两次，输出顺时针。方向变了，大小仍是 ½。</p>
+</div>
+<div lang="en">
 <p class="small">The idler's tooth count appears once as a divisor and once as a multiplier, so it cancels. At a steady input speed of 1 turn per second, the output makes 0.5 turns per second in either arrangement.</p>
 <h3>Direction</h3>
 <p>Every external gear mesh reverses direction. With no idler, one reversal makes the output turn counterclockwise. With one idler, two reversals make it turn clockwise. Direction changes. The magnitude stays at ½.</p>
-<label for="explain-answer">Explain the result in your own words.</label>
-<p class="small">“The idler changes ___, while the output still turns ___ because ___.”</p>
-<textarea id="explain-answer" placeholder="Your explanation stays on this page. It is not saved or sent."></textarea>
-<h3>Transfer question</h3>
+</div>
+<label for="explain-answer"><strong><span lang="zh">用你自己的话解释这个结果。</span><span lang="en">Explain the result in your own words.</span></strong></label>
+<p class="small"><span lang="zh">“惰轮改变了 ___，而输出仍然转 ___，因为 ___。”</span><span lang="en">“The idler changes ___, while the output still turns ___ because ___.”</span></p>
+<textarea id="explain-answer" data-i18n data-zh-placeholder="你的解释只留在这个页面，不会保存或发送。" data-en-placeholder="Your explanation stays on this page. It is not saved or sent."></textarea>
+<h3><span lang="zh">迁移：换一个新情形</span><span lang="en">Transfer question</span></h3>
 <form id="transfer-form">
-<fieldset><legend>Replace only the idler with a 30-tooth gear and reposition the shafts so the gears still mesh. For one clockwise driver turn, what does the 24-tooth output do?</legend>
-<label class="choice"><input type="radio" name="transfer" value="slow" required> Less than half a turn, clockwise.</label>
-<label class="choice"><input type="radio" name="transfer" value="same"> Half a turn, clockwise.</label>
-<label class="choice"><input type="radio" name="transfer" value="reverse"> Half a turn, counterclockwise.</label>
-</fieldset><button type="submit">Check my answer</button>
+<fieldset><legend><span lang="zh">只把惰轮换成 30 齿，并调整轴的位置让齿轮仍然啮合。主动轮顺时针转一圈，24 齿输出轮会怎样？</span><span lang="en">Replace only the idler with a 30-tooth gear and reposition the shafts so the gears still mesh. For one clockwise driver turn, what does the 24-tooth output do?</span></legend>
+<label class="choice"><input type="radio" name="transfer" value="slow" required><span lang="zh">不到半圈，顺时针。</span><span lang="en">Less than half a turn, clockwise.</span></label>
+<label class="choice"><input type="radio" name="transfer" value="same"><span lang="zh">半圈，顺时针。</span><span lang="en">Half a turn, clockwise.</span></label>
+<label class="choice"><input type="radio" name="transfer" value="reverse"><span lang="zh">半圈，逆时针。</span><span lang="en">Half a turn, counterclockwise.</span></label>
+</fieldset>
+<div class="controls"><button type="submit"><span lang="zh">核对答案</span><span lang="en">Check my answer</span></button></div>
 <p id="transfer-feedback" class="status" role="status"></p>
 </form>
 </section>
-<section class="card limits" aria-labelledby="limits-title">
-<h2 id="limits-title">Where this model applies</h2>
+<section class="step limits" aria-labelledby="limits-title">
+<h2 id="limits-title"><span lang="zh">这个模型的适用范围</span><span lang="en">Where this model applies</span></h2>
+<div lang="zh">
+<p>本课使用理想的刚性外齿轮：齿距相同、轴固定、不打滑。惰轮是单独一根轴上的一个齿轮。齿数是为教学选的示例值。</p>
+<p>省略了摩擦、齿隙、轮齿变形、轴承阻力和惯性。加入惰轮会增加损耗并影响加速，真实电机在负载增加时可能变慢。本图固定了主动轮的运动，所以演示的是几何速比，不是功率损失或电机性能。</p>
+<p>如果中间轴上锁着两个不同的齿轮（复合轮系），需要另一种算法。这里的抵消只适用于单个简单惰轮。</p>
+</div>
+<div lang="en">
 <p>This lesson uses ideal, rigid external gears with the same tooth spacing, fixed shafts, and no slipping. The idler is one gear on its own shaft. Tooth counts are illustrative teaching choices.</p>
 <p>Friction, backlash, tooth flex, bearing drag, and inertia are omitted. An added idler can increase losses and affect acceleration. A real motor may slow under extra load. This figure holds the driver's motion fixed, so it demonstrates the geometric ratio, not power loss or motor performance.</p>
 <p>A compound train with two different gears locked to the same intermediate shaft needs a different calculation. The cancellation shown here applies to a single simple idler.</p>
+</div>
+<p class="foot"><span lang="zh">离线可用。用 Tab 切换控件，空格勾选复选框，方向键调节进度滑块。没有快捷键会干扰你的写作。</span><span lang="en">Works offline. Use Tab to reach controls, Space to toggle the checkbox, and arrow keys on the progress slider. No keyboard shortcuts override your writing.</span></p>
 </section>
-<footer>Works offline. Use Tab to reach controls, Space to toggle the checkbox, and arrow keys on the progress slider. No keyboard shortcuts override your writing.</footer>
+</div>
+</div>
+<section id="experiment" class="figure-pane" aria-labelledby="diagram-title">
+<div class="stage">
+<svg id="diagram" viewBox="0 0 540 250" role="img" aria-labelledby="diagram-title diagram-description">
+<title id="diagram-title" data-i18n data-zh="外啮合齿轮系（正视图）" data-en="External gear train seen from the front">External gear train seen from the front</title>
+<desc id="diagram-description"></desc>
+<g id="gears"></g>
+</svg>
+</div>
+<div class="readouts" aria-label="Turn magnitudes in the current run" data-i18n data-zh-aria-label="本次运行的转动圈数" data-en-aria-label="Turn magnitudes in the current run">
+<div class="readout"><span class="k"><span lang="zh">主动轮圈数</span><span lang="en">Driver turns</span></span><strong id="driver-count">0.00</strong><span class="u"><span lang="zh">12 齿</span><span lang="en">12 teeth</span></span></div>
+<div class="readout"><span class="k"><span lang="zh">惰轮圈数</span><span lang="en">Idler turns</span></span><strong id="idler-count"></strong><span class="u"><span lang="zh">加入时 18 齿</span><span lang="en">18 teeth when added</span></span></div>
+<div class="readout"><span class="k"><span lang="zh">输出圈数</span><span lang="en">Output turns</span></span><strong id="output-count">0.00</strong><span class="u"><span lang="zh">24 齿</span><span lang="en">24 teeth</span></span></div>
+</div>
+<div class="result">
+<p id="magnitude"></p>
+<p id="direction" class="direction"></p>
+</div>
+<p class="fig-caption"><span lang="zh">2D 示意图。齿轮大小与齿数成比例，径向标记让不满一圈的转动也看得见。</span><span lang="en">2D schematic. Gear size follows tooth count. Radial marks make partial turns visible.</span></p>
+</section>
 </main>
 <script>
 'use strict';
+/* lesson-shell i18n v1: shared by every example page; keep identical across files.
+   Static copy: paired elements <span lang="zh">…</span><span lang="en">…</span> (CSS hides the other language).
+   Text-only nodes and attributes: data-i18n plus data-zh / data-en (textContent) or data-zh-<attr> / data-en-<attr>.
+   Dynamic copy: tr('中文', 'English'); say(el, () => tr(…)) re-renders the message when the language changes. */
+const I18N = (() => {
+  const KEY = 'tf-lang', LANGS = ['zh', 'en'];
+  const stored = (() => { try { return localStorage.getItem(KEY); } catch { return null; } })();
+  const param = new URLSearchParams(location.search).get('lang');
+  let lang = LANGS.includes(param) ? param : LANGS.includes(stored) ? stored : /^zh\b/i.test(navigator.language || '') ? 'zh' : 'en';
+  const listeners = [];
+  function apply() {
+    const root = document.documentElement;
+    root.lang = lang === 'zh' ? 'zh-CN' : 'en';
+    root.dataset.lang = lang;
+    for (const el of document.querySelectorAll('[data-i18n]')) {
+      for (const { name, value } of [...el.attributes]) {
+        if (name === 'data-' + lang) el.textContent = value;
+        else if (name.startsWith('data-' + lang + '-')) el.setAttribute(name.slice(lang.length + 6), value);
+      }
+    }
+    for (const button of document.querySelectorAll('[data-set-lang]')) button.setAttribute('aria-pressed', String(button.dataset.setLang === lang));
+    for (const link of document.querySelectorAll('a[data-keep-lang]')) {
+      const target = new URL(link.getAttribute('href').split('?')[0], location.href);
+      target.searchParams.set('lang', lang);
+      link.href = target.href;
+    }
+    listeners.forEach(fn => fn(lang));
+  }
+  document.addEventListener('click', event => {
+    const button = event.target.closest('[data-set-lang]');
+    if (!button || button.dataset.setLang === lang) return;
+    lang = button.dataset.setLang;
+    try { localStorage.setItem(KEY, lang); } catch {}
+    try { const here = new URL(location.href); here.searchParams.set('lang', lang); history.replaceState(history.state, '', here); } catch {}
+    apply();
+  });
+  return { get lang() { return lang; }, on(fn) { listeners.push(fn); }, apply };
+})();
+const tr = (zh, en) => I18N.lang === 'zh' ? zh : en;
+const spoken = new Map();
+function say(target, message) {
+  const el = typeof target === 'string' ? document.getElementById(target) : target;
+  spoken.set(el, message);
+  el.textContent = message ? message() : '';
+}
+I18N.on(() => spoken.forEach((message, el) => { el.textContent = message ? message() : ''; }));
+/* /lesson-shell */
 const $ = id => document.getElementById(id);
 const state = {idler:false, turns:0, prediction:null, running:false, observed:{direct:false,idler:false}};
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
@@ -115,6 +257,8 @@ function model(teeth, inputTurns) {
   return teeth.map((count,index) => ({teeth:count, turns:inputTurns * teeth[0] / count * (-1) ** index, radius:count * 3}));
 }
 function currentModel() { return model(state.idler ? [12,18,24] : [12,24], state.turns); }
+const fixed = value => Math.abs(value).toFixed(2);
+const rotation = clockwise => clockwise ? tr('顺时针','Clockwise') : tr('逆时针','Counterclockwise');
 function toothPath(radius,count) {
   const points = [];
   for(let tooth=0;tooth<count;tooth++) {
@@ -130,12 +274,12 @@ function buildDiagram() {
   const totalWidth = gears.reduce((sum,g) => sum+g.radius*2,0);
   let left = (540-totalWidth)/2;
   $('gears').innerHTML = gears.map((gear,index) => {
-    const name = index===0 ? 'Driver' : index===gears.length-1 ? 'Output' : 'Idler';
-    const color = name.toLowerCase();
+    const role = index===0 ? 'driver' : index===gears.length-1 ? 'output' : 'idler';
+    const name = {driver:tr('主动轮','Driver'), idler:tr('惰轮','Idler'), output:tr('输出轮','Output')}[role];
     const x = left+gear.radius;
     left += gear.radius*2;
     const phase = index%2 ? 180/gear.teeth : 0;
-    return `<g transform="translate(${x} 115)"><g id="wheel-${index}" data-phase="${phase}" style="color:var(--${color})"><path class="gear" fill="currentColor" d="${toothPath(gear.radius,gear.teeth)}" transform="rotate(${phase})"/><circle class="pitch" r="${gear.radius}"/><path class="spoke" d="M0 0V-${gear.radius-13}"/><circle class="hub" r="7"/></g><text class="gear-name" text-anchor="middle" y="${gear.radius+28}">${name}</text><text class="gear-teeth" text-anchor="middle" y="${gear.radius+46}">${gear.teeth} teeth</text></g>`;
+    return `<g transform="translate(${x} 115)"><g id="wheel-${index}" data-phase="${phase}" style="color:var(--${role})"><path class="gear" fill="currentColor" d="${toothPath(gear.radius,gear.teeth)}" transform="rotate(${phase})"/><circle class="pitch" r="${gear.radius}"/><path class="spoke" d="M0 0V-${gear.radius-13}"/><circle class="hub" r="7"/></g><text class="gear-name" text-anchor="middle" y="${gear.radius+28}">${name}</text><text class="gear-teeth" text-anchor="middle" y="${gear.radius+46}">${tr(gear.teeth+' 齿',gear.teeth+' teeth')}</text></g>`;
   }).join('');
 }
 function stop() {
@@ -147,28 +291,33 @@ function stop() {
 function render() {
   const gears = currentModel();
   const output = gears.at(-1);
+  const turns = state.turns.toFixed(2), out = fixed(output.turns);
   gears.forEach((gear,index) => $('wheel-'+index).setAttribute('transform',`rotate(${gear.turns*360})`));
-  $('driver-count').textContent = state.turns.toFixed(2);
-  $('idler-count').textContent = state.idler ? Math.abs(gears[1].turns).toFixed(2) : 'Absent';
-  $('output-count').textContent = Math.abs(output.turns).toFixed(2);
+  $('driver-count').textContent = turns;
+  $('idler-count').textContent = state.idler ? fixed(gears[1].turns) : tr('未加入','Absent');
+  $('output-count').textContent = out;
   $('turn').value = state.turns;
-  $('progress').value = `${state.turns.toFixed(2)} of 1 turn`;
-  $('turn').setAttribute('aria-valuetext',`${state.turns.toFixed(2)} driver turns. ${Math.abs(output.turns).toFixed(2)} output turns.`);
-  $('run').textContent = state.running ? 'Pause' : reducedMotion.matches ? 'Show one full turn' : state.turns>0 && state.turns<1 ? 'Continue to one turn' : 'Turn driver once';
-  $('magnitude').textContent = state.turns===0 ? 'Magnitude means the number of turns, without a direction sign.' : `Magnitude so far: ${Math.abs(output.turns).toFixed(2)} output turns for ${state.turns.toFixed(2)} driver turns.`;
-  $('direction').textContent = state.turns===0 ? 'Direction will appear when you turn the driver.' : `Direction: driver clockwise; ${state.idler ? 'idler counterclockwise; ' : ''}output ${output.turns<0 ? 'counterclockwise, opposite to the driver.' : 'clockwise, same as the driver.'}`;
-  $('diagram-description').textContent = `${state.idler ? 'A 12-tooth driver meshes through an 18-tooth idler with a 24-tooth output.' : 'A 12-tooth driver meshes directly with a 24-tooth output.'} Driver ${state.turns.toFixed(2)} turns. Output ${Math.abs(output.turns).toFixed(2)} turns.${state.turns ? ' Output direction '+(output.turns<0?'counterclockwise.':'clockwise.') : ''}`;
-  $('motion-note').textContent = reducedMotion.matches ? 'Reduced motion is on. The full-turn button shows the final state immediately. Use the slider for stable quarter-turn steps.' : 'The full-turn button animates a four-second run. Pause at any point, or use the slider to step.';
+  $('progress').value = tr(`${turns} / 1 圈`,`${turns} of 1 turn`);
+  $('turn').setAttribute('aria-valuetext',tr(`主动轮 ${turns} 圈，输出 ${out} 圈。`,`${turns} driver turns. ${out} output turns.`));
+  $('run').textContent = state.running ? tr('暂停','Pause') : reducedMotion.matches ? tr('显示转满一圈','Show one full turn') : state.turns>0 && state.turns<1 ? tr('继续转满一圈','Continue to one turn') : tr('转动主动轮一圈','Turn driver once');
+  $('magnitude').textContent = state.turns===0 ? tr('圈数只看转了多少，不计方向。','Magnitude means the number of turns, without a direction sign.') : tr(`目前：主动轮 ${turns} 圈，输出 ${out} 圈。`,`Magnitude so far: ${out} output turns for ${turns} driver turns.`);
+  $('direction').textContent = state.turns===0 ? tr('转动主动轮后会显示方向。','Direction will appear when you turn the driver.') : tr(`方向：主动轮顺时针；${state.idler?'惰轮逆时针；':''}输出${output.turns<0?'逆时针，与主动轮相反。':'顺时针，与主动轮相同。'}`,`Direction: driver clockwise; ${state.idler ? 'idler counterclockwise; ' : ''}output ${output.turns<0 ? 'counterclockwise, opposite to the driver.' : 'clockwise, same as the driver.'}`);
+  $('diagram-description').textContent = tr(`${state.idler?'12 齿主动轮经 18 齿惰轮带动 24 齿输出轮。':'12 齿主动轮直接带动 24 齿输出轮。'}主动轮 ${turns} 圈，输出 ${out} 圈。${state.turns?'输出方向'+(output.turns<0?'逆时针。':'顺时针。'):''}`,`${state.idler ? 'A 12-tooth driver meshes through an 18-tooth idler with a 24-tooth output.' : 'A 12-tooth driver meshes directly with a 24-tooth output.'} Driver ${turns} turns. Output ${out} turns.${state.turns ? ' Output direction '+(output.turns<0?'counterclockwise.':'clockwise.') : ''}`);
+  $('motion-note').textContent = reducedMotion.matches ? tr('已开启“减少动态效果”。点击按钮直接显示转满一圈的状态，也可以用滑块每次走四分之一圈。','Reduced motion is on. The full-turn button shows the final state immediately. Use the slider for stable quarter-turn steps.') : tr('按钮会用四秒转满一圈。可以随时暂停，也可以用滑块步进。','The full-turn button animates a four-second run. Pause at any point, or use the slider to step.');
+}
+function recordedResult(key) {
+  say(key+'-result',() => state.observed[key] ? tr('0.50 圈','0.50 turn') : tr('未测试','Not tried'));
+  say(key+'-direction',() => state.observed[key] ? rotation(key==='idler') : tr('未测试','Not tried'));
 }
 function complete() {
   const key = state.idler ? 'idler' : 'direct';
   state.observed[key] = true;
-  $(''+key+'-result').textContent = Math.abs(currentModel().at(-1).turns).toFixed(2)+' turn';
-  $(''+key+'-direction').textContent = state.idler ? 'Clockwise' : 'Counterclockwise';
-  const both = state.observed.direct && state.observed.idler;
-  $('run-status').textContent = `${state.idler?'One idler':'No idler'}: 1.00 driver turn, 0.50 output turn, ${state.idler?'clockwise':'counterclockwise'}. ${both?'Both runs are recorded. Compare magnitude and direction, then read Explain below.':state.idler?'Now remove the idler and run once.':'Now add the idler and run once.'}`;
+  recordedResult(key);
+  const both = state.observed.direct && state.observed.idler, idler = state.idler;
+  say('run-status',() => tr(`${idler?'一个惰轮':'无惰轮'}：主动轮 1.00 圈，输出 0.50 圈，${idler?'顺时针':'逆时针'}。${both?'两次都已记录。比较圈数和方向，再读下面的“解释”。':idler?'现在去掉惰轮，再转一次。':'现在加上惰轮，再转一次。'}`,`${idler?'One idler':'No idler'}: 1.00 driver turn, 0.50 output turn, ${idler?'clockwise':'counterclockwise'}. ${both?'Both runs are recorded. Compare magnitude and direction, then read Explain below.':idler?'Now remove the idler and run once.':'Now add the idler and run once.'}`));
   $('explanation').hidden = !both;
-  if(both) $('prediction-feedback').textContent = state.prediction==='same' ? 'Your prediction matches both runs. Each produced half an output turn.' : 'Your prediction was '+(state.prediction==='slower'?'less than half':'more than half')+' a turn with the idler. Both completed runs produced half a turn. The extra gear changed the direction.';
+  const prediction = state.prediction;
+  if(both) say('prediction-feedback',() => prediction==='same' ? tr('你的预测与两次运行一致：都转了半圈。','Your prediction matches both runs. Each produced half an output turn.') : tr(`你预测加惰轮后输出${prediction==='slower'?'不到半圈':'超过半圈'}。两次完整运行都只转了半圈，多出的齿轮改变的是方向。`,'Your prediction was '+(prediction==='slower'?'less than half':'more than half')+' a turn with the idler. Both completed runs produced half a turn. The extra gear changed the direction.'));
 }
 function setTurns(value) {
   state.turns = Math.max(0,Math.min(1,value));
@@ -187,40 +336,46 @@ $('prediction-form').addEventListener('submit',event => {
   event.preventDefault();
   state.prediction = new FormData(event.currentTarget).get('prediction');
   event.currentTarget.querySelectorAll('input,button').forEach(control => control.disabled=true);
-  $('prediction-status').textContent = 'Prediction saved. Test both arrangements before checking the explanation.';
+  say('prediction-status',() => tr('预测已记下。测试两种排列后再看解释。','Prediction saved. Test both arrangements before checking the explanation.'));
   ['idler','turn','run'].forEach(id => $(id).disabled=false);
-  $('run-status').textContent = 'Ready. Turn the driver once, then change the arrangement and repeat.';
+  say('run-status',() => tr('准备就绪。先让主动轮转一圈，再换排列重复。','Ready. Turn the driver once, then change the arrangement and repeat.'));
 });
 $('idler').addEventListener('change',event => {
   stop();state.idler=event.currentTarget.checked;state.turns=0;buildDiagram();render();
-  $('run-status').textContent = `${state.idler?'One idler added':'Idler removed'}. Current turn reset to zero. Run the same one-turn input.`;
+  const idler = state.idler;
+  say('run-status',() => tr(`${idler?'已加入惰轮':'已移除惰轮'}。当前圈数归零，用同样的一圈输入再试。`,`${idler?'One idler added':'Idler removed'}. Current turn reset to zero. Run the same one-turn input.`));
 });
 $('turn').addEventListener('input',event => {
   stop();setTurns(Number(event.currentTarget.value));
-  if(state.turns!==1) $('run-status').textContent = `Stepped to ${state.turns.toFixed(2)} driver turns. Output ${Math.abs(currentModel().at(-1).turns).toFixed(2)} turns.`;
+  const turns = state.turns.toFixed(2), out = fixed(currentModel().at(-1).turns);
+  if(state.turns!==1) say('run-status',() => tr(`已走到主动轮 ${turns} 圈，输出 ${out} 圈。`,`Stepped to ${turns} driver turns. Output ${out} turns.`));
 });
 $('run').addEventListener('click',() => {
-  if(state.running) {stop();render();$('run-status').textContent='Paused. Continue the run or use the slider.';return;}
+  if(state.running) {stop();render();say('run-status',() => tr('已暂停。继续运行，或用滑块步进。','Paused. Continue the run or use the slider.'));return;}
   if(state.turns===1) state.turns=0;
   if(reducedMotion.matches) {setTurns(1);return;}
-  state.running=true;render();$('run-status').textContent='Running one driver turn.';frame=requestAnimationFrame(tick);
+  state.running=true;render();say('run-status',() => tr('主动轮正在转一圈。','Running one driver turn.'));frame=requestAnimationFrame(tick);
 });
-$('reset').addEventListener('click',() => {
+function resetLesson() {
   stop();Object.assign(state,{idler:false,turns:0,prediction:null,observed:{direct:false,idler:false}});
-  $('prediction-form').reset();$('prediction-form').querySelectorAll('input,button').forEach(control=>control.disabled=false);$('transfer-form').reset();$('explain-answer').value='';$('transfer-feedback').textContent='';
+  $('prediction-form').reset();$('prediction-form').querySelectorAll('input,button').forEach(control=>control.disabled=false);$('transfer-form').reset();$('explain-answer').value='';say('transfer-feedback',null);say('prediction-feedback',null);
   $('idler').checked=false;['idler','turn','run'].forEach(id => $(id).disabled=true);
-  ['direct-result','direct-direction','idler-result','idler-direction'].forEach(id=>$(id).textContent='Not tried');
-  $('explanation').hidden=true;$('prediction-status').textContent='Choose a prediction, then test both arrangements.';
-  buildDiagram();render();$('run-status').textContent='Lesson reset. Save a new prediction to start.';
+  recordedResult('direct');recordedResult('idler');
+  $('explanation').hidden=true;say('prediction-status',() => tr('先选一个预测，再测试两种排列。','Choose a prediction, then test both arrangements.'));
+  buildDiagram();render();
+}
+$('reset').addEventListener('click',() => {
+  resetLesson();
+  say('run-status',() => tr('已重置。记下新的预测后开始。','Lesson reset. Save a new prediction to start.'));
 });
 $('transfer-form').addEventListener('submit',event => {
   event.preventDefault();
   const answer = new FormData(event.currentTarget).get('transfer');
-  const result = model([12,30,24],1).at(-1);
-  $('transfer-feedback').textContent = `${answer==='same'?'Yes.':'Try the cancellation again.'} The output makes ${result.turns.toFixed(2)} turn clockwise. 12 / 30 × 30 / 24 = 12 / 24 = ½. Two external meshes still reverse direction twice.`;
+  const result = model([12,30,24],1).at(-1).turns.toFixed(2);
+  say('transfer-feedback',() => tr(`${answer==='same'?'对。':'再看一次抵消过程。'}输出轮顺时针转 ${result} 圈。12 / 30 × 30 / 24 = 12 / 24 = ½。两次外啮合仍然让方向反转两次。`,`${answer==='same'?'Yes.':'Try the cancellation again.'} The output makes ${result} turn clockwise. 12 / 30 × 30 / 24 = 12 / 24 = ½. Two external meshes still reverse direction twice.`));
 });
 function pauseOffscreen() {
-  if(state.running) {stop();render();$('run-status').textContent='Paused while the experiment is out of view. Continue when ready.';}
+  if(state.running) {stop();render();say('run-status',() => tr('实验移出了视野，已暂停。准备好后继续。','Paused while the experiment is out of view. Continue when ready.'));}
 }
 document.addEventListener('visibilitychange',()=>{if(document.hidden) pauseOffscreen();});
 new IntersectionObserver(entries=>{if(!entries[0].isIntersecting) pauseOffscreen();}).observe($('experiment'));
@@ -236,7 +391,11 @@ function selfCheck() {
   }
   return 'Passed reset, quarter-turn steps, endpoint, direction, and 18/30-tooth idler invariance.';
 }
-selfCheck();buildDiagram();render();
+selfCheck();
+I18N.on(() => {buildDiagram();render();});
+I18N.apply();
+resetLesson();
+say('run-status',() => tr('记下预测后即可开始实验。','Save your prediction to enable the experiment.'));
 </script>
 </body>
 </html>

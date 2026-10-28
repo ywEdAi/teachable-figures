@@ -67,7 +67,9 @@ A generated figure is a teaching design. It has not been evaluated with learners
 
 ![Actual screenshots of a cone section, a schematic chest, a rocket launch, Transformer data flow, a Ming robe, and a gear-ratio experiment](assets/readme/examples.png)
 
-**[Try all six examples online →](https://ywedai.github.io/teachable-figures/)** No installation required. Each page also runs offline with native controls, reset, an explanation, and a transfer question. Download the [example directory](examples/) for local use.
+**[Try all six examples online →](https://ywedai.github.io/teachable-figures/)** No installation required. Each page also runs offline with native controls, reset, an explanation, and a transfer question. Download the [example directory](examples/) for local use. Every page switches between English and Chinese, with the figure on the left and the steps on the right.
+
+New to the skill? Start with **[How it works](https://ywedai.github.io/teachable-figures/how-it-works.html)**: a teachable figure about the skill itself. Hand it requests, see which it declines, and remove a step to see which failures a screenshot never shows.
 
 | Example | What the learner can inspect |
 | --- | --- |

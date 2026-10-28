@@ -62,7 +62,9 @@ git clone https://github.com/ywEdAi/teachable-figures.git ~/.codex/skills/teacha
 
 ![六个示例的实际截图：圆锥截面、胸腔示意、火箭发射、Transformer 数据流、明代曳撒与齿轮传动](assets/readme/examples.png)
 
-**[打开示例目录 →](https://ywedai.github.io/teachable-figures/)** 无需安装。每页都有预测、操作、读数、重置、解释与迁移问题；下载 [examples 目录](examples/) 后，也可以直接打开 HTML 离线运行。
+**[打开示例目录 →](https://ywedai.github.io/teachable-figures/)** 无需安装。每页都有预测、操作、读数、重置、解释与迁移问题；下载 [examples 目录](examples/) 后，也可以直接打开 HTML 离线运行。每页都可在中英文之间切换，图在左、步骤在右。
+
+第一次用？先看 **[工作原理](https://ywedai.github.io/teachable-figures/how-it-works.html)**：用这个 skill 讲它自己。交给它几个请求，看哪些会被拒绝；再拿掉一步，看哪些失败在截图里根本看不出来。
 
 | 在线示例 | 可以探索什么 |
 | --- | --- |
@@ -73,7 +75,7 @@ git clone https://github.com/ywEdAi/teachable-figures.git ~/.codex/skills/teacha
 | [明代曳撒结构](https://ywedai.github.io/teachable-figures/chinese-clothing.html) | 依据一件博物馆藏品，检查交叠衣襟、有明暗面的褶层与折返剖面。 |
 | [齿轮传动比](https://ywedai.github.io/teachable-figures/gear-ratio.html) | 加入惰轮，区分输出转数的大小与旋转方向。 |
 
-圆锥与胸腔使用空间坐标、旋转、投影和深度排序。胸腔采用 Human Reference Atlas 网格，另有明确标注的示意膈肌与检查用观察窗；火箭是一维理想模型；Transformer 使用公开说明的简化参数；服饰图把史料事实与示意重建分开标注。示例保留各自的教学语言，并非所有页面都有双语切换。
+圆锥与胸腔使用空间坐标、旋转、投影和深度排序。胸腔采用 Human Reference Atlas 网格，另有明确标注的示意膈肌与检查用观察窗；火箭是一维理想模型；Transformer 使用公开说明的简化参数；服饰图把史料事实与示意重建分开标注。所有示例都有中英文切换。
 
 <details>
 <summary>查看最初的齿轮教学实验</summary>

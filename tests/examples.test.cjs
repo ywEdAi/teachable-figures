@@ -91,15 +91,15 @@ test('clothing inspection reveals the inner panel and preserves the stated robe 
   await page.locator('#open').check();assert.equal(await page.locator('#outer').getAttribute('transform'),'translate(88 -12)');
   await page.locator('#open').uncheck();
   await page.locator('input[name="prediction"][value="skin"]').check();
-  await page.getByRole('button',{name:'记下预测'}).click();
-  assert.match(await page.locator('#feedback').textContent(),/^你的预测是没有另一片衣襟/);
+  await page.getByRole('button',{name:'Save my prediction'}).click();
+  assert.match(await page.locator('#feedback').textContent(),/^Your prediction was that there is no second front panel/);
   await page.locator('#open').check();
   await page.locator('#explode').focus();await page.keyboard.press('End');
   assert.equal(await page.locator('#lower').getAttribute('transform'),'translate(0 35)');
   assert.equal(await page.locator('#upper').getAttribute('transform'),'translate(0 -13)');
   assert.equal(await page.locator('#fold-point').getAttribute('cy'),'460');
-  await page.locator('input[name="transfer"][value="wrong"]').check();await page.getByRole('button',{name:'核对答案'}).click();
-  assert.match(await page.locator('#transfer-feedback').textContent(),/正确|对/);
+  await page.locator('input[name="transfer"][value="wrong"]').check();await page.getByRole('button',{name:'Check my answer'}).click();
+  assert.match(await page.locator('#transfer-feedback').textContent(),/^Correct/);
   await page.locator('#writing').fill('The gap is an inspection view of one robe.');await page.locator('#reset').click();
   assert.equal(await page.locator('#open').isChecked(),false);assert.equal(await page.locator('#explode').inputValue(),'0');
   assert.equal(await page.locator('#writing').inputValue(),'');
@@ -143,8 +143,8 @@ test('rocket model handles pad support, delayed liftoff, burnout, and coasting',
   await page.locator('#reveal').click();
   await page.locator('#explain').fill('Thrust must exceed weight for immediate lift.');
   await page.locator('input[name="transfer"][value="coast"]').check();
-  await page.getByRole('button',{name:'检查新预测'}).click();
-  assert.match(await page.locator('#transfer-feedback').textContent(),/^正确/);
+  await page.getByRole('button',{name:'Check new prediction'}).click();
+  assert.match(await page.locator('#transfer-feedback').textContent(),/^Correct/);
   await page.locator('#reset').click();
   assert.equal(await page.locator('#explanation').isVisible(),false);
   assert.equal(await page.locator('#explain').inputValue(),'');
@@ -160,13 +160,13 @@ test('rocket cutaway and component inspection preserve the flight model',async()
   await page.locator('input[name="inspection"][value="exploded"]').check();
   assert.equal(await page.locator('#technical').getAttribute('data-view'),'exploded');
   await page.locator('#inspect-component').selectOption('nozzle');
-  assert.match(await page.locator('#inspection-description').textContent(),/喉部/);
+  assert.match(await page.locator('#inspection-description').textContent(),/throat/);
   assert.equal(await page.locator('.readouts').innerText(),before,'inspection cannot change flight results');
   await page.locator('#reset').click();assert.equal(await page.locator('#time').inputValue(),'0');
   await page.close();
 });
 
-for(const name of ['geometry-slices','human-anatomy','rocket-launch','transformer-flow','chinese-clothing']){
+for(const name of ['geometry-slices','human-anatomy','rocket-launch','transformer-flow','chinese-clothing','how-it-works','index']){
   test(`${name} works offline at desktop/mobile widths in both themes`,async()=>{
     mkdirSync(resolve(__dirname,'../test-results'),{recursive:true});
     for(const width of [360,1000])for(const colorScheme of ['light','dark']){
@@ -191,6 +191,48 @@ test('example directory links to six local complete lessons',async()=>{
   await page.goto(url('index'));
   const links=await page.locator('article a').evaluateAll(items=>items.map(a=>a.href));
   assert.equal(links.length,6);
+  links.push(await page.locator('.feature a').evaluate(a=>a.href));
   for(const link of links){await page.goto(link);assert.ok(await page.getByRole('heading',{level:1}).count());}
+  await page.close();
+});
+
+test('how-it-works routes requests by scope and shows which skipped steps a screenshot misses',async()=>{
+  const page=await browser.newPage({reducedMotion:'reduce'});await page.goto(url('how-it-works'));
+  assert.equal(await page.locator('input[name="request"][value="gear"]').isDisabled(),true);
+  await page.locator('input[name="prediction"][value="draw"]').check();
+  await page.getByRole('button',{name:'Save prediction'}).click();
+  assert.match(await page.locator('#pipeline [data-stage="mode"]').textContent(),/Up to 5 questions about missing details/);
+  await page.locator('input[name="request"][value="rocket"]').check();
+  assert.match(await page.locator('#first-exchange').textContent(),/chamber, throat and expanding nozzle/);
+  assert.doesNotMatch(await page.locator('#first-exchange').textContent(),/Lift-off|throttle|Thrust\/weight/);
+  await page.locator('input[name="request"][value="dashboard"]').check();
+  assert.equal(await page.locator('#r-verdict').textContent(),'Decline');
+  assert.equal(await page.locator('#skip-spec').isDisabled(),true,'declined requests have no steps to remove');
+  await page.locator('input[name="request"][value="chest"]').check();
+  assert.equal(await page.locator('#r-renderer').textContent(),'Source meshes');
+  await page.locator('#skip-spec').check();
+  assert.equal(await page.locator('#r-teaches').textContent(),'No');assert.equal(await page.locator('#r-visible').textContent(),'0 / 1');
+  await page.locator('#skip-renderer').check();assert.equal(await page.locator('#r-visible').textContent(),'1 / 2');
+  assert.match(await page.locator('#prediction-feedback').textContent(),/Build is step 6/);
+  await page.locator('label:has(input[name="mode"][value="direct"])').click();
+  assert.equal(await page.locator('#first-exchange li').count(),5);
+  assert.match(await page.locator('#first-exchange').textContent(),/ASSUME/);
+  await page.locator('input[name="transfer"][value="direct"]').check();await page.getByRole('button',{name:'Check my answer'}).click();
+  assert.match(await page.locator('#transfer-feedback').textContent(),/^Yes/);
+  await page.locator('#reset').click();
+  assert.equal(await page.locator('#explanation').isVisible(),false);assert.equal(await page.locator('input[name="request"][value="gear"]').isDisabled(),true);
+  await page.close();
+});
+
+test('language switch translates a lesson and carries the choice back to the directory',async()=>{
+  const page=await browser.newPage();await page.goto(url('gear-ratio'));
+  assert.match(await page.locator('h1').innerText(),/Does an extra gear/);
+  await page.locator('[data-set-lang="zh"]').click();
+  assert.match(await page.locator('h1').innerText(),/多加一个齿轮/);
+  assert.equal(await page.evaluate(()=>document.documentElement.lang),'zh-CN');
+  assert.equal(await page.locator('#run').innerText(),'转动主动轮一圈');
+  await page.locator('.bar .back').click();
+  assert.match(page.url(),/index\.html\?lang=zh/);
+  assert.match(await page.locator('h1').innerText(),/改变一个条件/);
   await page.close();
 });
