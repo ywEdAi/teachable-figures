@@ -10,6 +10,54 @@
 
 这是一个 **agent skill（智能体技能）**，包含渲染示例与验证工具。既能生成独立 HTML 图解，也能适配已有应用的课程结构。
 
+## 快速安装
+
+**Claude Code**（个人全局可用）：
+
+```sh
+git clone https://github.com/ywEdAi/teachable-figures.git ~/.claude/skills/teachable-figures
+```
+
+只想在某个项目里使用，就克隆到该项目的 `.claude/skills/teachable-figures`。重启 Claude Code 后，输入 `/teachable-figures` 调用，或直接描述教学需求让它自动匹配。
+
+**Codex**：
+
+```sh
+git clone https://github.com/ywEdAi/teachable-figures.git ~/.codex/skills/teachable-figures
+```
+
+在提示词里用 `$teachable-figures` 调用。
+
+**其他智能体或手动安装**：下载 [仓库 ZIP](https://github.com/ywEdAi/teachable-figures/archive/refs/heads/main.zip) 或 [最新 Release](https://github.com/ywEdAi/teachable-figures/releases/latest) 中的 `.skill` 文件（一个 ZIP 包），解压到该智能体的技能目录；没有技能目录的智能体，让它先读取 `SKILL.md`。
+
+更新：在安装目录运行 `git pull`。
+
+## 两种使用方式
+
+**引导模式（默认）**：技能先问一轮问题，最多五个，每个都附推荐答案，可以直接回“好”。问题包括：学习者是谁、要理解的结论与常见误解、输出为独立 HTML 还是接入已有应用、需要示意图/细节/3D 中的哪一种，以及计划使用的控件。确认方案后才开始生成。
+
+```text
+/teachable-figures 我想给初中生讲：为什么加一个惰轮不会改变传动比的大小。
+```
+
+**直接模式**：说“直接生成”或“跳过提问”，或者在请求里已写清结论、学习者、输出形式与细节程度，技能就用默认值直接制作，并在交付说明里列出所有假设。
+
+```text
+/teachable-figures 直接生成。解释为什么加入惰轮不会改变最终传动比的大小。
+误解：每多一个齿轮，输出就一定更慢。独立 HTML，包含预测、一圈输入计数、原生控件、重置与解释问题。
+```
+
+## 适合做什么，不适合做什么
+
+| 适合 | 不适合 |
+| --- | --- |
+| 学习者可以**动手改变一个原因**、观察结果的机制，例如传动比、注意力遮罩、截面积 | 没有可预测内容的数据图表、仪表盘或报告配图 |
+| 需要剖开、拆解或旋转才能看懂的结构，例如火箭剖面、胸腔器官、衣服的褶裥 | 幻灯片、海报、信息图或静态插画 |
+| 一段课文中的某一个结论，每个机制做一个图解 | 一次生成整门课程；可以先挑出最值得做成图解的几个机制 |
+| 明确标注假设的教学模型 | 临床解剖、工程仿真、CAD 或物理引擎级别的精度；把示意重建当作史实 |
+
+生成的图解是教学设计，不代表已经验证了学习效果。
+
 ## 在线体验六个完整示例
 
 ![六个示例的实际截图：圆锥截面、胸腔示意、火箭发射、Transformer 数据流、明代曳撒与齿轮传动](assets/readme/examples.png)
@@ -37,26 +85,6 @@
 这是理想模型的示意图，不模拟真实齿面接触。
 
 </details>
-
-## 安装与使用
-
-把仓库克隆到智能体的技能目录。以本地 Codex 为例：
-
-```sh
-git clone https://github.com/ywEdAi/teachable-figures.git ~/.codex/skills/teachable-figures
-```
-
-也可以从 [最新 Release](https://github.com/ywEdAi/teachable-figures/releases/latest) 下载便携的 `.skill` 文件。
-
-然后提出具体的教学任务：
-
-```text
-用 $teachable-figures 解释为什么加入惰轮不会改变最终传动比的大小。
-我的误解是：每多一个齿轮，输出就一定更慢。
-请生成独立 HTML，包含预测、一圈输入的计数、原生控件、重置与解释问题。
-```
-
-使用其他智能体时，让它读取 [SKILL.md](SKILL.md)，并提供课文、目标学习者和宿主项目。技能会先检查已有数据与组件约定，再决定如何接入。
 
 ## 先明确机制，再选择画法
 
@@ -115,7 +143,7 @@ README 的设计工作流使用了 [oil-oil/beautify-github-readme](https://gith
 
 两个上游的完整 MIT 声明保留在 [Anatomy LICENSE](assets/anatomy/LICENSE) 和 [iso-figure LICENSE](assets/iso-figure/LICENSE)。这些许可适用于对应的上游贡献；本仓库未对原有课程材料、应用参考或截图额外授予新的许可证。
 
-## 使用边界
+## 已知局限
 
 - 上游 Anatomy 示例主要展示渲染技术。接入课程前，需要关闭启动及闲置后恢复的自动巡游；六个完整课程不自动播放。
 - AI English Shift 适配面向特定宿主，使用前应核对宿主当前代码、注册结构与语言要求。

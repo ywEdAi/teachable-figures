@@ -10,6 +10,59 @@ Turn a lesson's claim into an experiment a learner can operate. Predict a result
 
 This is an **agent skill**, with rendering examples and verification tools. It works with a host application's lesson schema or a standalone HTML figure.
 
+## Quick install
+
+**Claude Code** (available in every project):
+
+```sh
+git clone https://github.com/ywEdAi/teachable-figures.git ~/.claude/skills/teachable-figures
+```
+
+For one project only, clone into that project's `.claude/skills/teachable-figures`. Restart Claude Code, then type `/teachable-figures` or simply describe a teaching task.
+
+**Codex**:
+
+```sh
+git clone https://github.com/ywEdAi/teachable-figures.git ~/.codex/skills/teachable-figures
+```
+
+Invoke it with `$teachable-figures` in a prompt.
+
+**Other agents or manual install**: download the [repository ZIP](https://github.com/ywEdAi/teachable-figures/archive/refs/heads/main.zip) or the `.skill` file (a ZIP archive) from the [latest release](https://github.com/ywEdAi/teachable-figures/releases/latest) and extract it into the agent's skill directory. If the agent has no skill directory, ask it to read `SKILL.md` first.
+
+To update, run `git pull` in the install directory.
+
+## Two ways to use it
+
+**Guided mode (default).** The skill asks one round of at most five questions, each with a recommended answer you can accept with "ok": who the learner is, the claim and misconception, standalone HTML or an existing app, schematic/detailed/3D fidelity, and the planned controls. It builds after you confirm the plan.
+
+```text
+/teachable-figures Explain to middle-school students why an idler gear
+does not change the speed-ratio magnitude.
+```
+
+**Direct mode.** Say "just build it" or "skip questions", or name the claim, learner, target, and fidelity up front. The skill applies defaults and lists every assumption in its delivery note.
+
+```text
+/teachable-figures Just build it. Explain why adding an idler gear does not
+change the final speed-ratio magnitude. Misconception: every extra gear makes
+the output slower. Standalone HTML with prediction, one-turn counters, native
+controls, reset, and an explanation prompt.
+```
+
+In Codex, write `$teachable-figures` instead of `/teachable-figures`.
+
+## What it is for, and what it is not for
+
+| Good fit | Poor fit |
+| --- | --- |
+| A mechanism the learner can **change and observe**: gear ratios, attention masks, cross-section areas | Data charts, dashboards, or report figures with nothing to predict |
+| Structures that need cutting, separating, or rotating: a rocket cutaway, chest organs, garment pleats | Slide decks, posters, infographics, or static illustrations |
+| One claim from a text, one figure per mechanism | A whole course in one request; pick the mechanisms worth a figure first |
+| A teaching model with stated assumptions | Clinical anatomy, engineering simulation, CAD, or physics-engine accuracy; reconstruction presented as historical fact |
+
+A generated figure is a teaching design. It has not been evaluated with learners.
+
 ## Explore six complete examples
 
 ![Actual screenshots of a cone section, a schematic chest, a rocket launch, Transformer data flow, a Ming robe, and a gear-ratio experiment](assets/readme/examples.png)
@@ -37,27 +90,6 @@ The [gear-ratio lesson](examples/gear-ratio.html) asks whether an extra idler ge
 Open the HTML file locally. It runs without a server, framework, or remote assets. The gears are a schematic of an ideal model, not a physical tooth-contact simulation.
 
 </details>
-
-## Use the skill
-
-Clone the repository into your agent's skill directory. For a local Codex installation:
-
-```sh
-git clone https://github.com/ywEdAi/teachable-figures.git ~/.codex/skills/teachable-figures
-```
-
-You can also download the portable [`.skill` archive from the latest release](https://github.com/ywEdAi/teachable-figures/releases/latest).
-
-Then ask:
-
-```text
-Use $teachable-figures to explain why adding an idler gear does not
-change the final speed-ratio magnitude. I think an extra gear always
-makes the output slower. Make a standalone figure with prediction,
-one-turn counters, native controls, reset, and an explanation prompt.
-```
-
-For another agent, point it at [SKILL.md](SKILL.md) and provide the lesson text, intended learner, and host project. The skill inspects existing contracts before adding fields or widgets.
 
 ## Start with the mechanism
 

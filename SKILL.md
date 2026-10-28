@@ -1,6 +1,6 @@
 ---
 name: teachable-figures
-description: Turn lessons, articles, chapters, or technical ideas into interactive teaching figures using predict → try → explain. Create reusable 2D widgets, working isometric SVG objects, mechanical assemblies and cutaways, exploded views, or true 3D turning models when spatial motion explains the concept. Use for explorable learning graphics, mechanism simulations, and mechanical or spatial explainers; retain the host app's lesson contracts and accessibility.
+description: Turn lessons, articles, chapters, or technical ideas into interactive teaching figures using predict → try → explain. Create reusable 2D widgets, working isometric SVG objects, mechanical assemblies and cutaways, exploded views, or true 3D turning models when spatial motion explains the concept. Use for explorable learning graphics, mechanism simulations, and mechanical or spatial explainers; retain the host app's lesson contracts and accessibility. Starts with a short guided interview unless the user asks to generate directly. Not for plain data charts, dashboards, slide decks, static illustrations, or whole courses.
 ---
 
 # Teachable figures
@@ -10,6 +10,34 @@ A teachable figure makes one mechanism visible and manipulable. The learner pred
 This skill fuses the original teaching method with iso-figure's working SVG objects and Anatomy's mechanical geometry, depth ordering, shaders, and optional true 3D runtime. **Teaching determines the model; the subject determines the required shape and material; the model drives the picture and its readouts.** Check both teaching correctness and visual fidelity.
 
 For AI English Shift, first read [the app adapter](references/ai-english-shift.md). Its contracts apply only there. Otherwise inspect the host project's conventions. Paths in this skill are relative to its own directory, including when invoked through a symlink.
+
+## Scope
+
+Use this skill when a learner should **operate** one mechanism: a cause they can change, an effect they can observe, and a prediction that can turn out wrong. Structure-only subjects qualify when inspection, cutaway, or assembly order is the lesson.
+
+Decline or redirect when the request is mainly:
+
+- a data chart, dashboard, or report figure with nothing to predict — use a charting approach;
+- a slide deck, poster, infographic, or static illustration;
+- a whole course or curriculum — offer one figure per mechanism, chosen with the user;
+- an accuracy claim beyond a teaching model: clinical anatomy, engineering simulation, CAD, physics engines, or historical reconstruction presented as fact;
+- learning-outcome evidence. A working figure is a design; it has not been tested with learners.
+
+When a request straddles the boundary, say which part this skill covers and build only that part.
+
+## 0. Choose the interaction mode
+
+**Guided mode (default).** Before building, ask one compact round of questions — at most five, each with a recommended default the user can accept with one word. Ask only what the request and host project leave open:
+
+1. **Learner:** who, prior knowledge, study language.
+2. **Claim and misconception:** the sentence to understand and the wrong prediction to disprove. Propose one if the source implies it.
+3. **Target:** standalone offline HTML, or an existing app (which framework and lesson schema).
+4. **Fidelity:** schematic, recognizable detail, or true 3D — with the renderer you would pick and why (see section 2).
+5. **Interaction depth:** the 2–4 controls and the readout you plan to use.
+
+Then state a short plan — claim, misconception, `kind`, renderer, controls — and build once the user confirms or adjusts it. Do not ask about facts you can read from the source or the host project; do not ask a second round unless an answer changes the mechanism.
+
+**Direct mode.** Skip the interview when the user says so ("just build it", "skip questions", "直接生成") or the request already names the claim, learner, target, and fidelity. Apply defaults — one figure, standalone offline HTML, the request's language, the simplest renderer that meets the subject's fidelity — and list each assumption in the delivery note so the user can correct it afterward.
 
 ## 1. Find the teachable mechanism
 
