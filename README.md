@@ -4,6 +4,8 @@
 
 # Teachable figures
 
+[English](README.md) · [简体中文](README.zh-CN.md) · **[Live demos →](https://ywedai.github.io/teachable-figures/)**
+
 Turn a lesson's claim into an experiment a learner can operate. Predict a result, change a cause, read the effect, and explain a new case.
 
 This is an **agent skill**, with rendering examples and verification tools. It works with a host application's lesson schema or a standalone HTML figure.
@@ -12,16 +14,16 @@ This is an **agent skill**, with rendering examples and verification tools. It w
 
 ![Actual screenshots of a cone section, a schematic chest, a rocket launch, Transformer data flow, a Ming robe, and a gear-ratio experiment](assets/readme/examples.png)
 
-Open [the example directory](examples/index.html) locally, or choose a lesson below. Every page runs offline with native controls, reset, an explanation, and a transfer question.
+**[Try all six examples online →](https://ywedai.github.io/teachable-figures/)** No installation required. Each page also runs offline with native controls, reset, an explanation, and a transfer question. Download the [example directory](examples/) for local use.
 
 | Example | What the learner can inspect |
 | --- | --- |
-| [Cone sections in 3D](examples/geometry-slices.html) | Rotate a cut cone. Compare linear radius growth with quadratic area growth. |
-| [Human chest in 3D](examples/human-anatomy.html) | Open a schematic torso and inspect lungs, heart, and diaphragm from different viewpoints. |
-| [Rocket launch](examples/rocket-launch.html) | Change thrust and payload. Compare pad support, delayed liftoff, burnout, and coasting. |
-| [Transformer data flow](examples/transformer-flow.html) | Trace toy vectors through Q/K/V, masking, attention, residual normalization, and FFN stages. |
-| [A Ming robe](examples/chinese-clothing.html) | Inspect overlapping fronts and the pleated construction of a specifically sourced museum garment. |
-| [Gear ratios](examples/gear-ratio.html) | Add an idler and distinguish output-turn magnitude from rotation direction. |
+| [Cone sections in 3D](https://ywedai.github.io/teachable-figures/geometry-slices.html) | Rotate a cut cone. Compare linear radius growth with quadratic area growth. |
+| [Human chest in 3D](https://ywedai.github.io/teachable-figures/human-anatomy.html) | Open a schematic torso and inspect lungs, heart, and diaphragm from different viewpoints. |
+| [Rocket launch](https://ywedai.github.io/teachable-figures/rocket-launch.html) | Change thrust and payload. Compare pad support, delayed liftoff, burnout, and coasting. |
+| [Transformer data flow](https://ywedai.github.io/teachable-figures/transformer-flow.html) | Trace toy vectors through Q/K/V, masking, attention, residual normalization, and FFN stages. |
+| [A Ming robe](https://ywedai.github.io/teachable-figures/chinese-clothing.html) | Inspect overlapping fronts and the pleated construction of a specifically sourced museum garment. |
+| [Gear ratios](https://ywedai.github.io/teachable-figures/gear-ratio.html) | Add an idler and distinguish output-turn magnitude from rotation direction. |
 
 The two spatial examples rotate world-coordinate geometry with depth ordering. The chest is an educational schematic. The rocket is a one-dimensional ideal model, the Transformer uses disclosed toy parameters, and the clothing drawing distinguishes documented facts from reconstruction.
 
@@ -112,6 +114,27 @@ Model tests check the ripple solver and interference behavior. Build tests gener
 
 ## Sources and licenses
 
-The rendering materials come from [Anatomy](https://github.com/wheresryan22/anatomy) and [iso-figure](https://github.com/MrBongoC/ai-iso-skill). Their pinned revisions and local adaptations are recorded in the [source manifest](references/source-manifest.json).
+This skill fuses the existing **teachable-figures** teaching workflow with two upstream rendering skills. The teaching workflow contributes the claim, misconception, predict → try → explain loop, reusable configuration, and host integration.
+
+| Upstream skill | What this fusion uses | Pinned revision | License |
+| --- | --- | --- | --- |
+| [Anatomy — wheresryan22/anatomy](https://github.com/wheresryan22/anatomy) | Mechanical solids, joints and pipes, cutaway and exploded views, camera controls, 3D/WebGL techniques, and geometry verification tools. Bundled in `assets/anatomy/`. | [`454a0ef`](https://github.com/wheresryan22/anatomy/tree/454a0ef801b6d9b905f08309d094491c7085b3dd) | [MIT · Ryan](assets/anatomy/LICENSE) |
+| [iso-figure — MrBongoC/ai-iso-skill](https://github.com/MrBongoC/ai-iso-skill) | Isometric SVG projection, working keys/switches/displays, shared state and rendering, and portable HTML examples. Bundled in `assets/iso-figure/` and adapted in `references/simple-iso.md`. | [`44b4da7`](https://github.com/MrBongoC/ai-iso-skill/tree/44b4da7714148eef547cc1b102e433472dfe3531) | [MIT · Tolga Cohce](assets/iso-figure/LICENSE) |
+
+Anatomy is the upstream skill's name; it is a toolkit for explanatory objects, not a medical atlas. This fusion adapts upstream defaults to teaching: no mandatory part count, no autoplay before prediction, readable labels, native controls, reduced motion, and a shared truth model. The repository also includes local geometry fixes, accessibility changes, six complete lessons, and review tools.
+
+See [sources and fusion decisions](references/sources-and-fusion.md) for the contribution boundaries and [the source manifest](references/source-manifest.json) for exact revisions and local adaptations. Scientific and historical references for each lesson appear on its example page.
+
+The README design workflow uses [oil-oil/beautify-github-readme](https://github.com/oil-oil/beautify-github-readme). It is documentation tooling, separate from the two bundled rendering skills.
 
 Both upstream contributions retain their MIT notices in [Anatomy's license](assets/anatomy/LICENSE) and [iso-figure's license](assets/iso-figure/LICENSE). Those licenses cover the corresponding contributions. No additional license is granted here for the original lesson material, app references, or screenshots.
+
+## Demo hosting
+
+GitHub Pages serves the `gh-pages` branch. To publish the current `examples/` directory from a clean `main` checkout:
+
+```sh
+git subtree push --prefix examples origin gh-pages
+```
+
+Pages redeploys when that branch changes. The demos have no runtime package dependencies; `.nojekyll` keeps the published HTML unchanged.
