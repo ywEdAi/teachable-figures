@@ -1,12 +1,167 @@
 <!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>看懂一件明代曳撒袍</title><style>
-:root{color-scheme:light dark;--bg:#f3f0e8;--paper:#fffdf8;--ink:#332c29;--muted:#695e55;--edge:#ccbeb0;--accent:#7b4228;--wash:#efe3d5;--cloth:#af7750;--under:#d9b787;--seam:#553925;--focus:#005f75}@media(prefers-color-scheme:dark){:root{--bg:#211e1b;--paper:#302924;--ink:#f4eadb;--muted:#d0bfa9;--edge:#77624d;--accent:#f2bf8c;--wash:#4a3729;--cloth:#b57c50;--under:#dbb67e;--seam:#39281c;--focus:#8bd9e4}}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.75 system-ui,"PingFang SC",sans-serif}main{max-width:1000px;margin:auto;padding:38px 24px 60px}h1{font-size:clamp(2.2rem,6vw,3.5rem);line-height:1.2;letter-spacing:-.03em;margin:10px 0 18px}h2{font-size:1.3rem;margin:0 0 14px}h3{font-size:1.08rem;margin:16px 0 8px}p{margin:8px 0 16px}.eyebrow{font-weight:750;font-size:.83rem;letter-spacing:.12em;color:var(--accent)}.lead{color:var(--muted);font-size:1.12rem;max-width:760px}.card{background:var(--paper);border:1px solid var(--edge);border-radius:16px;padding:24px;margin:22px 0}.small{font-size:.9rem;color:var(--muted)}.controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:14px 0}button,select{font:inherit;padding:8px 13px;min-height:44px;border:1px solid var(--edge);border-radius:8px;background:var(--paper);color:var(--ink);cursor:pointer}input{accent-color:var(--accent)}input[type=radio],input[type=checkbox]{min-width:20px;min-height:20px}input[type=range]{min-height:38px;width:100%}label.choice{display:flex;align-items:baseline;gap:10px;padding:9px 0}.toggle{display:flex;gap:10px;align-items:center;min-height:44px}fieldset{border:0;margin:0;padding:0}legend{font-weight:650;margin-bottom:8px}:focus-visible{outline:3px solid var(--focus);outline-offset:3px}.layout{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:24px;align-items:start}.stage{background:var(--bg);border:1px solid var(--edge);border-radius:12px;min-width:0}.stage svg{display:block;width:100%;height:auto}.stage text{font:550 16px system-ui,"PingFang SC",sans-serif;fill:var(--ink)}.garment{fill:url(#silk);stroke:#573b28;stroke-width:1.2;stroke-linejoin:round}.edge{fill:none;stroke:#593a27;stroke-width:9;stroke-linejoin:round}.pleat{fill:none;stroke:#563923;stroke-width:1.2}.stitch{fill:none;stroke:#e6c591;stroke-width:.7;stroke-dasharray:1 2;opacity:.7}.fold-line{fill:none;stroke:#52351f;stroke-width:.8;opacity:.7}.stage .annotation{font-size:12px;fill:var(--muted)}.stage .caption{font-size:11px;fill:var(--muted);letter-spacing:1px}.stage .part{opacity:.3}.part.selected{opacity:1;filter:drop-shadow(0 0 2px var(--accent))}.part.active{opacity:1}.result{background:var(--wash);border-radius:10px;padding:14px}.detail{border-left:4px solid var(--accent);padding-left:15px}.range label{display:block;font-weight:650}.status{min-height:1.6em}summary{cursor:pointer;min-height:44px;padding:8px 0;font-weight:650}textarea{display:block;font:inherit;background:var(--bg);color:var(--ink);padding:10px;border:1px solid var(--edge);border-radius:8px;width:100%;min-height:90px}a{color:var(--accent)}footer{font-size:.85rem;color:var(--muted)}.skip{position:absolute;top:-70px;background:var(--paper);padding:10px}.skip:focus{top:5px}@media(max-width:650px){main{padding:25px 14px 40px}.card{padding:18px 15px}.layout{grid-template-columns:1fr;gap:14px}.stage svg{max-height:none}.controls button{flex:1}}
-</style></head><body><a class="skip" href="#experiment">跳到操作区</a><main>
-<header><div class="eyebrow">中国服饰 · 以一件馆藏为界</div><h1>看懂一件明代曳撒袍</h1><p class="lead">观察衣襟怎样交叠，再拆开视图看腰下的褶。我们只讨论中国丝绸博物馆所藏的一件明代曳撒袍，不把它当成所有古代服饰的标准。</p></header>
-<section class="card"><h2>1. 先预测</h2><form id="prediction-form"><fieldset><legend>把示意图中最外面的交叠衣襟掀开，会先露出什么？</legend><label class="choice"><input type="radio" name="prediction" value="skin" required> 胸前完全敞开，没有另一片衣襟。</label><label class="choice"><input type="radio" name="prediction" value="under"> 原来被盖住的另一片衣襟。</label></fieldset><button>记下预测</button><p id="prediction-status" class="small" role="status">先选一个答案，再开合衣襟。也可以直接操作。</p></form></section>
-<section class="card" id="experiment"><h2>2. 动手观察</h2><p>先勾选「掀开外襟」，比较前后；再用分解滑杆观察上身与腰下部分。右、左都以穿衣者为准。</p><div class="layout"><div>
-<div class="stage"><svg id="garment" viewBox="0 0 500 635" role="img" aria-labelledby="diagram-title diagram-desc"><title id="diagram-title">明代曳撒袍结构教学重建，正面与褶裥剖面</title><desc id="diagram-desc">交领右衽的长袍，双袖自然下垂，腰下布料折返成褶。明暗沿褶面变化，衣缘显示内外布层。使用原生控件检查开襟、上下分解与褶裥剖面。</desc>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title data-i18n data-zh="看懂一件明代曳撒袍" data-en="Reading one Ming-dynasty yesa robe">Reading one Ming-dynasty yesa robe</title>
+<style>
+/* lesson-shell v1: shared by every example page; keep identical across files */
+:root{color-scheme:light dark;--bar:56px;--bg:#f7f6f2;--surface:#fff;--stage:#eeece6;--ink:#141618;--text:#2a2e31;--muted:#61676c;--faint:#8b9196;--line:#e4e1d9;--line-strong:#cbc7bd;--accent:#d9480f;--accent-soft:#fcebe2;--focus:#d9480f;--ok:#1d7a4c;--sans:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",sans-serif;--mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace}
+@media(prefers-color-scheme:dark){:root{--bg:#111315;--surface:#181b1e;--stage:#0b0d0f;--ink:#f3f4f2;--text:#dadedc;--muted:#a1a7ab;--faint:#7a8085;--line:#272b2f;--line-strong:#3b4045;--accent:#ff7a45;--accent-soft:#2b1a11;--focus:#ff7a45;--ok:#4cc38a}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}body{margin:0;background:var(--bg);color:var(--text);font:15.5px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+[hidden]{display:none!important}html[data-lang=zh] [lang=en],html[data-lang=en] [lang=zh]{display:none!important}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.skip{position:absolute;left:12px;top:-80px;z-index:30;background:var(--surface);color:var(--ink);padding:8px 12px;border-radius:8px}.skip:focus{top:10px}
+.bar{position:sticky;top:0;z-index:20;height:var(--bar);display:flex;align-items:center;gap:14px;padding:0 16px 0 20px;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar .back{display:inline-flex;align-items:center;gap:6px;min-height:40px;color:var(--muted);text-decoration:none;font-size:14px;white-space:nowrap}.bar .back:hover{color:var(--ink)}
+.bar .crumb{min-width:0;font:500 12px/1.2 var(--mono);color:var(--faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lang-switch{margin-left:auto;flex:none;display:inline-flex;padding:3px;border:1px solid var(--line);border-radius:999px;background:var(--surface)}
+.lang-switch button{appearance:none;border:0;background:none;cursor:pointer;font:600 12px/1 var(--sans);min-height:30px;min-width:40px;padding:0 11px;border-radius:999px;color:var(--muted)}
+.lang-switch button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+.lesson{display:flex;flex-direction:column}.panel{display:contents}
+.intro{order:0;padding:28px 20px 6px}
+.figure-pane{order:1;margin:14px 12px 4px;padding:12px;background:var(--stage);border-radius:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.steps{order:2;padding:0 20px 40px}
+.stage{position:relative;min-height:0;display:grid;place-items:center}.stage>svg,.stage>canvas{display:block;width:100%;height:auto}
+.fig-caption{margin:0;font-size:12.5px;line-height:1.5;color:var(--muted)}
+.readouts{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.readout{background:var(--surface);padding:9px 13px;min-width:0}
+.readout .k{display:block;font:500 12px/1.35 var(--sans);color:var(--muted)}
+.readout strong{display:block;font:650 21px/1.3 var(--sans);font-variant-numeric:tabular-nums;color:var(--ink);letter-spacing:-.01em;overflow-wrap:anywhere}
+.readout .u{display:block;font-size:12px;line-height:1.35;color:var(--faint)}
+.meta{display:flex;flex-wrap:wrap;gap:4px 10px;margin:0 0 14px;padding:0;list-style:none;font:500 12.5px/1.4 var(--sans);color:var(--muted)}.meta li+li::before{content:"/";margin-right:10px;color:var(--line-strong)}
+h1{margin:0 0 12px;font-size:clamp(25px,2.5vw,33px);line-height:1.18;letter-spacing:-.025em;font-weight:700;color:var(--ink);text-wrap:balance}
+.lead{margin:0;color:var(--muted)}
+.step{padding:26px 0 22px;border-top:1px solid var(--line)}.intro+.steps .step:first-child,.steps>.step:first-child{border-top:0}
+.step>h2{display:flex;align-items:center;gap:10px;margin:0 0 12px;font-size:17px;line-height:1.3;letter-spacing:-.01em;color:var(--ink)}
+.step>h2 .n{flex:none;font:600 11px/1 var(--mono);color:var(--accent);border:1px solid currentColor;border-radius:6px;padding:4px 6px}
+h3{margin:20px 0 6px;font-size:14.5px;color:var(--ink)}p{margin:0 0 12px}strong{color:var(--ink)}
+.small{font-size:13.5px;color:var(--muted)}
+fieldset{border:0;padding:0;margin:0;min-width:0}legend{padding:0;margin:0 0 12px;font-weight:600;color:var(--ink)}
+label.choice{display:flex;gap:10px;align-items:flex-start;padding:10px 13px;margin-bottom:8px;border:1px solid var(--line);border-radius:10px;background:var(--surface);cursor:pointer;transition:border-color .12s,box-shadow .12s}
+label.choice:hover{border-color:var(--line-strong)}label.choice:has(input:checked){border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}label.choice:has(input:disabled){cursor:default}
+label.choice input{flex:none;margin:4px 0 0}input{accent-color:var(--ink)}input[type=radio],input[type=checkbox]{width:17px;height:17px}
+button,select{font:500 14px/1.2 var(--sans);color:var(--ink);background:var(--surface);border:1px solid var(--line-strong);border-radius:10px;padding:0 16px;min-height:42px;cursor:pointer}
+button:hover:not(:disabled),select:hover:not(:disabled){border-color:var(--ink)}button.primary{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+button:disabled,select:disabled{opacity:.45;cursor:not-allowed}
+.controls{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:14px 0}
+.toggle{display:flex;align-items:center;gap:10px;min-height:42px;font-weight:500;color:var(--ink);cursor:pointer}
+.range{margin:16px 0 8px}.range label{display:flex;justify-content:space-between;gap:12px;font-weight:500;color:var(--ink)}.range output{font:500 13px/1.6 var(--mono);color:var(--muted)}
+input[type=range]{width:100%;min-height:32px;margin:4px 0}
+.status{min-height:1.6em;margin:12px 0;padding:10px 12px;border-radius:10px;background:var(--bg);font-size:14px}
+.callout{margin:14px 0;padding:2px 0 2px 14px;border-left:3px solid var(--accent)}
+textarea{display:block;width:100%;min-height:90px;margin-top:8px;padding:10px 12px;font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line-strong);border-radius:10px;resize:vertical}
+table{border-collapse:collapse;width:100%;margin-top:14px;font-size:14px}th,td{text-align:left;padding:9px 6px;border-bottom:1px solid var(--line);vertical-align:top}th:first-child,td:first-child{padding-left:0}caption{text-align:left;font-weight:600;color:var(--ink);margin-bottom:4px}
+.limits{color:var(--muted);font-size:14px}
+.foot{margin-top:8px;padding-top:16px;border-top:1px solid var(--line);font-size:12.5px;color:var(--faint)}
+@media(min-width:960px) and (min-height:560px){
+.lesson{display:grid;grid-template-columns:minmax(0,1fr) clamp(380px,35vw,500px);height:calc(100dvh - var(--bar))}
+.panel{display:block;grid-column:2;grid-row:1;overflow-y:auto;overscroll-behavior:contain;background:var(--surface);border-left:1px solid var(--line)}
+.figure-pane{grid-column:1;grid-row:1;margin:0;border-radius:0;padding:24px 28px;min-height:0}
+.figure-pane .stage{flex:1}.figure-pane .stage>svg,.figure-pane .stage>canvas{height:100%;max-height:100%}
+.intro{padding:32px 32px 6px}.steps{padding:0 32px 48px}
+.bar{padding:0 20px 0 24px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+/* /lesson-shell */
+:root{--cloth:#af7750;--under:#d9b787;--seam:#553925}
+@media(prefers-color-scheme:dark){:root{--cloth:#b57c50;--under:#dbb67e;--seam:#39281c}}
+.stage text{font:550 16px var(--sans);fill:var(--ink)}.stage .annotation{font-size:12px;fill:var(--muted)}
+.garment{fill:url(#silk);stroke:#573b28;stroke-width:1.2;stroke-linejoin:round}.edge{fill:none;stroke:#593a27;stroke-width:9;stroke-linejoin:round}.pleat{fill:none;stroke:#563923;stroke-width:1.2}.stitch{fill:none;stroke:#e6c591;stroke-width:.7;stroke-dasharray:1 2;opacity:.7}.fold-line{fill:none;stroke:#52351f;stroke-width:.8;opacity:.7}
+.part{opacity:.3;transition:opacity .2s}.part.active{opacity:1}
+#fold-caption{margin:0;padding:10px 14px;border-radius:12px;background:var(--surface);border:1px solid var(--line);font-size:15px;line-height:1.6}#fold-caption strong{display:block}#fold-caption .sub{display:block;font:500 12.5px/1.5 var(--sans);color:var(--muted)}
+#result{margin:0;font-size:14px}
+.field{display:block;margin:4px 0 6px;font-weight:500;color:var(--ink)}select{width:100%}
+details{margin:6px 0 16px}summary{cursor:pointer;min-height:40px;padding:8px 0;font-weight:600;color:var(--ink)}
+.limits a{color:var(--ink)}
+@media(min-width:960px) and (min-height:560px){#fold-caption{font-size:14px}}
+</style>
+</head>
+<body>
+<a class="skip" href="#experiment"><span lang="zh">跳到操作区</span><span lang="en">Skip to experiment</span></a>
+<header class="bar">
+<a class="back" href="index.html" data-keep-lang>← <span lang="zh">全部示例</span><span lang="en">All examples</span></a>
+<span class="crumb">chinese-clothing.html</span>
+<div class="lang-switch" role="group" aria-label="语言 / Language"><button type="button" data-set-lang="zh" aria-pressed="false">中文</button><button type="button" data-set-lang="en" aria-pressed="true">EN</button></div>
+</header>
+<main class="lesson">
+<div class="panel">
+<div class="intro">
+<ul class="meta"><li><span lang="zh">历史</span><span lang="en">History</span></li><li><span lang="zh">服饰结构</span><span lang="en">Garment structure</span></li><li><span lang="zh">约 3 分钟</span><span lang="en">~3 min</span></li></ul>
+<h1><span lang="zh">看懂一件明代曳撒袍</span><span lang="en">Reading one Ming-dynasty yesa robe</span></h1>
+<p class="lead" lang="zh">观察衣襟怎样交叠，再拆开视图看腰下的褶。我们只讨论中国丝绸博物馆所藏的一件明代曳撒袍，不把它当成所有古代服饰的标准。</p>
+<p class="lead" lang="en">See how the front panels overlap, then pull the view apart to inspect the pleats below the waist. We discuss only one Ming-dynasty <i>yesa</i> robe held by the China National Silk Museum, not a standard for all historical dress.</p>
+</div>
+<div class="steps">
+<section class="step" aria-labelledby="predict-title">
+<h2 id="predict-title"><span class="n">01</span><span lang="zh">先预测</span><span lang="en">Predict</span></h2>
+<form id="prediction-form">
+<fieldset>
+<legend><span lang="zh">把示意图中最外面的交叠衣襟掀开，会先露出什么？</span><span lang="en">In the diagram, if you lift the outermost overlapping front panel, what appears first?</span></legend>
+<label class="choice"><input type="radio" name="prediction" value="skin" required><span lang="zh">胸前完全敞开，没有另一片衣襟。</span><span lang="en">The chest is fully open; there is no second front panel.</span></label>
+<label class="choice"><input type="radio" name="prediction" value="under"><span lang="zh">原来被盖住的另一片衣襟。</span><span lang="en">Another front panel that was covered.</span></label>
+</fieldset>
+<div class="controls"><button type="submit" class="primary"><span lang="zh">记下预测</span><span lang="en">Save my prediction</span></button></div>
+<p id="prediction-status" class="small" role="status"></p>
+</form>
+</section>
+<section class="step" aria-labelledby="try-title">
+<h2 id="try-title"><span class="n">02</span><span lang="zh">动手观察</span><span lang="en">Inspect</span></h2>
+<p lang="zh">先勾选「掀开外襟」，比较前后；再用分解滑杆观察上身与腰下部分。右、左都以穿衣者为准。</p>
+<p lang="en">First tick “Lift the outer front panel” and compare. Then use the exploded-view slider to look at the upper body and the part below the waist. Right and left always mean the wearer's.</p>
+<label class="toggle"><input id="open" type="checkbox"><span lang="zh">掀开外襟</span><span lang="en">Lift the outer front panel</span></label>
+<div class="range">
+<label for="explode"><span><span lang="zh">分解视图</span><span lang="en">Exploded view</span></span><output id="spread" for="explode">0%</output></label>
+<input id="explode" type="range" min="0" max="100" step="25" value="0" aria-describedby="explode-help">
+<p id="explode-help" class="small"><span lang="zh">方向键每次移动 25%。这只是检查视图，不模拟布料受力或真实拆衣。剖面夸大厚度，便于看清折返。</span><span lang="en">Arrow keys move 25% at a time. This is only an inspection view; it does not simulate fabric forces or taking the robe apart. The section exaggerates thickness so the fold-back is visible.</span></p>
+</div>
+<label class="toggle"><input id="fold-inspect" type="checkbox" checked><span lang="zh">显示褶裥剖面</span><span lang="en">Show the pleat cross-section</span></label>
+<label class="field" for="part"><span lang="zh">检查部位</span><span lang="en">Inspect a part</span></label>
+<select id="part"><option value="all" data-i18n data-zh="整件袍" data-en="Whole robe">Whole robe</option><option value="collar" data-i18n data-zh="交叠衣襟" data-en="Overlapping front panels">Overlapping front panels</option><option value="sleeves" data-i18n data-zh="上身与双袖" data-en="Upper body and sleeves">Upper body and sleeves</option><option value="pleats" data-i18n data-zh="腰下褶裥" data-en="Pleats below the waist">Pleats below the waist</option></select>
+<div class="callout"><h3 id="part-title"></h3><p id="part-description" class="small"></p></div>
+<div class="controls"><button type="button" id="reset"><span lang="zh">重置整课</span><span lang="en">Reset lesson</span></button></div>
+<p id="run-status" class="status" role="status"></p>
+</section>
+<section class="step" aria-labelledby="explain-title">
+<h2 id="explain-title"><span class="n">03</span><span lang="zh">解释观察</span><span lang="en">Explain</span></h2>
+<p id="feedback" class="callout"></p>
+<details id="explanation"><summary><span lang="zh">衣襟的内外与袍身的上下</span><span lang="en">Inner and outer panels, upper and lower body</span></summary>
+<div lang="zh"><p>右衽指左前襟向穿衣者右侧掩合，覆盖右前襟。正面观看时，穿衣者的右侧在你的左边。「右」不是观看者的右。</p><p>图中外襟移开后，内襟才显露。浅色只帮助辨认被遮挡部分，不代表另一件内衣。分解图把同一件袍的上身、腰下袍身拉开，不能据此说它们是两件独立衣服。</p></div>
+<div lang="en"><p>Closing to the right (<i>youren</i>) means the left front panel wraps toward the wearer's right side and covers the right front panel. Seen from the front, the wearer's right is on your left. “Right” is not the viewer's right.</p><p>In the figure, the inner panel shows only after the outer panel moves aside. The light color just helps you pick out the hidden part; it is not a separate undergarment. The exploded view pulls apart the upper body and the lower body of the same robe; it does not mean they are two separate garments.</p></div>
+</details>
+<label for="writing"><strong><span lang="zh">用自己的话解释</span><span lang="en">Explain in your own words</span></strong></label>
+<p class="small"><span lang="zh">「掀开外襟后，我看见了___。图上的左右以___为准。分解图的空隙表示___，不表示___。」</span><span lang="en">“After lifting the outer panel I saw ___. Left and right in the figure follow ___. The gap in the exploded view means ___, not ___.”</span></p>
+<textarea id="writing" data-i18n data-zh-placeholder="仅在本页保留，不上传。" data-en-placeholder="Stays on this page only; not uploaded."></textarea>
+<h3><span lang="zh">迁移问题</span><span lang="en">Transfer question</span></h3>
+<form id="transfer-form">
+<fieldset><legend><span lang="zh">如果给同一张正面图做水平镜像，却不改「穿衣者右侧」的标注，会发生什么？</span><span lang="en">If the same front view is mirrored horizontally but the “wearer's right” label stays unchanged, what happens?</span></legend>
+<label class="choice"><input type="radio" name="transfer" value="same" required><span lang="zh">结构解释完全不受影响。</span><span lang="en">The structural explanation is unaffected.</span></label>
+<label class="choice"><input type="radio" name="transfer" value="wrong"><span lang="zh">衣襟左右关系被翻转，标注会误导读者。</span><span lang="en">The panels' left–right overlap flips, so the label misleads readers.</span></label>
+</fieldset>
+<div class="controls"><button type="submit"><span lang="zh">核对答案</span><span lang="en">Check my answer</span></button></div>
+<p id="transfer-feedback" class="status" role="status"></p>
+</form>
+</section>
+<section class="step limits" aria-labelledby="limits-title">
+<h2 id="limits-title"><span lang="zh">证据与示意边界</span><span lang="en">Evidence and schematic limits</span></h2>
+<div lang="zh">
+<p>馆藏原件名为「明代曲水如意云纹暗花缎曳撒袍」。中国丝绸博物馆将它定为明代，记载为褐色丝质，长 108 厘米、宽 49 厘米、通袖长 214 厘米。馆方说明它采用交领右衽、平直双袖，腰下有褶，呈裙状。</p>
+<p><a href="https://www.chinasilkmuseum.com/zggd/info_21.aspx?itemid=1900">查看中国丝绸博物馆原件记录</a>。上述形制、材质和尺寸来自该记录。本图没有复制馆藏照片、暗花纹样或实物裁片。布面的褐色、明暗和细线仅提示缎面材质与折叠方向，不声称复原了原件的组织结构。</p>
+<p>轮廓、褶数、内襟覆盖范围、布边处理与分解距离都是教学重建。放大剖面用连续折线说明布面折返，没有据此断定原件的逐褶折法；剖面厚度也经过夸大。馆方简短记录没有提供逐片裁剪、缝线、扣带或内衣证据，因此这里不声称复原了这些细节，也不扩展成一套完整穿搭。褶裥是布料折叠的表示，不是额外加了一条裙。</p>
+<p>术语另见<a href="https://fashion.wtu.edu.cn/info/1135/3226.htm">武汉纺织大学服装学院陶辉对交领右衽的解释</a>。它用于说明术语，不用于替这件馆藏补造细节。不同年代、地区与场合的衣装需要分别查证。</p>
+</div>
+<div lang="en">
+<p>The museum object is titled 明代曲水如意云纹暗花缎曳撒袍 (a Ming-dynasty <i>yesa</i> robe of figured satin with meander and <i>ruyi</i>-cloud patterns). The China National Silk Museum dates it to the Ming dynasty and records it as brown silk, 108 cm long, 49 cm wide, with a sleeve span of 214 cm. The museum describes a crossed collar closing to the right (<i>jiaoling youren</i>), straight sleeves, and pleats below the waist that form a skirt-like lower part.</p>
+<p><a href="https://www.chinasilkmuseum.com/zggd/info_21.aspx?itemid=1900">View the China National Silk Museum record</a> (in Chinese). The form, material and dimensions above come from that record. This figure does not copy the museum photograph, the figured pattern, or actual pattern pieces. The brown color, shading and fine lines only suggest the satin material and folding direction; they do not claim to reconstruct the original weave.</p>
+<p>The outline, pleat count, inner-panel coverage, edge finishing and exploded distance are teaching reconstructions. The enlarged section uses a continuous zigzag to explain how cloth folds back; it does not assert how the original was pleated fold by fold, and its thickness is exaggerated. The museum's short record gives no evidence for individual pattern pieces, stitching, ties or undergarments, so none of these are claimed here, and the figure is not extended into a full outfit. The pleats represent folded cloth, not an extra skirt.</p>
+<p>For the terms, see <a href="https://fashion.wtu.edu.cn/info/1135/3226.htm">Tao Hui's explanation of <i>jiaoling youren</i></a> (Wuhan Textile University, in Chinese). It explains terminology; it is not used to invent details for this object. Dress from other periods, regions and occasions needs its own sources.</p>
+</div>
+<p class="foot"><span lang="zh">可离线打开。Tab 移到控件，空格勾选，方向键调滑杆。界面不自动播放动画；减少动态效果时仍可逐步检查。重置会清空本页作答。</span><span lang="en">Works offline. Tab moves between controls, Space toggles a checkbox, arrow keys move the slider. Nothing autoplays; with reduced motion you can still inspect step by step. Reset clears your answers on this page.</span></p>
+</section>
+</div>
+</div>
+<section id="experiment" class="figure-pane" aria-labelledby="diagram-title">
+<div class="stage">
+<svg id="garment" viewBox="0 0 500 635" role="img" aria-labelledby="diagram-title diagram-desc"><title id="diagram-title" data-i18n data-zh="明代曳撒袍结构教学重建，正面与褶裥剖面" data-en="Teaching reconstruction of a Ming-dynasty yesa robe: front view and pleat section">Teaching reconstruction of a Ming-dynasty yesa robe: front view and pleat section</title><desc id="diagram-desc">交领右衽的长袍，双袖自然下垂，腰下布料折返成褶。明暗沿褶面变化，衣缘显示内外布层。使用原生控件检查开襟、上下分解与褶裥剖面。</desc>
 <defs>
 <linearGradient id="silk" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="#765033"/><stop offset=".22" stop-color="#c59862"/><stop offset=".44" stop-color="#a77b4b"/><stop offset=".64" stop-color="#c9a36d"/><stop offset="1" stop-color="#795131"/></linearGradient>
 <linearGradient id="sleeve" x1="0" y1="0" x2=".14" y2="1"><stop stop-color="#c7a06a"/><stop offset=".27" stop-color="#ae8352"/><stop offset=".54" stop-color="#d1ae79"/><stop offset=".7" stop-color="#aa7b48"/><stop offset="1" stop-color="#6a472e"/></linearGradient>
@@ -17,8 +172,8 @@
 <filter id="cloth-shadow" x="-.5" y="-.5" width="2" height="2"><feGaussianBlur stdDeviation="3"/></filter>
 <clipPath id="skirt-clip"><path d="M175 258Q250 253 325 258L366 462Q370 468 361 471Q250 490 139 471Q130 468 134 462Z"/></clipPath>
 </defs>
-<text x="23" y="29" class="annotation">穿衣者右侧</text><text x="477" y="29" class="annotation" text-anchor="end">穿衣者左侧</text>
-<path d="M80 39V54M420 39V54" fill="none" stroke="var(--edge)"/>
+<text x="23" y="29" class="annotation" data-i18n data-zh="穿衣者右侧" data-en="Wearer's right">Wearer's right</text><text x="477" y="29" class="annotation" text-anchor="end" data-i18n data-zh="穿衣者左侧" data-en="Wearer's left">Wearer's left</text>
+<path d="M80 39V54M420 39V54" fill="none" stroke="var(--line-strong)"/>
 <ellipse cx="250" cy="490" rx="132" ry="9" fill="#302012" opacity=".12" filter="url(#cloth-shadow)"/>
 <g id="upper" class="part active">
 <path d="M217 96Q250 77 283 96L288 128H212Z" fill="#483123"/>
@@ -34,7 +189,7 @@
 <path d="M179 250Q250 257 323 250L323 256Q250 263 179 256Z" fill="#725033" opacity=".7"/></g>
 <path d="M175 257Q250 263 325 257" fill="none" stroke="#533721" stroke-width="3"/><path d="M178 254Q250 260 322 254" class="stitch"/>
 </g>
-<g id="connections" hidden><path d="M175 258V306M325 258V306" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="5 5"/><text x="250" y="289" text-anchor="middle" class="annotation">同一件袍的上下部分</text></g>
+<g id="connections" hidden><path d="M175 258V306M325 258V306" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="5 5"/><text x="250" y="289" text-anchor="middle" class="annotation" data-i18n data-zh="同一件袍的上下部分" data-en="Upper and lower parts of one robe">Upper and lower parts of one robe</text></g>
 <g id="lower" class="part active"><path d="M175 258Q250 253 325 258L366 462Q370 468 361 471Q250 490 139 471Q130 468 134 462Z" class="garment"/>
 <g clip-path="url(#skirt-clip)"><path d="M175 259 Q174 323 137 466 Q148.3 475 159.6 469 Q191 324 190 259Z" fill="url(#fold)"/>
 <path d="M175 260 Q173 340 137 465" class="fold-line"/>
@@ -69,32 +224,108 @@
 <path d="M175 258Q250 253 325 258" fill="none" stroke="#5f4028" stroke-width="2.2"/>
 </g>
 <g id="fold-detail"><path id="fold-leader" d="M326 425L405 468V522" fill="none" stroke="var(--muted)" stroke-width=".9" stroke-dasharray="3 4"/><circle id="fold-point" cx="326" cy="425" r="3" fill="var(--accent)"/>
-<rect x="25" y="527" width="450" height="90" rx="8" fill="var(--paper)" stroke="var(--edge)"/>
+<rect x="25" y="527" width="450" height="90" rx="8" fill="var(--surface)" stroke="var(--line-strong)"/>
 <g transform="translate(0 -40)">
 <path d="M70 623L105 602L140 623L175 602L210 623L245 602L280 623L315 602L350 623L385 602L420 623L420 643L385 622L350 643L315 622L280 643L245 622L210 643L175 622L140 643L105 622L70 643Z" fill="#725033" stroke="#66472c" stroke-width="1"/>
 <path d="M70 623L105 602L140 623L175 602L210 623L245 602L280 623L315 602L350 623L385 602L420 623L420 627L385 606L350 627L315 606L280 627L245 606L210 627L175 606L140 627L105 606L70 627Z" fill="#d3b37d" stroke="#6e4a2f" stroke-width=".8"/>
 <path d="M70 623L105 602L140 623L175 602L210 623L245 602L280 623L315 602L350 623L385 602L420 623" fill="none" stroke="#efd5a2" stroke-width="1.5"/>
 </g></g>
-</svg><div id="fold-caption" style="padding:0 16px 16px;font-size:15px;line-height:1.7"><strong>看一小段布料怎样折返</strong><br>放大剖面 · 折法原理 · 非实物裁片<br>明面朝向光，折返处自遮挡；同一片布连续穿过褶峰和褶谷。</div></div><p class="small">布面明暗、下垂弧线与放大厚度用于解释褶层。褶数、光泽和布边处理是教学重建，未复制实物织纹，也未按馆藏尺寸比例绘制。</p></div>
-<div><label for="part">检查部位</label><select id="part"><option value="all">整件袍</option><option value="collar">交叠衣襟</option><option value="sleeves">上身与双袖</option><option value="pleats">腰下褶裥</option></select><div class="controls"><label class="toggle"><input id="open" type="checkbox"> 掀开外襟</label></div><div class="range"><label for="explode">分解视图 <output id="spread" for="explode">0%</output></label><input id="explode" type="range" min="0" max="100" step="25" value="0"><p class="small">方向键每次移动 25%。这只是检查视图，不模拟布料受力或真实拆衣。剖面夸大厚度，便于看清折返。</p></div><div class="controls"><label class="toggle"><input id="fold-inspect" type="checkbox" checked> 显示褶裥剖面</label></div><div class="controls"><button type="button" id="reset">重置整课</button></div><div class="detail"><h3 id="part-title">先看整件</h3><p id="part-description"></p></div><p id="result" class="result"></p><p id="run-status" class="status small" role="status"></p></div></div></section>
-<section class="card"><h2>3. 解释观察</h2><p id="feedback">对比开合后的交叠关系，再查看解释。</p><details id="explanation"><summary>衣襟的内外与袍身的上下</summary><p>右衽指左前襟向穿衣者右侧掩合，覆盖右前襟。正面观看时，穿衣者的右侧在你的左边。「右」不是观看者的右。</p><p>图中外襟移开后，内襟才显露。浅色只帮助辨认被遮挡部分，不代表另一件内衣。分解图把同一件袍的上身、腰下袍身拉开，不能据此说它们是两件独立衣服。</p></details><label for="writing">用自己的话解释</label><p class="small">「掀开外襟后，我看见了___。图上的左右以___为准。分解图的空隙表示___，不表示___。」</p><textarea id="writing" placeholder="仅在本页保留，不上传。"></textarea><h3>迁移问题</h3><form id="transfer-form"><fieldset><legend>如果给同一张正面图做水平镜像，却不改「穿衣者右侧」的标注，会发生什么？</legend><label class="choice"><input type="radio" name="transfer" value="same" required> 结构解释完全不受影响。</label><label class="choice"><input type="radio" name="transfer" value="wrong"> 衣襟左右关系被翻转，标注会误导读者。</label></fieldset><button>核对答案</button><p id="transfer-feedback" role="status"></p></form></section>
-<section class="card"><h2>证据与示意边界</h2><p>馆藏原件名为「明代曲水如意云纹暗花缎曳撒袍」。中国丝绸博物馆将它定为明代，记载为褐色丝质，长 108 厘米、宽 49 厘米、通袖长 214 厘米。馆方说明它采用交领右衽、平直双袖，腰下有褶，呈裙状。</p><p class="small"><a href="https://www.chinasilkmuseum.com/zggd/info_21.aspx?itemid=1900">查看中国丝绸博物馆原件记录</a>。上述形制、材质和尺寸来自该记录。本图没有复制馆藏照片、暗花纹样或实物裁片。布面的褐色、明暗和细线仅提示缎面材质与折叠方向，不声称复原了原件的组织结构。</p><p>轮廓、褶数、内襟覆盖范围、布边处理与分解距离都是教学重建。放大剖面用连续折线说明布面折返，没有据此断定原件的逐褶折法；剖面厚度也经过夸大。馆方简短记录没有提供逐片裁剪、缝线、扣带或内衣证据，因此这里不声称复原了这些细节，也不扩展成一套完整穿搭。褶裥是布料折叠的表示，不是额外加了一条裙。</p><p class="small">术语另见<a href="https://fashion.wtu.edu.cn/info/1135/3226.htm">武汉纺织大学服装学院陶辉对交领右衽的解释</a>。它用于说明术语，不用于替这件馆藏补造细节。不同年代、地区与场合的衣装需要分别查证。</p></section><footer>可离线打开。Tab 移到控件，空格勾选，方向键调滑杆。界面不自动播放动画；减少动态效果时仍可逐步检查。重置会清空本页作答。</footer></main>
+</svg>
+</div>
+<div id="fold-caption"><strong><span lang="zh">看一小段布料怎样折返</span><span lang="en">How a short length of cloth folds back</span></strong><span class="sub"><span lang="zh">放大剖面 · 折法原理 · 非实物裁片</span><span lang="en">Enlarged section · folding principle · not an actual pattern piece</span></span><span lang="zh">明面朝向光，折返处自遮挡；同一片布连续穿过褶峰和褶谷。</span><span lang="en">Lit faces turn toward the light and each fold shades itself; one continuous piece of cloth runs through every ridge and valley.</span></div>
+<div class="readouts" data-i18n data-zh-aria-label="当前检查状态" data-en-aria-label="Current inspection state" aria-label="Current inspection state">
+<div class="readout"><span class="k"><span lang="zh">外襟</span><span lang="en">Outer panel</span></span><strong id="ro-outer"></strong></div>
+<div class="readout"><span class="k"><span lang="zh">分解</span><span lang="en">Spread</span></span><strong id="ro-spread">0%</strong></div>
+<div class="readout"><span class="k"><span lang="zh">检查部位</span><span lang="en">Inspecting</span></span><strong id="ro-part"></strong></div>
+</div>
+<p id="result"></p>
+<p class="fig-caption"><span lang="zh">布面明暗、下垂弧线与放大厚度用于解释褶层。褶数、光泽和布边处理是教学重建，未复制实物织纹，也未按馆藏尺寸比例绘制。</span><span lang="en">Shading, drape curves and enlarged thickness explain the pleat layers. Pleat count, sheen and edge finishing are a teaching reconstruction; they do not copy the object's weave or follow its measured proportions.</span></p>
+</section>
+</main>
 <script>
 'use strict';
+/* lesson-shell i18n v1: shared by every example page; keep identical across files.
+   Static copy: paired elements <span lang="zh">…</span><span lang="en">…</span> (CSS hides the other language).
+   Text-only nodes and attributes: data-i18n plus data-zh / data-en (textContent) or data-zh-<attr> / data-en-<attr>.
+   Dynamic copy: tr('中文', 'English'); say(el, () => tr(…)) re-renders the message when the language changes. */
+const I18N = (() => {
+  const KEY = 'tf-lang', LANGS = ['zh', 'en'];
+  const stored = (() => { try { return localStorage.getItem(KEY); } catch { return null; } })();
+  const param = new URLSearchParams(location.search).get('lang');
+  let lang = LANGS.includes(param) ? param : LANGS.includes(stored) ? stored : /^zh\b/i.test(navigator.language || '') ? 'zh' : 'en';
+  const listeners = [];
+  function apply() {
+    const root = document.documentElement;
+    root.lang = lang === 'zh' ? 'zh-CN' : 'en';
+    root.dataset.lang = lang;
+    for (const el of document.querySelectorAll('[data-i18n]')) {
+      for (const { name, value } of [...el.attributes]) {
+        if (name === 'data-' + lang) el.textContent = value;
+        else if (name.startsWith('data-' + lang + '-')) el.setAttribute(name.slice(lang.length + 6), value);
+      }
+    }
+    for (const button of document.querySelectorAll('[data-set-lang]')) button.setAttribute('aria-pressed', String(button.dataset.setLang === lang));
+    for (const link of document.querySelectorAll('a[data-keep-lang]')) {
+      const target = new URL(link.getAttribute('href').split('?')[0], location.href);
+      target.searchParams.set('lang', lang);
+      link.href = target.href;
+    }
+    listeners.forEach(fn => fn(lang));
+  }
+  document.addEventListener('click', event => {
+    const button = event.target.closest('[data-set-lang]');
+    if (!button || button.dataset.setLang === lang) return;
+    lang = button.dataset.setLang;
+    try { localStorage.setItem(KEY, lang); } catch {}
+    try { const here = new URL(location.href); here.searchParams.set('lang', lang); history.replaceState(history.state, '', here); } catch {}
+    apply();
+  });
+  return { get lang() { return lang; }, on(fn) { listeners.push(fn); }, apply };
+})();
+const tr = (zh, en) => I18N.lang === 'zh' ? zh : en;
+const spoken = new Map();
+function say(target, message) {
+  const el = typeof target === 'string' ? document.getElementById(target) : target;
+  spoken.set(el, message);
+  el.textContent = message ? message() : '';
+}
+I18N.on(() => spoken.forEach((message, el) => { el.textContent = message ? message() : ''; }));
+/* /lesson-shell */
 const $=id=>document.getElementById(id);
 const state={part:'all',open:false,explode:0,foldInspect:true,prediction:null,observed:new Set()};
-const parts={all:{title:'先看整件',description:'把视线沿衣领、双袖、腰下移动。再选一个部位，其他部分会变淡，但仍保留上下关系。'},collar:{title:'交叠衣襟',description:'勾选「掀开外襟」对比遮挡。外襟是穿衣者左前襟，向其右侧掩合；浅色内襟原本被盖住。'},sleeves:{title:'上身与双袖',description:'馆藏记录描述双袖平直。这里保留宽展的横向袖形，不把轮廓当作实物裁剪图。'},pleats:{title:'腰下褶裥',description:'沿一条亮面看到暗谷，再看放大剖面中的连续布片。腰下的褶把较宽布面收束在腰间；图中的光泽、折法与褶数是示意，不是实物测绘。'}};
+const parts={
+ all:{zh:{title:'先看整件',short:'整件',description:'把视线沿衣领、双袖、腰下移动。再选一个部位，其他部分会变淡，但仍保留上下关系。'},en:{title:'Start with the whole robe',short:'Whole robe',description:'Move your eye along the collar, the two sleeves and the part below the waist. Then pick a part: the others fade but keep their upper/lower relationship.'}},
+ collar:{zh:{title:'交叠衣襟',short:'衣襟',description:'勾选「掀开外襟」对比遮挡。外襟是穿衣者左前襟，向其右侧掩合；浅色内襟原本被盖住。'},en:{title:'Overlapping front panels',short:'Front panels',description:'Tick “Lift the outer front panel” to compare what is hidden. The outer panel is the wearer\'s left front panel, closing toward the wearer\'s right; the light inner panel was covered by it.'}},
+ sleeves:{zh:{title:'上身与双袖',short:'上身与袖',description:'馆藏记录描述双袖平直。这里保留宽展的横向袖形，不把轮廓当作实物裁剪图。'},en:{title:'Upper body and sleeves',short:'Upper body',description:'The museum record describes straight sleeves. The drawing keeps a wide horizontal sleeve shape; do not read the outline as an actual cutting pattern.'}},
+ pleats:{zh:{title:'腰下褶裥',short:'褶裥',description:'沿一条亮面看到暗谷，再看放大剖面中的连续布片。腰下的褶把较宽布面收束在腰间；图中的光泽、折法与褶数是示意，不是实物测绘。'},en:{title:'Pleats below the waist',short:'Pleats',description:'Follow a lit face down to a dark valley, then look at the continuous strip of cloth in the enlarged section. The pleats gather a wider piece of cloth into the waist. Sheen, folding method and pleat count are illustrative, not measured from the object.'}}
+};
+const part=()=>parts[state.part][I18N.lang];
 function viewModel(s){return {upperY:-s.explode*.13,lowerY:s.explode*.35,outerX:s.open?88:0,outerY:s.open?-12:0,showConnections:s.explode>=75};}
-function render(){const m=viewModel(state);$('fold-caption').hidden=!state.foldInspect;$('upper').setAttribute('transform',`translate(0 ${m.upperY})`);$('lower').setAttribute('transform',`translate(0 ${m.lowerY})`);$('outer').setAttribute('transform',`translate(${m.outerX} ${m.outerY})`);$('fold-detail').style.display=state.foldInspect?'':'none';$('fold-leader').setAttribute('d',`M326 ${425+m.lowerY}L405 510V522`);$('fold-point').setAttribute('cy',425+m.lowerY);$('connections').hidden=!m.showConnections;$('connections').style.display=m.showConnections?'':'none';$('connections').querySelector('path').setAttribute('d',`M175 ${258+m.upperY}V${258+m.lowerY}M325 ${258+m.upperY}V${258+m.lowerY}`);$('connections').querySelector('text').setAttribute('y',263+(m.upperY+m.lowerY)/2);
+function render(){
+ const m=viewModel(state);
+ $('fold-caption').hidden=!state.foldInspect;
+ $('upper').setAttribute('transform',`translate(0 ${m.upperY})`);$('lower').setAttribute('transform',`translate(0 ${m.lowerY})`);$('outer').setAttribute('transform',`translate(${m.outerX} ${m.outerY})`);
+ $('fold-detail').style.display=state.foldInspect?'':'none';$('fold-leader').setAttribute('d',`M326 ${425+m.lowerY}L405 510V522`);$('fold-point').setAttribute('cy',425+m.lowerY);
+ $('connections').toggleAttribute('hidden',!m.showConnections);$('connections').style.display=m.showConnections?'':'none';$('connections').querySelector('path').setAttribute('d',`M175 ${258+m.upperY}V${258+m.lowerY}M325 ${258+m.upperY}V${258+m.lowerY}`);$('connections').querySelector('text').setAttribute('y',263+(m.upperY+m.lowerY)/2);
  $('upper').setAttribute('class','part '+(state.part==='all'||state.part==='sleeves'||state.part==='collar'?'active':''));$('lower').setAttribute('class','part '+(state.part==='all'||state.part==='pleats'?'active':''));
- $('part-title').textContent=parts[state.part].title;$('part-description').textContent=parts[state.part].description;$('spread').value=state.explode+'%';$('explode').setAttribute('aria-valuetext',`分解 ${state.explode}%`);
- $('result').textContent=`外襟${state.open?'已移开，浅色内襟显露':'合拢，覆盖着内襟'}。分解 ${state.explode}%。${state.explode>0?'上下部分之间的空隙只为检查而设。':'上下部分相接。'}`;
- $('diagram-desc').textContent=$('result').textContent+' 穿衣者右侧在观看者左边。';$('run-status').textContent=`正在检查${parts[state.part].title}。${state.open?'可比较内外襟的覆盖关系。':'可掀开外襟检查遮挡。'}`;
- if(state.observed.size===2)$('feedback').textContent=state.prediction==='skin'?'你的预测是没有另一片衣襟。开合对比显示，被外襟遮住的内襟仍在。这是覆盖关系的示意。':state.prediction==='under'?'你的预测与开合观察一致。试着说清哪一片覆盖哪一片，以及左右以谁为准。':'你已对比开合两种状态。试着用「覆盖」和「穿衣者」解释观察。';}
+ $('part-title').textContent=part().title;$('part-description').textContent=part().description;
+ $('spread').value=state.explode+'%';$('explode').setAttribute('aria-valuetext',tr(`分解 ${state.explode}%`,`Spread ${state.explode}%`));
+ $('ro-outer').textContent=state.open?tr('已移开','Lifted'):tr('合拢','Closed');$('ro-spread').textContent=state.explode+'%';$('ro-part').textContent=part().short;
+ $('result').textContent=tr(`外襟${state.open?'已移开，浅色内襟显露':'合拢，覆盖着内襟'}。分解 ${state.explode}%。${state.explode>0?'上下部分之间的空隙只为检查而设。':'上下部分相接。'}`,`Outer panel ${state.open?'moved aside; the light inner panel shows':'closed, covering the inner panel'}. Spread ${state.explode}%. ${state.explode>0?'The gap between the upper and lower parts exists only for inspection.':'The upper and lower parts are joined.'}`);
+ $('diagram-desc').textContent=$('result').textContent+tr(' 穿衣者右侧在观看者左边。',' The wearer\'s right is on the viewer\'s left.');
+ $('run-status').textContent=tr(`正在检查${part().title}。${state.open?'可比较内外襟的覆盖关系。':'可掀开外襟检查遮挡。'}`,`Inspecting: ${part().title}. ${state.open?'Compare how the inner and outer panels overlap.':'Lift the outer panel to check what it hides.'}`);
+ if(state.observed.size===2){const p=state.prediction;say('feedback',()=>p==='skin'?tr('你的预测是没有另一片衣襟。开合对比显示，被外襟遮住的内襟仍在。这是覆盖关系的示意。','Your prediction was that there is no second front panel. Opening and closing shows the inner panel is still there, hidden by the outer one. This illustrates the overlap.'):p==='under'?tr('你的预测与开合观察一致。试着说清哪一片覆盖哪一片，以及左右以谁为准。','Your prediction matches what opening and closing shows. Now say which panel covers which, and whose left and right are meant.'):tr('你已对比开合两种状态。试着用「覆盖」和「穿衣者」解释观察。','You have compared both states. Try explaining what you saw with “covers” and “the wearer”.'));}
+}
 $('part').addEventListener('change',e=>{state.part=e.target.value;render();});$('fold-inspect').addEventListener('change',e=>{state.foldInspect=e.target.checked;render();});$('open').addEventListener('change',e=>{state.open=e.target.checked;state.observed.add(state.open);render();});$('explode').addEventListener('input',e=>{state.explode=Number(e.target.value);render();});
-$('prediction-form').addEventListener('submit',e=>{e.preventDefault();state.prediction=new FormData(e.currentTarget).get('prediction');render();$('prediction-status').textContent='预测已记下。开合衣襟，检查究竟露出了什么。';});
-$('transfer-form').addEventListener('submit',e=>{e.preventDefault();const answer=new FormData(e.currentTarget).get('transfer');$('transfer-feedback').textContent=(answer==='wrong'?'对。':'请对照穿衣者的左右。')+'镜像会反转图中的交叠方向。展示或引用服饰图片时，要核对是否被镜像，并保持方位标注一致。';});
-$('reset').addEventListener('click',()=>{Object.assign(state,{part:'all',open:false,explode:0,foldInspect:true,prediction:null,observed:new Set()});['prediction-form','transfer-form'].forEach(id=>$(id).reset());$('part').value='all';$('open').checked=false;$('fold-inspect').checked=true;$('explode').value=0;$('writing').value='';$('explanation').open=false;$('transfer-feedback').textContent='';$('prediction-status').textContent='先选一个答案，再开合衣襟。也可以直接操作。';$('feedback').textContent='对比开合后的交叠关系，再查看解释。';render();});
+$('prediction-form').addEventListener('submit',e=>{e.preventDefault();state.prediction=new FormData(e.currentTarget).get('prediction');render();say('prediction-status',()=>tr('预测已记下。开合衣襟，检查究竟露出了什么。','Prediction saved. Open and close the front panel to check what is really revealed.'));});
+$('transfer-form').addEventListener('submit',e=>{e.preventDefault();const answer=new FormData(e.currentTarget).get('transfer');say('transfer-feedback',()=>tr((answer==='wrong'?'对。':'请对照穿衣者的左右。')+'镜像会反转图中的交叠方向。展示或引用服饰图片时，要核对是否被镜像，并保持方位标注一致。',(answer==='wrong'?'Correct. ':'Check against the wearer\'s left and right. ')+'Mirroring reverses the overlap direction in the picture. When you show or cite garment images, check whether they have been mirrored and keep orientation labels consistent.'));});
+function resetLesson(){Object.assign(state,{part:'all',open:false,explode:0,foldInspect:true,prediction:null,observed:new Set()});['prediction-form','transfer-form'].forEach(id=>$(id).reset());$('part').value='all';$('open').checked=false;$('fold-inspect').checked=true;$('explode').value=0;$('writing').value='';$('explanation').open=false;say('transfer-feedback',null);say('prediction-status',()=>tr('先选一个答案，再开合衣襟。也可以直接操作。','Choose an answer, then open and close the front panel. You can also start operating directly.'));say('feedback',()=>tr('对比开合后的交叠关系，再查看解释。','Compare the overlap with the panel open and closed, then read the explanation.'));render();}
+$('reset').addEventListener('click',resetLesson);
 function selfCheck(){const assert=(ok,message)=>{if(!ok)throw Error(message);};const initial=viewModel({open:false,explode:0});assert(initial.upperY===0&&initial.lowerY===0&&initial.outerX===0,'Assembled reset');for(const explode of [0,25,50,75,100])for(const open of [false,true]){const m=viewModel({open,explode});assert(Object.values(m).every(v=>typeof v==='boolean'||Number.isFinite(v)),'Finite inspection positions');assert(m.lowerY-m.upperY===explode*.48||Math.abs(m.lowerY-m.upperY-explode*.48)<1e-12,'Only inspection separation changes');assert(m.outerX===(open?88:0),'Outer panel reveals under-panel');}assert(viewModel({open:true,explode:100}).lowerY===35,'Exploded endpoint');return 'Passed assembled reset, five spread steps, both overlap states and endpoint.';}
-selfCheck();render();
-</script></body></html>
+selfCheck();
+I18N.on(render);
+I18N.apply();
+resetLesson();
+</script>
+</body>
+</html>
