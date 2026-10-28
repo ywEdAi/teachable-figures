@@ -1,5 +1,7 @@
 # Skill review and iteration
 
+This is the historical v0.1.0 review. See the [v0.2.0 iteration](v0.2.0.md) for the later geometry repair, five new lessons, and current verification evidence.
+
 Reviewed October 27, 2026. The starting archive was `teachable-figures-fused.skill`, SHA-256 `655102fae7014d12e70385f4e75dd87033cb454103fc0d0cf418683d483bead8`. The original archive and the October 12 review were left unchanged.
 
 ## Verdict

@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>火箭点火，就一定起飞吗？</title>
+<style>
+:root{color-scheme:light dark;--bg:#f6f3ec;--paper:#fffdf8;--ink:#21393e;--muted:#536c72;--line:#cbd6d4;--accent:#126a72;--soft:#e4efea;--fire:#c45b2a;--sky:#e8f0ee;--body:#e9cda4}
+@media(prefers-color-scheme:dark){:root{--bg:#101d29;--paper:#182b38;--ink:#edf1ea;--muted:#afc2c9;--line:#3f5a69;--accent:#7dd6cf;--soft:#253e48;--fire:#ffb17b;--sky:#122330;--body:#e9cda4}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 system-ui,sans-serif}main{max-width:1000px;margin:auto;padding:30px 22px 60px}a{color:var(--accent)}h1{font-size:clamp(29px,5vw,48px);line-height:1.2;margin:12px 0}h2{font-size:22px;margin:0 0 12px}p{margin:10px 0}.eyebrow{color:var(--accent);font-weight:700;letter-spacing:.1em}.lead,.small{color:var(--muted)}.small{font-size:14px}.card{margin-top:22px;padding:24px;background:var(--paper);border:1px solid var(--line);border-radius:16px}.choices{border:0;margin:0;padding:0}.choices label{display:block;min-height:44px;padding:8px 0}.controls{display:grid;grid-template-columns:1fr 1fr;gap:20px}.controls label{display:block;font-weight:650}input[type=range]{width:100%;min-height:40px;accent-color:var(--accent)}input[type=radio]{accent-color:var(--accent);margin-right:8px}button{font:inherit;border:1px solid var(--line);border-radius:8px;padding:10px 17px;min-height:44px;background:var(--soft);color:var(--ink);cursor:pointer}button.primary{background:var(--accent);color:var(--paper);font-weight:700}button:disabled{opacity:.55;cursor:default}:focus-visible{outline:3px solid var(--fire);outline-offset:3px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}.stage{margin:18px 0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--sky)}svg{display:block;width:100%;height:auto}.readouts{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.readouts div{background:var(--soft);border-radius:8px;padding:12px}.readouts b{display:block;font-size:21px;font-variant-numeric:tabular-nums}.readouts span{font-size:13px;color:var(--muted)}.status{border-left:4px solid var(--fire);padding-left:14px;min-height:3.4em}output{font-variant-numeric:tabular-nums;color:var(--accent)}.plot{background:var(--sky);border-radius:10px}svg text{font-family:system-ui,sans-serif;fill:var(--muted);font-size:13px}textarea{width:100%;min-height:88px;font:inherit;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);padding:10px}[hidden]{display:none!important}summary{cursor:pointer;padding:8px 0;min-height:44px;font-weight:650}code{overflow-wrap:anywhere}footer{margin-top:24px;color:var(--muted);font-size:14px}@media(max-width:580px){main{padding:22px 14px 40px}.card{padding:18px 15px}.controls{grid-template-columns:1fr;gap:8px}.readouts{grid-template-columns:1fr 1fr}.readouts b{font-size:19px}.actions button{flex:1}.stage svg{min-height:220px}}
+</style>
+</head>
+<body><main>
+<header><a href="index.html">示例目录</a><p class="eyebrow">理想竖直发射 · 一个变量，一次比较</p><h1>火箭点火，就一定起飞吗？</h1><p class="lead">改变推力，观察火箭什么时候离开发射台。再看燃料烧完后，速度和高度为什么没有一起归零。</p></header>
+<section class="card"><h2>1 · 先预测</h2><form id="prediction"><fieldset class="choices"><legend>初始质量相同，只要发动机有推力，火箭就会立即离开发射台吗？</legend><label><input type="radio" name="prediction" value="yes" required>会，有推力就会立即向上运动。</label><label><input type="radio" name="prediction" value="no">不会，要先比较推力与火箭的重量。</label></fieldset><button type="submit">记录预测</button></form><p id="prediction-status" class="small" aria-live="polite">也可以先操作，再回来写下你的预测。</p></section>
+<section class="card" id="experiment"><h2>2 · 改变推力，观察发射</h2><p class="small">先比较 40% 与 80% 油门在点火后 1 秒的状态。改变油门或载荷会开始一次新试验。</p><div class="controls"><label for="throttle">油门 <output id="throttle-value">80%</output><input id="throttle" type="range" min="0" max="100" step="5" value="80"></label><label for="payload">额外载荷 <output id="payload-value">0 kg</output><input id="payload" type="range" min="0" max="600" step="50" value="0"></label></div>
+<div class="stage"><svg id="scene" viewBox="0 0 760 330" role="img" aria-labelledby="scene-title scene-description"><title id="scene-title">理想竖直火箭发射</title><desc id="scene-description">通过时间控件观察火箭高度。图旁的数值提供同一模型的结果。</desc><path d="M58 25V292H720" fill="none" stroke="var(--line)"/><text x="67" y="31" id="scale-label">高度</text><text x="67" y="283">发射台 · 0 m</text><path d="M180 292V248H238V292M180 264H238M180 278H238" fill="none" stroke="var(--muted)" stroke-width="3"/><path d="M60 293H720" stroke="var(--muted)"/><g id="rocket"><path d="M-9 22L0 41L9 22" fill="var(--fire)" id="flame"/><path d="M-10 21V-21Q0-45 10-21V21Z" fill="var(--body)" stroke="var(--ink)" stroke-width="1.4"/><circle cy="-12" r="5" fill="var(--accent)"/><path d="M-10 5L-20 24H-10M10 5L20 24H10" fill="var(--fire)"/><path d="M-10 15H10" stroke="var(--ink)"/></g><text x="470" y="65">向上为正方向</text><text x="470" y="90">推力 F ↑　重力 mg ↓</text><text x="470" y="115">空气阻力未计入</text></svg></div>
+<div class="readouts" aria-label="当前模型读数"><div><span>高度</span><b id="altitude">0 m</b></div><div><span>竖直速度</span><b id="velocity">0 m/s</b></div><div><span>当前推重比 F/(mg)</span><b id="twr">0</b></div><div><span>剩余燃料</span><b id="fuel">400 kg</b></div></div>
+<p class="status" id="result" role="status"></p><label for="time">点火后时间 <output id="time-value">0 s</output></label><input id="time" type="range" min="0" max="120" step="1" value="0"><div class="actions"><button id="run" type="button" class="primary">开始发射</button><button id="step" type="button">前进 1 秒</button><button id="reset" type="button">重置</button></div><p id="motion-note" class="small"></p>
+<svg class="plot" id="trajectory" viewBox="0 0 760 220" role="img" aria-label="0 到 120 秒的高度轨迹。当前时间由竖线标出。"><path d="M55 24V180H725" fill="none" stroke="var(--line)"/><path id="curve" fill="none" stroke="var(--accent)" stroke-width="2.5"/><path id="cursor" stroke="var(--fire)" stroke-width="2"/><text x="55" y="205">0 s</text><text x="670" y="205">120 s</text><text id="plot-top" x="65" y="20"></text></svg>
+<button id="reveal" type="button" disabled>根据观察检查解释</button><p class="small">把时间推进至少 1 秒，即可检查解释。</p></section>
+<section id="explanation" class="card" hidden><h2>3 · 解释，再预测一个新情形</h2><p>在发射台上，地面可以支撑火箭。若推力不超过当前重量，火箭不会立即向上加速。离开发射台后，净加速度由 <code>a = F/m − g</code> 决定。</p><p>这个模型在燃烧时减少质量。低于初始重量的推力，有时会在燃料消耗后足以让火箭起飞。不能把“开始时没起飞”说成“永远不会起飞”。</p><p>燃料耗尽时，推力变为 0，向上的速度仍可大于 0。重力使它逐渐减速，达到最高点后再下降。图中落地后停止，不模拟碰撞。</p><label for="explain">用你观察到的两组数据解释起飞条件。</label><textarea id="explain" placeholder="在 ___% 油门、___ 秒时，推重比是 ___，因此 ___。"></textarea><form id="transfer"><fieldset class="choices"><legend>迁移问题：燃料刚烧完时，火箭仍有向上的速度。它会立即停止上升吗？</legend><label><input type="radio" name="transfer" value="stop" required>会，因为推力消失了。</label><label><input type="radio" name="transfer" value="coast">不会，会继续上升一段时间，直到速度降为 0。</label></fieldset><button type="submit">检查新预测</button><p id="transfer-feedback" role="status"></p></form></section>
+<section class="card"><h2>模型、单位与边界</h2><p>这是一维教学模型，使用示意参数。干质量 800 kg，初始燃料 400 kg，最大推力 18,000 N，有效排气速度 1,800 m/s，重力加速度固定为 9.81 m/s²。燃烧流量为 <code>ṁ = F / vₑ</code>。滑块表示固定油门的一次试验，不是飞行中途改变油门。</p><p>高度和速度来自分段解析解，包含在台上消耗燃料、起飞、燃烧、熄火滑行与落地。忽略空气阻力、风、气压变化、地球曲率、分级和姿态控制。这不是轨道或真实运载火箭的性能预测。</p><details><summary>查看物理来源</summary><p>NASA Glenn 的<a href="https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/rocket-thrust-equation/">火箭推力方程</a>说明推力与排气流量、速度及压力有关。本例把压力贡献合并到有效排气速度中。NASA 的<a href="https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/thrust-to-weight-ratio/">推重比说明</a>与<a href="https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/ideal-rocket-equation/">理想火箭方程</a>提供模型的基础。数字均为教学选择。</p></details></section>
+<footer>离线运行，无数据上传。原生控件可用 Tab、方向键和空格操作。减少动态效果时，用时间滑块或“前进 1 秒”观察稳定状态。</footer>
+</main><script>
+'use strict';
+const $ = id => document.getElementById(id);
+const G = 9.81, EXHAUST = 1800, DRY = 800, PROPELLANT = 400, MAX_THRUST = 18000;
+function flight(time, throttle, payload) {
+  const thrust = MAX_THRUST * throttle / 100, dry = DRY + payload, initialMass = dry + PROPELLANT;
+  if (!thrust) return { height:0, velocity:0, mass:initialMass, fuel:PROPELLANT, thrust:0, twr:0, phase:'pad', burnout:Infinity, liftoff:Infinity };
+  const flow = thrust / EXHAUST, burnout = PROPELLANT / flow;
+  const burnedTime = Math.min(time, burnout), mass = initialMass - flow * burnedTime;
+  const currentThrust = time < burnout ? thrust : 0;
+  const liftoff = thrust / G > dry ? Math.max(0, (initialMass - thrust / G) / flow) : Infinity;
+  let height = 0, velocity = 0, phase = 'pad';
+  if (time > liftoff) {
+    const duration = Math.min(time, burnout) - liftoff;
+    const liftMass = initialMass - flow * liftoff, endMass = liftMass - flow * duration;
+    const logarithm = Math.log(liftMass / endMass);
+    velocity = EXHAUST * logarithm - G * duration;
+    height = EXHAUST * (duration - endMass / flow * logarithm) - G * duration * duration / 2;
+    phase = 'burn';
+    if (time >= burnout) {
+      const coast = time - burnout;
+      height += velocity * coast - G * coast * coast / 2;
+      velocity -= G * coast;
+      phase = 'coast';
+    }
+    if (height <= 0) { height = 0; velocity = 0; phase = 'landed'; }
+  }
+  return { height:Math.max(0,height), velocity, mass, fuel:Math.max(0,mass-dry), thrust:currentThrust, twr:currentThrust/(mass*G), phase, burnout, liftoff };
+}
+const state = { throttle:80, payload:0, time:0, running:false };
+const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+let frame = 0, previous = null, scale = 1000;
+function stop() { cancelAnimationFrame(frame); frame=0; previous=null; state.running=false; }
+function buildTrajectory() {
+  const samples = Array.from({length:121},(_,time)=>flight(time,state.throttle,state.payload));
+  scale = Math.max(1000,Math.ceil(Math.max(...samples.map(s=>s.height))/1000)*1000);
+  $('curve').setAttribute('d',samples.map((s,i)=>`${i?'L':'M'}${55+i/120*670},${180-s.height/scale*145}`).join(''));
+  $('plot-top').textContent = `${scale.toLocaleString()} m`;
+  $('scale-label').textContent = `高度示意 · 纵轴上限 ${scale.toLocaleString()} m`;
+}
+function render() {
+  const current=flight(state.time,state.throttle,state.payload);
+  $('throttle-value').value=`${state.throttle}%`;$('payload-value').value=`${state.payload} kg`;
+  $('time').value=state.time;$('time-value').value=`${state.time.toFixed(1)} s`;
+  $('altitude').textContent=`${current.height.toFixed(1)} m`;$('velocity').textContent=`${current.velocity.toFixed(1)} m/s`;
+  $('twr').textContent=current.twr.toFixed(2);$('fuel').textContent=`${current.fuel.toFixed(1)} kg`;
+  const description={pad:'仍在发射台上，支撑力阻止它下落。',burn:'正在上升，发动机燃烧中。',coast:current.velocity>=0?'发动机已熄火，仍在向上滑行。':'发动机已熄火，正在下降。',landed:'已回到地面，模型停止运动。'}[current.phase];
+  $('result').textContent=`${state.time.toFixed(1)} 秒 · ${description} 推力 ${current.thrust.toFixed(0)} N，质量 ${current.mass.toFixed(1)} kg。`;
+  $('scene-description').textContent=`${description} 高度 ${current.height.toFixed(1)} 米，竖直速度 ${current.velocity.toFixed(1)} 米每秒。`;
+  $('rocket').setAttribute('transform',`translate(270 ${270-current.height/scale*200})`);
+  $('flame').style.display=current.thrust>0?'':'none';
+  const x=55+state.time/120*670;$('cursor').setAttribute('d',`M${x} 26V180`);
+  $('run').textContent=state.running?'暂停':'开始发射';$('run').disabled=reduced.matches;
+  $('motion-note').textContent=reduced.matches?'减少动态效果已开启。使用时间滑块或前进按钮；不会连续播放。':'播放速度为模拟时间的 6 倍；随时暂停或直接选择时间。';
+  $('reveal').disabled=state.time<1;
+}
+function tick(now) {
+  if(previous===null)previous=now;
+  state.time=Math.min(120,state.time+Math.min(.1,(now-previous)/1000)*6);previous=now;
+  if(state.time>=120)stop();render();if(state.running)frame=requestAnimationFrame(tick);
+}
+for(const id of ['throttle','payload'])$(id).addEventListener('input',event=>{stop();state[id]=Number(event.target.value);state.time=0;$('explanation').hidden=true;buildTrajectory();render();});
+$('time').addEventListener('input',event=>{stop();state.time=Number(event.target.value);render();});
+$('run').addEventListener('click',()=>{if(state.running){stop();render();return;}if(state.time>=120)state.time=0;state.running=true;render();frame=requestAnimationFrame(tick);});
+$('step').addEventListener('click',()=>{stop();state.time=Math.min(120,Math.floor(state.time)+1);render();});
+$('reset').addEventListener('click',()=>{stop();Object.assign(state,{throttle:80,payload:0,time:0});$('throttle').value=80;$('payload').value=0;$('prediction').reset();$('transfer').reset();$('explain').value='';$('transfer-feedback').textContent='';$('prediction-status').textContent='也可以先操作，再回来写下你的预测。';$('explanation').hidden=true;buildTrajectory();render();});
+$('prediction').addEventListener('submit',event=>{event.preventDefault();$('prediction-status').textContent='预测已记录。比较相同载荷下 40% 与 80% 油门在第 1 秒的状态。';});
+$('reveal').addEventListener('click',()=>{$('explanation').hidden=false;});
+$('transfer').addEventListener('submit',event=>{event.preventDefault();const answer=new FormData(event.currentTarget).get('transfer');$('transfer-feedback').textContent=(answer==='coast'?'正确。':'再看速度读数。')+' 推力决定加速度，速度不会因推力消失而瞬间归零。';});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){stop();render();}});
+new IntersectionObserver(([entry])=>{if(!entry.isIntersecting&&state.running){stop();render();}}).observe($('experiment'));
+reduced.addEventListener('change',()=>{stop();render();});window.addEventListener('pagehide',stop);
+function selfCheck() {
+  const assert=(condition,message)=>{if(!condition)throw Error(message);};
+  assert(flight(1,40,0).height===0,'Insufficient thrust must not leave the pad.');
+  assert(flight(1,80,0).height>0,'Thrust above initial weight must lift.');
+  assert(flight(1,55,0).height===0&&flight(50,55,0).height>0,'Fuel loss can permit a delayed liftoff.');
+  const cut=flight(50,80,0),coast=flight(51,80,0);
+  assert(cut.thrust===0&&coast.velocity>0&&coast.height>cut.height,'Burnout does not instantly cancel upward velocity.');
+  for(const throttle of [0,40,55,80,100])for(const payload of [0,600])for(const time of [0,1,50,120]){
+    const s=flight(time,throttle,payload);assert([s.height,s.velocity,s.mass,s.fuel,s.twr].every(Number.isFinite)&&s.height>=0&&s.fuel>=0,'Flight state must remain finite and bounded.');
+  }
+}
+selfCheck();buildTrajectory();render();
+</script></body></html>

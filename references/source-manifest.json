@@ -7,7 +7,10 @@
       "commit": "454a0ef801b6d9b905f08309d094491c7085b3dd",
       "license": "MIT",
       "bundled": "assets/anatomy",
-      "notes": "Kit, eight example source directories, eight technical references, local build and verification scripts. Generated HTML, publishing tools, tests and stress scene omitted."
+      "notes": "Kit, eight example source directories, eight technical references, local build and verification scripts. Generated HTML, publishing tools, tests and stress scene omitted.",
+      "local_modifications": [
+        "Turning-dial green terminal and finger junction placement adjusted; real socket cover solids added. Kit and audit thresholds/exclusions unchanged."
+      ]
     },
     {
       "name": "iso-figure",
@@ -19,5 +22,14 @@
     }
   ],
   "base": "Existing project teachable-figures and its AI English Shift references preserved and extended.",
-  "reviewed_local_date": "2026-10-27"
+  "reviewed_local_date": "2026-10-27",
+  "local_revision": "0.2.0",
+  "examples": [
+    "examples/gear-ratio.html",
+    "examples/geometry-slices.html",
+    "examples/human-anatomy.html",
+    "examples/rocket-launch.html",
+    "examples/transformer-flow.html",
+    "examples/chinese-clothing.html"
+  ]
 }

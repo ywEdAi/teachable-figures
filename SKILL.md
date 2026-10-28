@@ -111,6 +111,7 @@ Deliver the figure/spec/source appropriate to the request and briefly state the 
 
 ## Resources and provenance
 
+- [Offline example directory](examples/index.html) links six complete lessons. [Cone sections](examples/geometry-slices.html) and [chest anatomy](examples/human-anatomy.html) demonstrate actual 3D rotation, [rocket launch](examples/rocket-launch.html) uses an ideal flight model, [Transformer data flow](examples/transformer-flow.html) exposes toy calculations, and [a Ming robe](examples/chinese-clothing.html) separates historical evidence from schematic construction. Read each example's limits before adapting it.
 - [Complete gear-ratio lesson](examples/gear-ratio.html) shows prediction, two comparable trials, explanation, and a transfer question in one offline page. It uses a schematic ideal model rather than a tooth-contact solver.
 - [Sources and fusion decisions](references/sources-and-fusion.md) explains what is bundled, licenses, and how conflicting upstream conventions were resolved.
 - [Source manifest](references/source-manifest.json) pins the downloaded revisions.

@@ -256,7 +256,7 @@ const CLAMP_T = 1.1;
 for (const colour of Object.keys(PORTS)) along(`hand.clamp.${colour}`, frameOf([CLAMP_X, PORTS[colour], CABLE_Z], [1, 0, 0], [0, 0, 1]), -CLAMP_T / 2, CLAMP_T / 2, CLAMP_R, { owner: `cable.${colour}`, material: "brass" });
 plan("hand.clamp.left", { x: CLAMP_X - 1.3, y: -10.4, w: 2.6, d: 6.6, r: 0.6 }, COVER_TOP, CABLE_Z - CLAMP_R - COVER_TOP, { material: "gunmetal" });
 plan("hand.clamp.right", { x: CLAMP_X - 1.3, y: 6.9, w: 2.6, d: 3.4, r: 0.6 }, COVER_TOP, CABLE_Z - CLAMP_R - COVER_TOP, { material: "gunmetal" });
-const TERM = { x: 7.3, y: PORTS.green - 1.6, w: 2.6, d: 3.2, r: 0.5 };
+const TERM = { x: 2.0, y: PORTS.green - 1.6, w: 2.6, d: 3.2, r: 0.5 };
 plan("hand.terminal", TERM, COVER_TOP, CABLE_Z + 1.8 - COVER_TOP, { bevel: 0.3, material: "gunmetal" });
 
 const PIST_Y = 0;
@@ -353,13 +353,15 @@ for (const finger of FINGERS) {
   discs("k1", J1, 3.5, g1);
   discs("k2", J2, 3.3, g2);
   if (finger.port) {
-    const M = G.mul3(G.add3(C1, E1), 0.5);
+    const M = G.add3(C1, G.mul3(d1, 6.0));
     void M;
     const ring = [[-2.1, -1.7], [2.1, -1.7], [2.1, 1.7], [-2.1, 1.7]].map(([a, b]) => [M[0] + d1[0] * a + w[0] * b, M[1] + d1[1] * a + w[1] * b]);
     const z0 = M[2] + RL;
     T.prism({ name: `${tag}.junction`, ...H, F: { o: [0, 0, 0], a: [0, 0, 1], u: [1, 0, 0], v: [0, 1, 0] }, polygon: ring, s0: z0, s1: z0 + JUNCTION_H, tone: "mid", bevel: 0.3, material: "gunmetal", details: { seams: [z0 + 1] } });
     const back = [M[0] - d1[0] * 2.1, M[1] - d1[1] * 2.1, z0 + JUNCTION_H * 0.62];
     along(`${tag}.port`, frameOf(back, G.mul3(d1, -1), [0, 0, 1]), 0, 0.6, 0.95, { owner: `cable.${finger.cable}`, material: "brass" });
+    const sleeve = frameOf(back, G.mul3(d1, -1), [0, 0, 1]);
+    T.prism({ name: `${tag}.socket.cover`, ...H, F: sleeve, polygon: [[1.3, -2.2], [2.2, -2.2], [2.2, 2.2], [1.3, 2.2]], s0: 0, s1: 4.8, tone: "mid", material: "gunmetal" });
     FINGER_PORTS[finger.id] = { face: back, d1 };
   }
   if (finger.guide) {
